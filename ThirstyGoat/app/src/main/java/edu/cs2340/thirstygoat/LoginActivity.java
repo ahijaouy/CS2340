@@ -32,6 +32,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Intent;
+
 import static android.Manifest.permission.READ_CONTACTS;
 
 /**
@@ -186,7 +188,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             // perform the user login attempt.
             showProgress(true);
             mAuthTask = new UserLoginTask(email, password);
-            mAuthTask.execute((Void) null);
+            //mAuthTask.execute(new Intent(this, MainActivity.class));
+            startActivity(new Intent(this, MainActivity.class));
             //mAuthTask.execute((Void) null);
             //AsyncTask<Void, Void, Boolean> execute = mAuthTask.execute();
         }
