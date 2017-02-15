@@ -1,4 +1,4 @@
-package edu.cs2340.thirstygoat;
+package edu.cs2340.thirstygoat.controllers;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -33,6 +33,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Intent;
+
+import edu.cs2340.thirstygoat.R;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
