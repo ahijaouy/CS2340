@@ -1,4 +1,4 @@
-package com.auth0.logindemo;
+package com.auth0.ThirstyGoat;
 
 import android.app.Activity;
 import android.content.Intent;
