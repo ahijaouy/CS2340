@@ -34,6 +34,7 @@ captures/
 # Intellij
 *.iml
 .idea/workspace.xml
+.idea/misc.xml #languageLevel="JDK_1_7"
 
 # Keystore files
 *.jks
