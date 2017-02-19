@@ -1,4 +1,4 @@
-package com.auth0.ThirstyGoat;
+package com.goat.thirsty_goat;
 
 import android.content.Intent;
 import android.os.Bundle;
