@@ -6,12 +6,16 @@ import android.os.Bundle;
 import android.widget.Toast;
 import android.util.Log;
 import com.auth0.android.Auth0;
+import com.auth0.android.authentication.AuthenticationAPIClient;
+import com.auth0.android.authentication.AuthenticationException;
+import com.auth0.android.callback.BaseCallback;
 import com.auth0.android.lock.AuthenticationCallback;
 import com.auth0.android.lock.Lock;
 import com.auth0.android.lock.LockCallback;
 import com.auth0.android.lock.utils.CustomField;
 import com.auth0.android.lock.utils.LockException;
 import com.auth0.android.result.Credentials;
+import com.auth0.android.result.UserProfile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +54,8 @@ public class LoginActivity extends Activity {
         @Override
         public void onAuthentication(Credentials credentials) {
             Toast.makeText(getApplicationContext(), "Log In - Success", Toast.LENGTH_SHORT).show();
+            App.getInstance().setUserCredentials(credentials);
+            route();
             startActivity(new Intent(getApplicationContext(), MainActivity.class));
             finish();
         }
@@ -64,6 +70,26 @@ public class LoginActivity extends Activity {
             Toast.makeText(getApplicationContext(), "Log In - Error Occurred", Toast.LENGTH_SHORT).show();
         }
     };
+
+    public void route() {
+        AuthenticationAPIClient client = new AuthenticationAPIClient(
+                new Auth0("7waRWcyG5OhF05TSWZfQrCVwXQOTWFpq", "myoberon.auth0.com"));
+
+
+        client.tokenInfo(App.getInstance().getUserCredentials().getIdToken())
+                .start(new BaseCallback<UserProfile, AuthenticationException>() {
+                    @Override
+                    public void onSuccess(UserProfile payload){
+
+                        String account_type = payload.getUserMetadata().get("account_type").toString();
+                        System.out.println(account_type);
+                    }
+
+                    @Override
+                    public void onFailure(AuthenticationException error){
+                    }
+                });
+    }
 
 }
 
