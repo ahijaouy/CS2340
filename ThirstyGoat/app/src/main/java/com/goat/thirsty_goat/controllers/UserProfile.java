@@ -32,7 +32,9 @@ public class UserProfile extends AppCompatActivity {
         accountTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         accountTypeSpinner.setAdapter(accountTypeAdapter);
 
-        // Set field values
+        /**
+         * Instantiate user from credentials information
+         */
 
 
     }

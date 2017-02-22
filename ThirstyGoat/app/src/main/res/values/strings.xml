@@ -6,4 +6,6 @@
     <string name="auth0_client_id">M5xQRh1qxNyvAEvGtKkPPjvsTppsePhm</string>
     <string name="auth0_domain">myoberon.auth0.com</string>
     <string name="account_type">Account Type</string>
+
+    <string name="login_title">Welcome to Thirsty Goat</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.goat.thirsty_goat;
+package com.goat.thirsty_goat.application;
 
 import android.app.Application;
 
@@ -8,7 +8,7 @@ public class App extends Application {
 
     private Credentials mUserCredentials;
 
-    private static App appSingleton = new App();
+    private static App appSingleton;
 
     public static App getInstance() {
         return appSingleton;

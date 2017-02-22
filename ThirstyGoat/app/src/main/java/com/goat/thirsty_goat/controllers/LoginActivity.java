@@ -16,6 +16,8 @@ import com.auth0.android.lock.utils.CustomField;
 import com.auth0.android.lock.utils.LockException;
 import com.auth0.android.result.Credentials;
 import com.auth0.android.result.UserProfile;
+import com.goat.thirsty_goat.R;
+import com.goat.thirsty_goat.application.App;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +47,6 @@ public class LoginActivity extends Activity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        // Your own Activity code
         mLock.onDestroy(this);
         mLock = null;
     }
@@ -55,9 +56,8 @@ public class LoginActivity extends Activity {
         public void onAuthentication(Credentials credentials) {
             Toast.makeText(getApplicationContext(), "Log In - Success", Toast.LENGTH_SHORT).show();
             App.getInstance().setUserCredentials(credentials);
-            route();
+            redirectUser();
             startActivity(new Intent(getApplicationContext(), MainActivity.class));
-            // save credentials
             finish();
         }
 
@@ -72,10 +72,9 @@ public class LoginActivity extends Activity {
         }
     };
 
-    public void route() {
+    public void redirectUser() {
         AuthenticationAPIClient client = new AuthenticationAPIClient(
-                new Auth0("7waRWcyG5OhF05TSWZfQrCVwXQOTWFpq", "myoberon.auth0.com"));
-
+                new Auth0(getString(R.string.auth0_client_id), getString(R.string.auth0_domain)));
 
         client.tokenInfo(App.getInstance().getUserCredentials().getIdToken())
                 .start(new BaseCallback<UserProfile, AuthenticationException>() {
