@@ -35,6 +35,7 @@ captures/
 *.iml
 .idea/workspace.xml
 .idea/misc.xml #languageLevel="JDK_1_7"
+ThirstyGoat/.idea.misc.xml
 
 # Keystore files
 *.jks

@@ -9,20 +9,31 @@ import com.auth0.android.Auth0;
 import com.auth0.android.lock.AuthenticationCallback;
 import com.auth0.android.lock.Lock;
 import com.auth0.android.lock.LockCallback;
+import com.auth0.android.lock.utils.CustomField;
 import com.auth0.android.lock.utils.LockException;
 import com.auth0.android.result.Credentials;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class LoginActivity extends Activity {
 
     private Lock mLock;
 
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d("LoginActivity", "On Create Login Activity");
         Auth0 auth0 = new Auth0(getString(R.string.auth0_client_id), getString(R.string.auth0_domain));
+
+        List<CustomField> customFields = new ArrayList<>();
+        CustomField accountType = new CustomField(R.drawable.com_auth0_lock_header_logo, CustomField.FieldType.TYPE_NAME, "accountType", R.string.account_type);
+        customFields.add(accountType);
+
         mLock = Lock.newBuilder(auth0, mCallback)
                 //Add parameters to the builder
+                .withSignUpFields(customFields)
                 .build(this);
         startActivity(mLock.newIntent(this));
     }
