@@ -14,16 +14,16 @@
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup">
         <activity
-            android:name="com.goat.thirsty_goat.StartActivity"
+            android:name=".controllers.StartActivity"
             android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name="com.goat.thirsty_goat.LoginActivity" />
-        <activity android:name="com.goat.thirsty_goat.MainActivity" />
+        <activity android:name=".controllers.LoginActivity" />
+        <activity android:name=".controllers.MainActivity" />
 
         <!-- Auth0 Lock -->
         <activity
@@ -44,12 +44,12 @@
                     android:scheme="https" />
             </intent-filter>
         </activity>
-
         <activity
             android:name="com.auth0.android.provider.WebAuthActivity"
             android:theme="@style/Lock.Theme" />
         <!-- Auth0 Lock End -->
 
+        <activity android:name=".controllers.UserProfile"></activity>
     </application>
 
 </manifest>

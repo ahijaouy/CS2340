@@ -1,4 +1,4 @@
-package com.goat.thirsty_goat;
+package com.goat.thirsty_goat.controllers;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -12,6 +12,7 @@ import com.auth0.android.lock.LockCallback;
 import com.auth0.android.lock.utils.CustomField;
 import com.auth0.android.lock.utils.LockException;
 import com.auth0.android.result.Credentials;
+import com.goat.thirsty_goat.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,6 +52,7 @@ public class LoginActivity extends Activity {
         public void onAuthentication(Credentials credentials) {
             Toast.makeText(getApplicationContext(), "Log In - Success", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(getApplicationContext(), MainActivity.class));
+            // save credentials
             finish();
         }
 
