@@ -7,9 +7,13 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.auth0.android.Auth0;
 import com.auth0.android.authentication.AuthenticationAPIClient;
+import com.auth0.android.authentication.AuthenticationException;
+import com.auth0.android.callback.BaseCallback;
+import com.auth0.android.management.ManagementException;
 import com.auth0.android.management.UsersAPIClient;
 import com.auth0.android.result.UserProfile;
 import com.goat.thirsty_goat.R;
@@ -33,13 +37,36 @@ public class EditUserProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_profile);
+        setContentView(R.layout.activity_edit_user_profile);
 
         /**
          * Set up Auth0 main object and client
          */
         mAuth0 = new Auth0(getString(R.string.auth0_client_id), getString(R.string.auth0_domain));
         mClient = new AuthenticationAPIClient(mAuth0);
+        mClient.tokenInfo(App.getInstance().getUserCredentials().getIdToken())
+                .start(new BaseCallback<UserProfile, AuthenticationException>() {
+                    @Override
+                    public void onSuccess(final UserProfile payload) {
+                        runOnUiThread(new Runnable() {
+                            public void run() {
+                                mUserProfile = payload;
+                                User.updateUserSingleton(mClient);
+                                updateFields();
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onFailure(AuthenticationException error) {
+                        runOnUiThread(new Runnable() {
+                            public void run() {
+                                Toast.makeText(EditUserProfileActivity.this,
+                                        "Profile Request Failed", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                });
 
 
         /**
@@ -55,7 +82,8 @@ public class EditUserProfileActivity extends AppCompatActivity {
         /**
          * Set up adapter to select account type
          */
-        ArrayAdapter<User.AccountType> accountTypeAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, User.AccountType.values());
+        ArrayAdapter<User.AccountType> accountTypeAdapter =
+                new ArrayAdapter(this, android.R.layout.simple_spinner_item, User.AccountType.values());
         accountTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mAccounTypeSpinner.setAdapter(accountTypeAdapter);
 
@@ -75,8 +103,12 @@ public class EditUserProfileActivity extends AppCompatActivity {
             }
         });
 
-
-
+        mCancelEditButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                updateFields();
+            }
+        });
     }
 
     private void updateFields() {
@@ -91,14 +123,27 @@ public class EditUserProfileActivity extends AppCompatActivity {
         userMetadata.put("account_type", mAccounTypeSpinner.getSelectedItem().toString());
         userMetadata.put("email", mEmailField.getText().toString());
         userMetadata.put("name", mUserNameField.getText().toString());
-//        userClient.updateMetadata(userMetadata);
+        userClient.updateMetadata(mUserProfile.getId(), userMetadata)
+                .start(new BaseCallback<UserProfile, ManagementException>() {
+                    @Override
+                    public void onSuccess(final UserProfile payload) {
+                        runOnUiThread(new Runnable() {
+                            public void run() {
+                                mUserProfile = payload;
+                                User.updateUserSingleton(mClient);
+                                updateFields();
+                            }
+                        });
+                    }
 
-        User.setAccountType((User.AccountType) mAccounTypeSpinner.getSelectedItem());
-        User.setUserName(mUserNameField.getText().toString());
-        User.setEmail(mEmailField.getText().toString());
-        saveClientFields();
-    }
-    private void saveClientFields() {
-
+                    @Override
+                    public void onFailure(ManagementException error) {
+                        runOnUiThread(new Runnable() {
+                            public void run() {
+                                Toast.makeText(EditUserProfileActivity.this, "Profile Request Failed", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                });
     }
 }

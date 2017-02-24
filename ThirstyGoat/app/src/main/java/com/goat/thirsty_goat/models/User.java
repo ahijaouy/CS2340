@@ -20,16 +20,21 @@ public class User {
     }
 
     public static void updateUserSingleton(AuthenticationAPIClient client) {
-        final UserProfile[] userProfile = new UserProfile[1];
         client.tokenInfo(App.getInstance().getUserCredentials().getIdToken())
                 .start(new BaseCallback<UserProfile, AuthenticationException>() {
                     @Override
                     public void onSuccess(UserProfile payload) {
-                        userProfile[0] = payload;
                         String accountType = payload.getUserMetadata().get("account_type").toString();
+                        System.out.print(accountType);
                         User.setAccountType(getAccountTypeFromString(accountType));
-                        User.setUserName(payload.getName());
-                        User.setEmail(payload.getEmail());
+                        if (payload.getUserMetadata().get("name") != null) {
+                            User.setUserName(payload.getUserMetadata().get("name").toString());
+                        }
+                        if (payload.getUserMetadata().get("email") != null) {
+                            User.setEmail(payload.getUserMetadata().get("email").toString());
+                        }
+//                        User.setUserName(payload.getName());
+//                        User.setEmail(payload.getEmail());
                     }
                     @Override
                     public void onFailure(AuthenticationException error) {
@@ -48,22 +53,19 @@ public class User {
     }
 
     private static AccountType getAccountTypeFromString(String accountTypeString) {
-        switch(accountTypeString) {
-            case "Basic User":
-                return AccountType.BASICUSER;
-            case "Manager":
-                return AccountType.MANAGER;
-            case "Worker":
-                return AccountType.WORKER;
-            default:
-                return null;
+        for (AccountType type : AccountType.values()) {
+            if (type.toString().equals(accountTypeString)) {
+                return type;
+            }
         }
+        return AccountType.BASICUSER;
     }
 
     public enum AccountType {
         BASICUSER("Basic User"),
         MANAGER("Manager"),
-        WORKER("Worker");
+        WORKER("Worker"),
+        ADMIN("Administrator");
 
         private final String accountType;
         AccountType(String accountType) {

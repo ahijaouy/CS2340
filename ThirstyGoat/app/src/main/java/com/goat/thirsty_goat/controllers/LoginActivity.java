@@ -34,7 +34,7 @@ public class LoginActivity extends Activity {
         Log.d("LoginActivity", "On Create Login Activity");
 
         List<CustomField> customFields = new ArrayList<>();
-        CustomField accountType = new CustomField(R.drawable.com_auth0_lock_header_logo, CustomField.FieldType.TYPE_NAME, "accountType", R.string.account_type);
+        CustomField accountType = new CustomField(R.drawable.com_auth0_lock_header_logo, CustomField.FieldType.TYPE_NAME, "account_type", R.string.account_type);
         customFields.add(accountType);
 
         mAuth0 = new Auth0(getString(R.string.auth0_client_id), getString(R.string.auth0_domain));
@@ -80,8 +80,8 @@ public class LoginActivity extends Activity {
                     @Override
                     public void onSuccess(UserProfile payload){
 
-                        String account_type = payload.getUserMetadata().get("account_type").toString();
-                        System.out.println(account_type);
+//                        String account_type = payload.getUserMetadata().get("account_type").toString();
+//                        System.out.println(account_type);
                     }
 
                     @Override

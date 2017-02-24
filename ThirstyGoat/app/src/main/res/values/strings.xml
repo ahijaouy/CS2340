@@ -3,8 +3,12 @@
     <string name="welcome_message">Welcome To Your App</string>
     <string name="login_again">Log In Again</string>
 
-    <string name="auth0_client_id">M5xQRh1qxNyvAEvGtKkPPjvsTppsePhm</string>
-    <string name="auth0_domain">myoberon.auth0.com</string>
+    <!--<string name="auth0_client_id">M5xQRh1qxNyvAEvGtKkPPjvsTppsePhm</string>-->
+    <!--<string name="auth0_domain">myoberon.auth0.com</string>-->
+
+    <string name="auth0_client_id">f7D5NWyUEsGDPl9SNAq4RnuHOO2sUQCY</string>
+    <string name="auth0_domain">gabrielnan.auth0.com</string>
+
     <string name="account_type">Account Type</string>
 
     <string name="login_title">Welcome to Thirsty Goat</string>
