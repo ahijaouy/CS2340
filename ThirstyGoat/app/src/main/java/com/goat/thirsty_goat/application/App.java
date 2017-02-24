@@ -8,7 +8,7 @@ public class App extends Application {
 
     private Credentials mUserCredentials;
 
-    private static App appSingleton;
+    private static App appSingleton = new App();
 
     public static App getInstance() {
         return appSingleton;

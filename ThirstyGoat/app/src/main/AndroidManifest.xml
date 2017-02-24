@@ -49,7 +49,7 @@
             android:theme="@style/LoginTheme" />
         <!-- Auth0 Lock End -->
 
-        <activity android:name=".controllers.UserProfile"></activity>
+        <activity android:name=".controllers.EditUserProfileActivity"></activity>
     </application>
 
 </manifest>

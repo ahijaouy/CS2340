@@ -26,18 +26,19 @@ import java.util.List;
 public class LoginActivity extends Activity {
 
     private Lock mLock;
-
+    private AuthenticationAPIClient mClient ;
+    private Auth0 mAuth0;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d("LoginActivity", "On Create Login Activity");
-        Auth0 auth0 = new Auth0(getString(R.string.auth0_client_id), getString(R.string.auth0_domain));
 
         List<CustomField> customFields = new ArrayList<>();
         CustomField accountType = new CustomField(R.drawable.com_auth0_lock_header_logo, CustomField.FieldType.TYPE_NAME, "accountType", R.string.account_type);
         customFields.add(accountType);
 
-        mLock = Lock.newBuilder(auth0, mCallback)
+        mAuth0 = new Auth0(getString(R.string.auth0_client_id), getString(R.string.auth0_domain));
+        mLock = Lock.newBuilder(mAuth0, mCallback)
                 //Add parameters to the builder
                 .withSignUpFields(customFields)
                 .build(this);
@@ -57,7 +58,7 @@ public class LoginActivity extends Activity {
             Toast.makeText(getApplicationContext(), "Log In - Success", Toast.LENGTH_SHORT).show();
             App.getInstance().setUserCredentials(credentials);
             redirectUser();
-            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+            startActivity(new Intent(getApplicationContext(), EditUserProfileActivity.class));
             finish();
         }
 
@@ -73,10 +74,8 @@ public class LoginActivity extends Activity {
     };
 
     public void redirectUser() {
-        AuthenticationAPIClient client = new AuthenticationAPIClient(
-                new Auth0(getString(R.string.auth0_client_id), getString(R.string.auth0_domain)));
-
-        client.tokenInfo(App.getInstance().getUserCredentials().getIdToken())
+        mClient = new AuthenticationAPIClient(mAuth0);
+        mClient.tokenInfo(App.getInstance().getUserCredentials().getIdToken())
                 .start(new BaseCallback<UserProfile, AuthenticationException>() {
                     @Override
                     public void onSuccess(UserProfile payload){

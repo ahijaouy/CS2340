@@ -8,7 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.goat.thirsty_goat.controllers.UserProfile">
+    tools:context="com.goat.thirsty_goat.controllers.EditUserProfileActivity">
 
     <Spinner
         android:layout_width="match_parent"
@@ -76,7 +76,7 @@
         android:text="Cancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/cancel_button"
+        android:id="@+id/cancel_edit_button"
         android:layout_alignParentBottom="true"
         android:layout_alignRight="@+id/textView3"
         android:layout_alignEnd="@+id/textView3" />
