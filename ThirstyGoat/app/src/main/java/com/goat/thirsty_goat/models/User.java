@@ -42,6 +42,7 @@ public class User {
                     }
                 });
     }
+
     public static int findAccountTypePosition() {
         AccountType[] values = AccountType.values();
         for (int i = 0; i < values.length; i++) {
@@ -51,6 +52,7 @@ public class User {
         }
         return 0;
     }
+
 
     private static AccountType getAccountTypeFromString(String accountTypeString) {
         for (AccountType type : AccountType.values()) {

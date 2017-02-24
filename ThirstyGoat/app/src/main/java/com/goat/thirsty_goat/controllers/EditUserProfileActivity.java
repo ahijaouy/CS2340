@@ -131,7 +131,6 @@ public class EditUserProfileActivity extends AppCompatActivity {
                             public void run() {
                                 mUserProfile = payload;
                                 User.updateUserSingleton(mClient);
-                                updateFields();
                             }
                         });
                     }
