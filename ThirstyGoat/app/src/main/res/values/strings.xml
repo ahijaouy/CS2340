@@ -12,4 +12,5 @@
     <string name="account_type">Account Type</string>
 
     <string name="login_title">Welcome to Thirsty Goat</string>
+    <string name="title_activity_maps">Map</string>
 </resources>

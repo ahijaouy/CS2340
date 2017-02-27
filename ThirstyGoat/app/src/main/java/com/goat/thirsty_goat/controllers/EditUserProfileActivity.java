@@ -1,5 +1,6 @@
 package com.goat.thirsty_goat.controllers;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -144,5 +145,9 @@ public class EditUserProfileActivity extends AppCompatActivity {
                         });
                     }
                 });
+
+        // on saving profile, they are taken to the map
+        Intent intent = new Intent(this, MapsActivity.class);
+        startActivity(intent);
     }
 }
