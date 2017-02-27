@@ -4,13 +4,17 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 
 import com.goat.thirsty_goat.R;
+import com.goat.thirsty_goat.models.Location;
 import com.goat.thirsty_goat.models.ModelFacade;
+import com.goat.thirsty_goat.models.Report;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.util.List;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -44,8 +48,53 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+//        LatLng sydney = new LatLng(-34, 151);
+//        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+//        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+
+
+
+
+        // Setting a click event handler for the map
+        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+
+            @Override
+            public void onMapClick(LatLng latLng) {
+
+
+
+                // Creating a marker
+                MarkerOptions markerOptions = new MarkerOptions();
+
+                // Setting the position for the marker
+                markerOptions.position(latLng);
+
+
+
+                // Clears the previously touched position
+                // mMap.clear();
+                mFacade.addReport("newly added", "Bobs Place", new Location(latLng.latitude, latLng.longitude));
+
+                // Setting the title for the marker.
+                // This will be displayed on taping the marker
+                markerOptions.title(mFacade.getLastReport().getName());
+                markerOptions.snippet(mFacade.getLastReport().getDescription());
+
+                // Animating to the touched position
+                mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+
+                // Placing a marker on the touched position
+                mMap.addMarker(markerOptions);
+            }
+        });
+
+        List<Report> reportList = mFacade.getReports();
+        for (Report r : reportList) {
+            LatLng loc = new LatLng(r.getLatitude(), r.getLongitude());
+            mMap.addMarker(new MarkerOptions().position(loc).title(r.getName()).snippet(r.getDescription()));
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(loc));
+        }
+
+        //mMap.setInfoWindowAdapter(new CustomInfoWindowAdapter());
     }
 }
