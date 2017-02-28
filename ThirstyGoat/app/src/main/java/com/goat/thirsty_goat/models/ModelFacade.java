@@ -23,13 +23,17 @@ public class ModelFacade {
         //mUserManager = new UserManager();
     }
 
-    public void addReport(String title, String desc, Location loc) {
-        mReportManager.addReport(new Report(title, desc, loc));
+//    public void addReport(String title, String desc, Location loc) {
+//        mReportManager.addReport(new Report(title, desc, loc));
+//    }
+
+    public void addReport(WaterType type, WaterCondition condition, Location loc) {
+        mReportManager.addReport(new Report(type, condition, loc));
     }
 
-    public void addReportAndMarker(String title, String desc, Location loc, Marker marker) {
-        mReportManager.addReportAndMarker(new Report(title, desc, loc), marker);
-    }
+//    public void addReportAndMarker(String title, String desc, Location loc, Marker marker) {
+//        mReportManager.addReportAndMarker(new Report(title, desc, loc), marker);
+//    }
 
     public List<Report> getReports() { return mReportManager.getReportList(); }
 

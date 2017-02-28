@@ -1,6 +1,8 @@
 package com.goat.thirsty_goat.models;
 
 
+import android.util.Log;
+
 import com.google.android.gms.maps.model.Marker;
 
 import java.util.ArrayList;
@@ -22,8 +24,8 @@ public class ReportManager {
     }
 
     private void makeDummyReports() {
-        addReport(new Report("Water fountain", "College of Computing", new Location(33.749, -84.388)));
-        addReport(new Report("Vending machine", "Klaus", new Location(33.8, -84.5)));
+        addReport(new Report(WaterType.BOTTLED, WaterCondition.POTABLE, new Location(33.749, -84.388)));
+        addReport(new Report(WaterType.LAKE, WaterCondition.WASTE, new Location(33.8, -84.5)));
     }
 
     public List<Report> getReportList() {
@@ -32,12 +34,13 @@ public class ReportManager {
 
     public void addReport(Report report) {
         mReports.add(report);
+        Log.d("Report", "Added a water report!");
     }
 
-    public void addReportAndMarker(Report report, Marker marker) {
-        addReport(report);
-        mMarkers.put(marker, report);
-    }
+//    public void addReportAndMarker(Report report, Marker marker) {
+//        addReport(report);
+//        mMarkers.put(marker, report);
+//    }
 
     public Map<Marker, Report> getMarkers() {
         return mMarkers;

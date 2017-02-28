@@ -1,7 +1,9 @@
 package com.goat.thirsty_goat.controllers;
 
+import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.view.View;
 
 import com.goat.thirsty_goat.R;
 import com.goat.thirsty_goat.models.Location;
@@ -19,8 +21,13 @@ import java.util.List;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
+    public final static String LATITUDE_MESSAGE = "com.goat.thirsty_goat.LATITUDE";
+    public final static String LONGITUDE_MESSAGE = "com.goat.thirsty_goat.LONGITUDE";
+
     private GoogleMap mMap;
     private ModelFacade mFacade;
+
+    private LatLng mCurrLatLong;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +55,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
+
         // Add a marker in Sydney and move the camera
 //        LatLng sydney = new LatLng(-34, 151);
 //        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
@@ -62,13 +70,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onMapClick(LatLng latLng) {
 
+                mCurrLatLong = latLng;
+                handleReport(latLng);
+
+
+
 
 
                 // Creating a marker
-                MarkerOptions markerOptions = new MarkerOptions();
+                //MarkerOptions markerOptions = new MarkerOptions();
 
                 // Setting the position for the marker
-                markerOptions.position(latLng);
+                //markerOptions.position(latLng);
 
 
 
@@ -78,20 +91,22 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                 // Setting the title for the marker.
                 // This will be displayed on taping the marker
-                markerOptions.title(mFacade.getLastReport().getName());
-                markerOptions.snippet(mFacade.getLastReport().getDescription());
+//                markerOptions.title(mFacade.getLastReport().getName());
+//                markerOptions.snippet(mFacade.getLastReport().getDescription());
 
                 // Animating to the touched position
-                mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+//                mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
 
                 // Placing a marker on the touched position
 //                mMap.addMarker(markerOptions);
 
-                Marker newMarker = mMap.addMarker(markerOptions);
 
-                mFacade.addReportAndMarker("newly added", "Bobs Place",
-                        new Location(latLng.latitude, latLng.longitude),
-                        newMarker);
+
+                // my code
+//                Marker newMarker = mMap.addMarker(markerOptions);
+//                mFacade.addReportAndMarker("newly added", "Bobs Place",
+//                        new Location(latLng.latitude, latLng.longitude),
+//                        newMarker);
 
             }
         });
@@ -99,7 +114,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         List<Report> reportList = mFacade.getReports();
         for (Report r : reportList) {
             LatLng loc = new LatLng(r.getLatitude(), r.getLongitude());
-            mMap.addMarker(new MarkerOptions().position(loc).title(r.getName()).snippet(r.getDescription()));
+            //mMap.addMarker(new MarkerOptions().position(loc).title(r.getName()).snippet(r.getDescription()));
+            mMap.addMarker(new MarkerOptions().position(loc).title(r.getWaterCondition().toString()).snippet(r.getWaterType().toString()));
             mMap.moveCamera(CameraUpdateFactory.newLatLng(loc));
         }
 
@@ -109,5 +125,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 //        }
 
         //mMap.setInfoWindowAdapter(new CustomInfoWindowAdapter());
+    }
+
+//    public void switchToMapView(LatLng latLng) {
+//        Intent intent = new Intent(this, WaterReportActivity.class);
+//        intent.putExtra("latitude", latLng.latitude);
+//        intent.putExtra("longitude", latLng.longitude);
+//        startActivity(intent);
+//    }
+
+    public void handleReport(LatLng latLng) {
+        Intent intent = new Intent(this, WaterReportActivity.class);
+        intent.putExtra(LATITUDE_MESSAGE, latLng.latitude);
+        intent.putExtra(LONGITUDE_MESSAGE, latLng.longitude);
+        startActivity(intent);
     }
 }

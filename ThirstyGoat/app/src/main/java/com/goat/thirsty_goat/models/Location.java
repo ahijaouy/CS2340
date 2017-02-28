@@ -1,5 +1,7 @@
 package com.goat.thirsty_goat.models;
 
+import java.io.Serializable;
+
 /**
  * Created by Walker on 2/26/17.
  */
