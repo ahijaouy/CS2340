@@ -3,6 +3,7 @@ package com.goat.thirsty_goat.controllers;
 import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.goat.thirsty_goat.R;
@@ -54,16 +55,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
-
-        // Add a marker in Sydney and move the camera
-//        LatLng sydney = new LatLng(-34, 151);
-//        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-//        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-
-
-
-
+        
         // Setting a click event handler for the map
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
 
@@ -71,10 +63,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void onMapClick(LatLng latLng) {
 
                 mCurrLatLong = latLng;
+
+                Log.d("Report", "pre handle");
+                // switches to Wa
                 handleReport(latLng);
+                Log.d("Report", "post handle");
 
-
-
+                displayMarkers();
+                Log.d("Report", "post display markers");
 
 
                 // Creating a marker
@@ -111,6 +107,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
+        displayMarkers();
+    }
+
+    public void onResume() {
+        Log.d("Report", "MapActivity's onResume");
+        super.onResume();
+        if (mMap != null) {
+            displayMarkers();
+        }
+    }
+
+    public void displayMarkers() {
+        Log.d("Report", "displaying markers");
         List<Report> reportList = mFacade.getReports();
         for (Report r : reportList) {
             LatLng loc = new LatLng(r.getLatitude(), r.getLongitude());
@@ -118,21 +127,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             mMap.addMarker(new MarkerOptions().position(loc).title(r.getWaterCondition().toString()).snippet(r.getWaterType().toString()));
             mMap.moveCamera(CameraUpdateFactory.newLatLng(loc));
         }
-
-//      Was trying to get this to work with a hashmap
-//        for (Marker m : mFacade.getMarkers().keySet()) {
-//            mMap.addMarker(m);
-//        }
-
-        //mMap.setInfoWindowAdapter(new CustomInfoWindowAdapter());
     }
-
-//    public void switchToMapView(LatLng latLng) {
-//        Intent intent = new Intent(this, WaterReportActivity.class);
-//        intent.putExtra("latitude", latLng.latitude);
-//        intent.putExtra("longitude", latLng.longitude);
-//        startActivity(intent);
-//    }
 
     public void handleReport(LatLng latLng) {
         Intent intent = new Intent(this, WaterReportActivity.class);
