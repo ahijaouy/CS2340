@@ -24,9 +24,22 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Button editProfileButton = (Button) findViewById(R.id.editprofile);
+        editProfileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editProfileHandler();
+            }
+        });
+
     }
     private void loginAgain() {
         startActivity(new Intent(this, LoginActivity.class));
+        finish();
+    }
+
+    private void editProfileHandler() {
+        startActivity(new Intent(this, EditUserProfileActivity.class));
         finish();
     }
 }

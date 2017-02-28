@@ -1,5 +1,6 @@
 package com.goat.thirsty_goat.controllers;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -106,9 +107,15 @@ public class EditUserProfileActivity extends AppCompatActivity {
         mCancelEditButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateFields();
+                onClickCancel(v);
             }
         });
+//        mCancelEditButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                updateFields();
+//            }
+//        });
     }
 
     private void updateFields() {
@@ -131,6 +138,8 @@ public class EditUserProfileActivity extends AppCompatActivity {
                             public void run() {
                                 mUserProfile = payload;
                                 User.updateUserSingleton(mClient);
+
+
                             }
                         });
                     }
@@ -144,5 +153,13 @@ public class EditUserProfileActivity extends AppCompatActivity {
                         });
                     }
                 });
+
+        startActivity(new Intent(this, MainActivity.class));
+        finish();
+    }
+
+    private void onClickCancel(View view) {
+        startActivity(new Intent(this, MainActivity.class));
+        finish();
     }
 }

@@ -35,4 +35,18 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true" />
 
+        <Button
+            android:id="@+id/editprofile"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@android:color/white"
+            android:padding="@dimen/activity_general_margin"
+            android:textColor="@color/blue_text"
+            android:text="Edit Profile"
+            android:layout_alignTop="@+id/login_again"
+            android:layout_alignLeft="@+id/login_again"
+            android:layout_alignStart="@+id/login_again"
+            android:layout_marginTop="61dp" />
+
 </RelativeLayout>
