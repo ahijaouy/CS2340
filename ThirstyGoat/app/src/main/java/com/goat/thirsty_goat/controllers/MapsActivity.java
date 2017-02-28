@@ -12,6 +12,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.List;
@@ -73,7 +74,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                 // Clears the previously touched position
                 // mMap.clear();
-                mFacade.addReport("newly added", "Bobs Place", new Location(latLng.latitude, latLng.longitude));
+//                mFacade.addReport("newly added", "Bobs Place", new Location(latLng.latitude, latLng.longitude));
 
                 // Setting the title for the marker.
                 // This will be displayed on taping the marker
@@ -84,7 +85,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
 
                 // Placing a marker on the touched position
-                mMap.addMarker(markerOptions);
+//                mMap.addMarker(markerOptions);
+
+                Marker newMarker = mMap.addMarker(markerOptions);
+
+                mFacade.addReportAndMarker("newly added", "Bobs Place",
+                        new Location(latLng.latitude, latLng.longitude),
+                        newMarker);
+
             }
         });
 
@@ -94,6 +102,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             mMap.addMarker(new MarkerOptions().position(loc).title(r.getName()).snippet(r.getDescription()));
             mMap.moveCamera(CameraUpdateFactory.newLatLng(loc));
         }
+
+//      Was trying to get this to work with a hashmap
+//        for (Marker m : mFacade.getMarkers().keySet()) {
+//            mMap.addMarker(m);
+//        }
 
         //mMap.setInfoWindowAdapter(new CustomInfoWindowAdapter());
     }

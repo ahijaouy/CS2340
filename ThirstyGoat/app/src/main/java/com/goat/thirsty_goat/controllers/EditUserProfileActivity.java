@@ -31,6 +31,7 @@ public class EditUserProfileActivity extends AppCompatActivity {
     private Spinner mAccounTypeSpinner;
     private Button mSaveButton;
     private Button mCancelEditButton;
+    private Button mMapButton;
     private Auth0 mAuth0;
     private AuthenticationAPIClient mClient;
     private UserProfile mUserProfile;
@@ -79,6 +80,7 @@ public class EditUserProfileActivity extends AppCompatActivity {
 
         mSaveButton = (Button) findViewById(R.id.save_button);
         mCancelEditButton = (Button) findViewById(R.id.cancel_edit_button);
+        mMapButton = (Button) findViewById(R.id.map_button);
 
         /**
          * Set up adapter to select account type
@@ -108,6 +110,13 @@ public class EditUserProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 updateFields();
+            }
+        });
+
+        mMapButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switchToMapView();
             }
         });
     }
@@ -146,7 +155,9 @@ public class EditUserProfileActivity extends AppCompatActivity {
                     }
                 });
 
-        // on saving profile, they are taken to the map
+    }
+
+    public void switchToMapView() {
         Intent intent = new Intent(this, MapsActivity.class);
         startActivity(intent);
     }

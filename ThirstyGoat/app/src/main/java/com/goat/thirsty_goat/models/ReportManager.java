@@ -1,8 +1,12 @@
 package com.goat.thirsty_goat.models;
 
 
+import com.google.android.gms.maps.model.Marker;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Walker on 2/26/17.
@@ -10,6 +14,7 @@ import java.util.List;
 
 public class ReportManager {
     private List<Report> mReports;
+    private Map<Marker, Report> mMarkers = new HashMap<>();
 
     public ReportManager() {
         mReports = new ArrayList<>();
@@ -27,6 +32,15 @@ public class ReportManager {
 
     public void addReport(Report report) {
         mReports.add(report);
+    }
+
+    public void addReportAndMarker(Report report, Marker marker) {
+        addReport(report);
+        mMarkers.put(marker, report);
+    }
+
+    public Map<Marker, Report> getMarkers() {
+        return mMarkers;
     }
 
     public String getLastReportString() {

@@ -31,7 +31,7 @@ public class Report {
         return mDescription;
     }
 
-    public double getLatitute() {
+    public double getLatitude() {
         return mLocation.getLatitude();
     }
 
