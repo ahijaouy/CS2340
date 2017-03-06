@@ -17,7 +17,7 @@ import com.auth0.android.lock.utils.LockException;
 import com.auth0.android.result.Credentials;
 import com.auth0.android.result.UserProfile;
 import com.goat.thirsty_goat.R;
-import com.goat.thirsty_goat.application.App;
+import com.goat.thirsty_goat.models.ModelFacade;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,10 +28,13 @@ public class LoginActivity extends Activity {
     private Lock mLock;
     private AuthenticationAPIClient mClient ;
     private Auth0 mAuth0;
+    private ModelFacade mFacade;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d("LoginActivity", "On Create Login Activity");
+
+        mFacade = ModelFacade.getInstance();
 
         List<CustomField> customFields = new ArrayList<>();
         CustomField accountType = new CustomField(R.drawable.com_auth0_lock_header_logo, CustomField.FieldType.TYPE_NAME, "account_type", R.string.account_type);
@@ -56,7 +59,7 @@ public class LoginActivity extends Activity {
         @Override
         public void onAuthentication(Credentials credentials) {
             Toast.makeText(getApplicationContext(), "Log In - Success", Toast.LENGTH_SHORT).show();
-            App.getInstance().setUserCredentials(credentials);
+            mFacade.setUserCredentials(credentials);
             redirectUser();
             startActivity(new Intent(getApplicationContext(), EditUserProfileActivity.class));
             finish();
@@ -75,7 +78,7 @@ public class LoginActivity extends Activity {
 
     public void redirectUser() {
         mClient = new AuthenticationAPIClient(mAuth0);
-        mClient.tokenInfo(App.getInstance().getUserCredentials().getIdToken())
+        mClient.tokenInfo(mFacade.getUserID())
                 .start(new BaseCallback<UserProfile, AuthenticationException>() {
                     @Override
                     public void onSuccess(UserProfile payload){

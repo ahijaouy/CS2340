@@ -18,7 +18,7 @@ import com.auth0.android.management.ManagementException;
 import com.auth0.android.management.UsersAPIClient;
 import com.auth0.android.result.UserProfile;
 import com.goat.thirsty_goat.R;
-import com.goat.thirsty_goat.application.App;
+import com.goat.thirsty_goat.models.ModelFacade;
 import com.goat.thirsty_goat.models.User;
 
 import java.util.HashMap;
@@ -28,7 +28,7 @@ public class EditUserProfileActivity extends AppCompatActivity {
 
     private EditText mUserNameField;
     private EditText mEmailField;
-    private Spinner mAccounTypeSpinner;
+    private Spinner mAccountTypeSpinner;
     private Button mSaveButton;
     private Button mCancelEditButton;
     private Button mMapButton;
@@ -36,25 +36,27 @@ public class EditUserProfileActivity extends AppCompatActivity {
     private Auth0 mAuth0;
     private AuthenticationAPIClient mClient;
     private UserProfile mUserProfile;
+    private ModelFacade mFacade;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_user_profile);
+        mFacade = ModelFacade.getInstance();
 
         /**
          * Set up Auth0 main object and client
          */
         mAuth0 = new Auth0(getString(R.string.auth0_client_id), getString(R.string.auth0_domain));
         mClient = new AuthenticationAPIClient(mAuth0);
-        mClient.tokenInfo(App.getInstance().getUserCredentials().getIdToken())
+        mClient.tokenInfo(mFacade.getUserID())
                 .start(new BaseCallback<UserProfile, AuthenticationException>() {
                     @Override
                     public void onSuccess(final UserProfile payload) {
                         runOnUiThread(new Runnable() {
                             public void run() {
                                 mUserProfile = payload;
-                                User.updateUserSingleton(mClient);
+                                mFacade.updateUserProfile(mClient);
                                 updateFields();
                             }
                         });
@@ -77,7 +79,7 @@ public class EditUserProfileActivity extends AppCompatActivity {
          */
         mUserNameField = (EditText) findViewById(R.id.user_name);
         mEmailField = (EditText) findViewById(R.id.email);
-        mAccounTypeSpinner = (Spinner) findViewById(R.id.account_type_spinner);
+        mAccountTypeSpinner = (Spinner) findViewById(R.id.account_type_spinner);
 
         mSaveButton = (Button) findViewById(R.id.save_button);
         mCancelEditButton = (Button) findViewById(R.id.cancel_edit_button);
@@ -90,12 +92,12 @@ public class EditUserProfileActivity extends AppCompatActivity {
         ArrayAdapter<User.AccountType> accountTypeAdapter =
                 new ArrayAdapter(this, android.R.layout.simple_spinner_item, User.AccountType.values());
         accountTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mAccounTypeSpinner.setAdapter(accountTypeAdapter);
+        mAccountTypeSpinner.setAdapter(accountTypeAdapter);
 
         /**
          * Set default field values
          */
-        User.updateUserSingleton(mClient);
+        mFacade.updateUserProfile(mClient);
         updateFields();
 
         /**
@@ -131,15 +133,15 @@ public class EditUserProfileActivity extends AppCompatActivity {
     }
 
     private void updateFields() {
-        mUserNameField.setText(User.getInstance().getUserName());
-        mEmailField.setText(User.getInstance().getEmail());
-        mAccounTypeSpinner.setSelection(User.findAccountTypePosition());
+        mUserNameField.setText(mFacade.getUserName());
+        mEmailField.setText(mFacade.getUserEmail());
+        mAccountTypeSpinner.setSelection(mFacade.getUserAccountTypePosition());
     }
     private void saveProfile() {
         UsersAPIClient userClient =
-                new UsersAPIClient(mAuth0, App.getInstance().getUserCredentials().getIdToken());
+                new UsersAPIClient(mAuth0, mFacade.getUserID());
         Map<String, Object> userMetadata = new HashMap<>();
-        userMetadata.put("account_type", mAccounTypeSpinner.getSelectedItem().toString());
+        userMetadata.put("account_type", mAccountTypeSpinner.getSelectedItem().toString());
         userMetadata.put("email", mEmailField.getText().toString());
         userMetadata.put("name", mUserNameField.getText().toString());
         userClient.updateMetadata(mUserProfile.getId(), userMetadata)
@@ -149,7 +151,7 @@ public class EditUserProfileActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             public void run() {
                                 mUserProfile = payload;
-                                User.updateUserSingleton(mClient);
+                                mFacade.updateUserProfile(mClient);
                             }
                         });
                     }

@@ -21,8 +21,8 @@ public class Report {
 //    }
 
     // todo: add name, date and time, report number
-    public Report(WaterType type, WaterCondition condition, Location location) {
-        //mName = name;
+    public Report(String name, WaterType type, WaterCondition condition, Location location) {
+        mName = name;
         //mDescription = desc;
         mLocation = location;
         mID = Next_ID++;
