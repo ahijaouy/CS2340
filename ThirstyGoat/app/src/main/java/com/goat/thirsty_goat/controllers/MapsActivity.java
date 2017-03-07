@@ -55,7 +55,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        
+
         // Setting a click event handler for the map
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
 
@@ -71,39 +71,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                 displayMarkers();
                 Log.d("Report", "post display markers");
-
-
-                // Creating a marker
-                //MarkerOptions markerOptions = new MarkerOptions();
-
-                // Setting the position for the marker
-                //markerOptions.position(latLng);
-
-
-
-                // Clears the previously touched position
-                // mMap.clear();
-//                mFacade.addReport("newly added", "Bobs Place", new Location(latLng.latitude, latLng.longitude));
-
-                // Setting the title for the marker.
-                // This will be displayed on taping the marker
-//                markerOptions.title(mFacade.getLastReport().getName());
-//                markerOptions.snippet(mFacade.getLastReport().getDescription());
-
-                // Animating to the touched position
-//                mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
-
-                // Placing a marker on the touched position
-//                mMap.addMarker(markerOptions);
-
-
-
-                // my code
-//                Marker newMarker = mMap.addMarker(markerOptions);
-//                mFacade.addReportAndMarker("newly added", "Bobs Place",
-//                        new Location(latLng.latitude, latLng.longitude),
-//                        newMarker);
-
             }
         });
 

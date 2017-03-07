@@ -16,7 +16,7 @@ import java.util.Map;
 
 public class ReportManager {
     private List<Report> mReports;
-    private Map<Marker, Report> mMarkers = new HashMap<>();
+//    private Map<Marker, Report> mMarkers = new HashMap<>();
 
     public ReportManager() {
         mReports = new ArrayList<>();
@@ -24,8 +24,8 @@ public class ReportManager {
     }
 
     private void makeDummyReports() {
-        addReport(new Report(WaterType.BOTTLED, WaterCondition.POTABLE, new Location(33.749, -84.388)));
-        addReport(new Report(WaterType.LAKE, WaterCondition.WASTE, new Location(33.8, -84.5)));
+        addReport(new Report(WaterType.BOTTLED, WaterCondition.POTABLE, new Location(33.749, -84.388), "Thirsty Goat"));
+        addReport(new Report(WaterType.LAKE, WaterCondition.WASTE, new Location(33.8, -84.5), "Johnny Watershed"));
     }
 
     public List<Report> getReportList() {
@@ -42,9 +42,9 @@ public class ReportManager {
 //        mMarkers.put(marker, report);
 //    }
 
-    public Map<Marker, Report> getMarkers() {
-        return mMarkers;
-    }
+//    public Map<Marker, Report> getMarkers() {
+//        return mMarkers;
+//    }
 
     public String getLastReportString() {
         return mReports.get(mReports.size() - 1).toString();

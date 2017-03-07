@@ -15,11 +15,14 @@ public class ModelFacade {
         return INSTANCE;
     }
 
+    private User mCurrentUser;
+
     private ReportManager mReportManager;
     //private UserManager mUserManager;
 
     private ModelFacade() {
         mReportManager = new ReportManager();
+        mCurrentUser = User.getInstance();
         //mUserManager = new UserManager();
     }
 
@@ -28,7 +31,7 @@ public class ModelFacade {
 //    }
 
     public void addReport(WaterType type, WaterCondition condition, Location loc) {
-        mReportManager.addReport(new Report(type, condition, loc));
+        mReportManager.addReport(new Report(type, condition, loc, mCurrentUser.getUserName()));
     }
 
 //    public void addReportAndMarker(String title, String desc, Location loc, Marker marker) {
@@ -41,7 +44,11 @@ public class ModelFacade {
         return mReportManager.getLastReport();
     }
 
-    public Map<Marker, Report> getMarkers() {
-        return mReportManager.getMarkers();
+    public String getUserName() {
+        return mCurrentUser.getUserName();
     }
+
+//    public Map<Marker, Report> getMarkers() {
+//        return mReportManager.getMarkers();
+//    }
 }

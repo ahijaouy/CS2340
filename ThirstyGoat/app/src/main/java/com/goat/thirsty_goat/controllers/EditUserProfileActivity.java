@@ -33,6 +33,7 @@ public class EditUserProfileActivity extends AppCompatActivity {
     private Button mCancelEditButton;
     private Button mMapButton;
     private Button mReportButton;
+    private Button mViewReportListButton;
     private Auth0 mAuth0;
     private AuthenticationAPIClient mClient;
     private UserProfile mUserProfile;
@@ -83,6 +84,7 @@ public class EditUserProfileActivity extends AppCompatActivity {
         mCancelEditButton = (Button) findViewById(R.id.cancel_edit_button);
         mMapButton = (Button) findViewById(R.id.map_button);
         mReportButton = (Button) findViewById(R.id.add_report_button);
+        mViewReportListButton = (Button) findViewById(R.id.view_reports_button);
 
         /**
          * Set up adapter to select account type
@@ -126,6 +128,13 @@ public class EditUserProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 switchToAddReportView();
+            }
+        });
+
+        mViewReportListButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switchToReportListView(v);
             }
         });
     }
@@ -173,6 +182,11 @@ public class EditUserProfileActivity extends AppCompatActivity {
 
     public void switchToAddReportView() {
         Intent intent = new Intent(this, WaterReportActivity.class);
+        startActivity(intent);
+    }
+
+    public void switchToReportListView(View v) {
+        Intent intent = new Intent(this, WaterReportListActivity.class);
         startActivity(intent);
     }
 }

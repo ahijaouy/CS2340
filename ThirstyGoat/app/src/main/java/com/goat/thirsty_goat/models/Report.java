@@ -1,5 +1,12 @@
 package com.goat.thirsty_goat.models;
 
+import android.util.Log;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.TimeZone;
+
 /**
  * Created by Walker on 2/26/17.
  */
@@ -12,6 +19,7 @@ public class Report {
     private Location mLocation;
     private WaterType mWaterType;
     private WaterCondition mWaterCondition;
+    private Calendar mCalendar;
 
 //    public Report(String name, String desc, Location location) {
 //        mName = name;
@@ -20,14 +28,19 @@ public class Report {
 //        mID = Next_ID++;
 //    }
 
-    // todo: add name, date and time, report number
-    public Report(WaterType type, WaterCondition condition, Location location) {
-        //mName = name;
+    // todo: add name, date and time
+    public Report(WaterType type, WaterCondition condition, Location location, String name) {
+        //TODO: use Auth-O to populate with actual current user's name
+        mName = "Johnny Appleseed";
         //mDescription = desc;
         mLocation = location;
         mID = Next_ID++;
         mWaterType = type;
         mWaterCondition = condition;
+        //TODO: add time
+        mCalendar = Calendar.getInstance();
+        Log.d("report", mCalendar.toString());
+        mName = name;
     }
 
 //    @ Override
@@ -39,12 +52,24 @@ public class Report {
         return mName;
     }
 
+    public int getReportNumber() {
+        return mID;
+    }
+
     public WaterType getWaterType() {
         return mWaterType;
     }
 
+    public String getWaterTypeString() {
+        return  mWaterType.toString();
+    }
+
     public WaterCondition getWaterCondition() {
         return mWaterCondition;
+    }
+
+    public String getWaterConditionString() {
+        return mWaterCondition.toString();
     }
 
 
@@ -59,4 +84,10 @@ public class Report {
     public double getLongitude() {
         return mLocation.getLongitude();
     }
+
+    public String getDateString() {
+        return "" + mCalendar.get(Calendar.MONTH) + "/" + mCalendar.get(Calendar.DAY_OF_MONTH)
+                + "/" + mCalendar.get(Calendar.YEAR);
+    }
+
 }

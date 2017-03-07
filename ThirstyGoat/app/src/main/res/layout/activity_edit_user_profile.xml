@@ -108,4 +108,14 @@
         android:layout_above="@+id/save_button"
         android:layout_centerHorizontal="true" />
 
+    <Button
+        android:text="View Reports"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/add_report_button"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="15dp"
+        android:id="@+id/view_reports_button"
+        android:onClick="onViewReportListClicked" />
+
 </RelativeLayout>
