@@ -86,4 +86,18 @@
     <string name="pref_ringtone_silent">Silent</string>
 
     <string name="pref_title_vibrate">Vibrate</string>
+    
+    <!--Enums-->
+    
+    <string name="water_type_bottled">Bottled</string>
+    <string name="water_type_well">Well</string>
+    <string name="water_type_stream">Stream</string>
+    <string name="water_type_lake">Lake</string>
+    <string name="water_type_spring">Spring</string>
+    <string name="water_type_other">Other</string>
+
+    <string name="water_condition_waste">Waste</string>
+    <string name="water_condition_treatable_clear">Treatable Clear</string>
+    <string name="water_condition_treatable_muddy">Treatable Muddy</string>
+    <string name="water_condition_potable">Potable</string>
 </resources>

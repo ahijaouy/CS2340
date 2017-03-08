@@ -16,6 +16,7 @@ import com.auth0.android.lock.utils.CustomField;
 import com.auth0.android.lock.utils.LockException;
 import com.auth0.android.result.Credentials;
 import com.auth0.android.result.UserProfile;
+import com.goat.thirsty_goat.FetchReportsTask;
 import com.goat.thirsty_goat.R;
 import com.goat.thirsty_goat.models.ModelFacade;
 
@@ -32,10 +33,12 @@ public class LoginActivity extends Activity {
     private Auth0 mAuth0;
     private ModelFacade mFacade;
 
+    private static final String TAG = LoginActivity.class.getSimpleName();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d("LoginActivity", "On Create Login Activity");
+        Log.d(TAG, "On Create Login Activity");
 
         mFacade = ModelFacade.getInstance();
 
@@ -64,6 +67,7 @@ public class LoginActivity extends Activity {
             Toast.makeText(getApplicationContext(), "Log In - Success", Toast.LENGTH_SHORT).show();
             mFacade.setUserCredentials(credentials);
             redirectUser();
+            new FetchReportsTask().execute();
             startActivity(new Intent(getApplicationContext(), EditUserProfileActivity.class));
             finish();
         }

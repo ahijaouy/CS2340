@@ -29,6 +29,7 @@ import java.util.List;
 public class WaterReportListActivity extends AppCompatActivity {
 
     LinearLayoutManager mLayoutManager;
+    private static final String TAG = WaterReportListActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceData) {
@@ -41,9 +42,9 @@ public class WaterReportListActivity extends AppCompatActivity {
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.water_report_list);
 //        assert recyclerView != null;
         if (recyclerView == null) {
-            Log.d("report", "recycler view is null");
+            Log.d(TAG, "recycler view is null");
         } else {
-            Log.d("report", "recycler view is not null");
+            Log.d(TAG, "recycler view is not null");
         }
 
 
@@ -66,10 +67,10 @@ public class WaterReportListActivity extends AppCompatActivity {
 
 
         ModelFacade model = ModelFacade.getInstance();
-        Log.d("report", "setting up recycler view");
-        Log.d("report", model.getReports().get(0).getName());
+        Log.d(TAG, "setting up recycler view");
+        Log.d(TAG, model.getReports().get(0).getName());
         WaterReportViewAdapter mAdapter = new WaterReportViewAdapter(model.getReports());
-        Log.d("report", "adapter: " + mAdapter);
+        Log.d(TAG, "adapter: " + mAdapter);
 //        recyclerView.setAdapter(new WaterReportViewAdapter(model.getReports()));
         recyclerView.setAdapter(mAdapter);
     }
@@ -96,15 +97,15 @@ public class WaterReportListActivity extends AppCompatActivity {
          */
         public WaterReportViewAdapter(List<Report> items) {
             mReports = items;
-            Log.d("report", "Made it to constructor: " + mReports.get(0).getName());
+            Log.d(TAG, "Made it to constructor: " + mReports.get(0).getName());
             if (items == null) {
-                Log.d("report", "called constructor with null items");
+                Log.d(TAG, "called constructor with null items");
             }
         }
 
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            Log.d("report", "is this ever called? 1");
+            Log.d(TAG, "is this ever called? 1");
             /*
 
               This sets up the view for each individual item in the recycler display
@@ -119,7 +120,7 @@ public class WaterReportListActivity extends AppCompatActivity {
         @Override
 //        public void onBindViewHolder(final ViewHolder holder, int position) {
         public void onBindViewHolder(ViewHolder holder, int position) {
-            Log.d("report", "is this ever called? 2");
+            Log.d(TAG, "is this ever called? 2");
 
 //            final ModelFacade model = ModelFacade.getInstance();
             ModelFacade model = ModelFacade.getInstance();
@@ -170,7 +171,6 @@ public class WaterReportListActivity extends AppCompatActivity {
 
         @Override
         public int getItemCount() {
-            Log.d("report", "is this ever called? 3");
             return mReports.size();
         }
 
@@ -192,7 +192,7 @@ public class WaterReportListActivity extends AppCompatActivity {
 
             public ViewHolder(View view) {
                 super(view);
-                Log.d("report", "is this ever called? 5");
+                Log.d(TAG, "is this ever called? 5");
                 mView = view;
                 mNumber = (TextView) view.findViewById(R.id.reportNumber);
                 mDateAndTime = (TextView) view.findViewById(R.id.reportDateAndTime);

@@ -2,10 +2,9 @@ package com.goat.thirsty_goat.models;
 
 import com.auth0.android.authentication.AuthenticationAPIClient;
 import com.auth0.android.result.Credentials;
-import com.google.android.gms.maps.model.Marker;
 
+import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 
 /**
  * This class acts as a facade between the models and controllers/views, and it provides methods
@@ -15,27 +14,21 @@ import java.util.Map;
  */
 
 public class ModelFacade {
+
     private static ModelFacade INSTANCE = new ModelFacade();
     public static ModelFacade getInstance() {
         return INSTANCE;
     }
 
-    //private User mCurrentUser;
 
     private ReportManager mReportManager;
-    //private UserManager mUserManager;
     private User mUser;
 
     private ModelFacade() {
         mReportManager = new ReportManager();
-        //mCurrentUser = User.getInstance();
-        //mUserManager = new UserManager();
         mUser = User.getInstance();
     }
 
-//    public void addReport(String title, String desc, Location loc) {
-//        mReportManager.addReport(new Report(title, desc, loc));
-//    }
 
     /**
      * Tells the ReportManager class to add a report with the given parameters to its list of reports.
@@ -45,6 +38,10 @@ public class ModelFacade {
      */
     public void addReport(WaterType type, WaterCondition condition, Location loc, String name) {
         mReportManager.addReport(new Report(type, condition, loc, name));
+    }
+
+    public void addAllReports(Collection<Report> collection) {
+        mReportManager.addAllReports(collection);
     }
 
 //    public void addReportAndMarker(String title, String desc, Location loc, Marker marker) {

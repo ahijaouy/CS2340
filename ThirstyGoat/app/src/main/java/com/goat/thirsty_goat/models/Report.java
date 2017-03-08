@@ -2,10 +2,7 @@ package com.goat.thirsty_goat.models;
 
 import android.util.Log;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.TimeZone;
 
 /**
  * This class represents a single report submitted by a user, and it holds all data relevant to
@@ -24,25 +21,22 @@ public class Report {
     private WaterCondition mWaterCondition;
     private Calendar mCalendar;
 
-//    public Report(String name, String desc, Location location) {
-//        mName = name;
-//        mDescription = desc;
-//        mLocation = location;
-//        mID = Next_ID++;
-//    }
+    private static final String TAG = Report.class.getSimpleName();
 
-    // todo: add name, date and time
-    public Report(WaterType type, WaterCondition condition, Location location, String name) {
-        //TODO: use Auth-O to populate with actual current user's name
+
+    public Report(WaterType type, WaterCondition cond, Location loc, String name) {
         //mDescription = desc;
-        mLocation = location;
+        mLocation = loc;
         mID = Next_ID++;
         mWaterType = type;
-        mWaterCondition = condition;
-        //TODO: add time
+        mWaterCondition = cond;
         mCalendar = Calendar.getInstance();
-        Log.d("report", mCalendar.toString());
+        Log.d(TAG, mCalendar.toString());
         mName = name;
+    }
+    public Report(WaterType type, WaterCondition cond, Location loc, String name, Calendar cal) {
+        this(type, cond, loc, name);
+        mCalendar = cal;
     }
 
 //    @ Override

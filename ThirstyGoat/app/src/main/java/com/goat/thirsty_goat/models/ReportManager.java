@@ -6,6 +6,7 @@ import android.util.Log;
 import com.google.android.gms.maps.model.Marker;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -48,6 +49,10 @@ public class ReportManager {
     public void addReport(Report report) {
         mReports.add(report);
         Log.d("Report", "Added a water report!");
+    }
+
+    public void addAllReports(Collection<Report> collection) {
+        mReports.addAll(collection);
     }
 
 //    public void addReportAndMarker(Report report, Marker marker) {

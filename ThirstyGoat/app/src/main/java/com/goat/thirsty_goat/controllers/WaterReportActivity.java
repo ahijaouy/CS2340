@@ -75,6 +75,8 @@ public class WaterReportActivity extends AppCompatActivity implements AdapterVie
 //    private AuthenticationAPIClient mClient;
 //    private UserProfile mUserProfile;
 
+    private static final String TAG = WaterReportActivity.class.getSimpleName();
+
     private EditText mLatitudeEditText;
     private EditText mLongitudeEditText;
     private Spinner mWaterConditionSpinner;
@@ -138,7 +140,7 @@ public class WaterReportActivity extends AppCompatActivity implements AdapterVie
     // for some reason, these aren't updating when clicked
     @ Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        Log.d("Report", "something selected");
+        Log.d(TAG, "something selected");
         switch (parent.getId()){
             case R.id.water_type_spinner:
                 mWaterType = (WaterType) parent.getItemAtPosition(position);
@@ -152,7 +154,7 @@ public class WaterReportActivity extends AppCompatActivity implements AdapterVie
     // for some reason, this isn't doing anything
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
-        Log.d("Report", "nothing selected");
+        Log.d(TAG, "nothing selected");
         switch (parent.getId()){
             case R.id.water_type_spinner:
                 mWaterType = WaterType.BOTTLED;
@@ -164,17 +166,17 @@ public class WaterReportActivity extends AppCompatActivity implements AdapterVie
     }
 
     protected void onSubmitPressed(View view) {
-        Log.d("Report", "pressed submit in water report");
+        Log.d(TAG, "pressed submit in water report");
         mLatitude = Double.parseDouble(mLatitudeEditText.getText().toString());
         mLongitude = Double.parseDouble(mLongitudeEditText.getText().toString());
 
         mWaterType = (WaterType) mWaterTypeSpinner.getSelectedItem();
         mWaterCondition = (WaterCondition) mWaterConditionSpinner.getSelectedItem();
 
-        Log.d("Report", "long = " + mLongitude);
-        Log.d("Report", "lat = " + mLatitude);
-        Log.d("Report", "type = " + mWaterType.toString());
-        Log.d("Report", "condition = " + mWaterCondition.toString());
+        Log.d(TAG, "long = " + mLongitude);
+        Log.d(TAG, "lat = " + mLatitude);
+        Log.d(TAG, "type = " + mWaterType.toString());
+        Log.d(TAG, "condition = " + mWaterCondition.toString());
 
         ModelFacade mFacade = ModelFacade.getInstance();
         mFacade.addReport(mWaterType, mWaterCondition, new Location(mLatitude, mLongitude), mFacade.getUserName());
@@ -184,7 +186,7 @@ public class WaterReportActivity extends AppCompatActivity implements AdapterVie
     }
 
     protected void onCancelPressed(View view) {
-        Log.d("Report", "pressed cancel in water report");
+        Log.d(TAG, "pressed cancel in water report");
         finish();
     }
 }
