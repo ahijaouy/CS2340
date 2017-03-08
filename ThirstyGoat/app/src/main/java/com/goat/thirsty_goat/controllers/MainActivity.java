@@ -1,4 +1,4 @@
-package com.auth0.ThirstyGoat;
+package com.goat.thirsty_goat.controllers;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,7 +6,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
+import com.goat.thirsty_goat.R;
 
+/**
+ * This is the main activity class that allows users to log in again after logging out.
+ */
+//TODO: implement logging out and reaching this screen
 public class MainActivity extends AppCompatActivity {
 
     @Override
