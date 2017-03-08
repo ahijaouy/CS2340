@@ -1,7 +1,5 @@
 package com.goat.thirsty_goat.controllers;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -16,7 +14,6 @@ import android.widget.TextView;
 import com.goat.thirsty_goat.R;
 import com.goat.thirsty_goat.models.ModelFacade;
 import com.goat.thirsty_goat.models.Report;
-import com.goat.thirsty_goat.models.User;
 
 import java.util.List;
 
@@ -136,7 +133,7 @@ public class WaterReportListActivity extends AppCompatActivity {
               textview and the string rep of a course in the other.
              */
             holder.mNumber.setText("" + mReports.get(position).getReportNumber());
-            holder.mDateAndTime.setText(mReports.get(position).getDateString());
+            holder.mDateAndTime.setText(mReports.get(position).getDateTimeString());
             holder.mReporterName.setText(mReports.get(position).getName());
             holder.mLatitude.setText("" + mReports.get(position).getLatitude());
             holder.mLongitude.setText("" + mReports.get(position).getLongitude());

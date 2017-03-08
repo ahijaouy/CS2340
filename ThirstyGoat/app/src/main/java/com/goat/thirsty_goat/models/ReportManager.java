@@ -3,13 +3,9 @@ package com.goat.thirsty_goat.models;
 
 import android.util.Log;
 
-import com.google.android.gms.maps.model.Marker;
-
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * A class that manages all reports and functionality by keeping a list of all reports
@@ -21,6 +17,9 @@ public class ReportManager {
     private List<Report> mReports;
 //    private Map<Marker, Report> mMarkers = new HashMap<>();
 
+    /**
+     * Creates a ReportManager instance.
+     */
     public ReportManager() {
         mReports = new ArrayList<>();
         makeDummyReports();
@@ -51,6 +50,10 @@ public class ReportManager {
         Log.d("Report", "Added a water report!");
     }
 
+    /**
+     * Adds all reports in the collection param to the list fo reports.
+     * @param collection collection of reports to be added
+     */
     public void addAllReports(Collection<Report> collection) {
         mReports.addAll(collection);
     }

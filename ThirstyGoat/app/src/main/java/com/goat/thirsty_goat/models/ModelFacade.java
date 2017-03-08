@@ -35,11 +35,16 @@ public class ModelFacade {
      * @param type type of water
      * @param condition condition of the water
      * @param loc location of the water
+     * @param name name of the user adding the report
      */
     public void addReport(WaterType type, WaterCondition condition, Location loc, String name) {
         mReportManager.addReport(new Report(type, condition, loc, name));
     }
 
+    /**
+     * Uses the singleton ReportManager to add all reports in the collection parameter.
+     * @param collection collection of reports to be added
+     */
     public void addAllReports(Collection<Report> collection) {
         mReportManager.addAllReports(collection);
     }

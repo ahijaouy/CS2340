@@ -29,10 +29,10 @@ public class User {
     private Credentials mCredentials;
 
     /**
-     * Make a new User
-     * @param accountType
-     * @param userName
-     * @param email
+     * Creates new User
+     * @param accountType type of account for authority purposes
+     * @param userName name of the user
+     * @param email email of the user
      */
     public User(AccountType accountType, String userName, String email) {
         mAccountType = accountType;
@@ -40,6 +40,9 @@ public class User {
         mEmail = email;
     }
 
+    /**
+     * Creates new User with default values.
+     */
     public User() {
         this(AccountType.BASICUSER, null, null);
     }

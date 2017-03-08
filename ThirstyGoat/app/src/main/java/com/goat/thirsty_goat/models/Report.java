@@ -2,6 +2,8 @@ package com.goat.thirsty_goat.models;
 
 import android.util.Log;
 
+import org.joda.time.LocalDateTime;
+
 import java.util.Calendar;
 
 /**
@@ -19,24 +21,42 @@ public class Report {
     private Location mLocation;
     private WaterType mWaterType;
     private WaterCondition mWaterCondition;
-    private Calendar mCalendar;
+//    private Calendar mCalendar;
+    private LocalDateTime mDateTime;
 
     private static final String TAG = Report.class.getSimpleName();
 
 
+    /**
+     * Creates new Report object.
+     * @param type type of water
+     * @param cond condition of water
+     * @param loc location of source
+     * @param name name of user creating report
+     */
     public Report(WaterType type, WaterCondition cond, Location loc, String name) {
         //mDescription = desc;
         mLocation = loc;
         mID = Next_ID++;
         mWaterType = type;
         mWaterCondition = cond;
-        mCalendar = Calendar.getInstance();
-        Log.d(TAG, mCalendar.toString());
+//        mCalendar = Calendar.getInstance();
+        mDateTime = LocalDateTime.now();
+        Log.d(TAG, "DateTime: " + getDateTimeString());
         mName = name;
     }
+
+    /**
+     * Creates new Report object with Calendar param.
+     * @param type type of water
+     * @param cond condition fo water
+     * @param loc location of source
+     * @param name name of user creating report
+     * @param cal date of report being created
+     */
     public Report(WaterType type, WaterCondition cond, Location loc, String name, Calendar cal) {
         this(type, cond, loc, name);
-        mCalendar = cal;
+//        mCalendar = cal;
     }
 
 //    @ Override
@@ -118,9 +138,10 @@ public class Report {
      * Gets the string representation of the date of this report.
      * @return the string representation of the date of this report.
      */
-    public String getDateString() {
-        return "" + mCalendar.get(Calendar.MONTH) + "/" + mCalendar.get(Calendar.DAY_OF_MONTH)
-                + "/" + mCalendar.get(Calendar.YEAR);
+    public String getDateTimeString() {
+        return mDateTime.toString();
+//        return "" + mCalendar.get(Calendar.MONTH) + "/" + mCalendar.get(Calendar.DAY_OF_MONTH)
+//                + "/" + mCalendar.get(Calendar.YEAR);
     }
 
 }
