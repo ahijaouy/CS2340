@@ -45,9 +45,9 @@ public class ModelFacade {
         return mReportManager.getLastReport();
     }
 
-    public Map<Marker, Report> getMarkers() {
-        return mReportManager.getMarkers();
-    }
+//    public Map<Marker, Report> getMarkers() {
+//        return mReportManager.getMarkers();
+//    }
 
     public String getUserName() {
         return mUser.getUserName();
