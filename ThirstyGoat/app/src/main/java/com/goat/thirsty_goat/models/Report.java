@@ -28,10 +28,9 @@ public class Report {
 //        mID = Next_ID++;
 //    }
 
-    // todo: add name, date and time
-    public Report(WaterType type, WaterCondition condition, Location location, String name) {
-        //TODO: use Auth-O to populate with actual current user's name
-        mName = "Johnny Appleseed";
+    // todo: add name, date and time, report number
+    public Report(String name, WaterType type, WaterCondition condition, Location location) {
+        mName = name;
         //mDescription = desc;
         mLocation = location;
         mID = Next_ID++;

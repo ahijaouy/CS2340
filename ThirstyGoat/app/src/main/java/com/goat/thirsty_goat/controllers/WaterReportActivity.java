@@ -51,7 +51,6 @@ import com.auth0.android.management.ManagementException;
 import com.auth0.android.management.UsersAPIClient;
 import com.auth0.android.result.UserProfile;
 import com.goat.thirsty_goat.R;
-import com.goat.thirsty_goat.application.App;
 import com.goat.thirsty_goat.models.Location;
 import com.goat.thirsty_goat.models.ModelFacade;
 import com.goat.thirsty_goat.models.User;
@@ -175,7 +174,7 @@ public class WaterReportActivity extends AppCompatActivity implements AdapterVie
         Log.d("Report", "condition = " + mWaterCondition.toString());
 
         ModelFacade mFacade = ModelFacade.getInstance();
-        mFacade.addReport(mWaterType, mWaterCondition, new Location(mLatitude, mLongitude));
+        mFacade.addReport(mFacade.getUserName(), mWaterType, mWaterCondition, new Location(mLatitude, mLongitude));
 
 
         finish();
