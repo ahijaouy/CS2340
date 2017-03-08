@@ -13,6 +13,7 @@ import java.util.TimeZone;
  *
  * Created by Walker on 2/26/17.
  */
+
 public class Report {
     private static int Next_ID = 0;
     private int mID;
@@ -30,13 +31,15 @@ public class Report {
 //        mID = Next_ID++;
 //    }
 
+    // todo: add name, date and time
     public Report(WaterType type, WaterCondition condition, Location location, String name) {
-        mName = "Johnny Appleseed";
+        //TODO: use Auth-O to populate with actual current user's name
         //mDescription = desc;
         mLocation = location;
         mID = Next_ID++;
         mWaterType = type;
         mWaterCondition = condition;
+        //TODO: add time
         mCalendar = Calendar.getInstance();
         Log.d("report", mCalendar.toString());
         mName = name;

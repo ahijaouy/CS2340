@@ -1,5 +1,7 @@
 package com.goat.thirsty_goat.models;
 
+import com.auth0.android.authentication.AuthenticationAPIClient;
+import com.auth0.android.result.Credentials;
 import com.google.android.gms.maps.model.Marker;
 
 import java.util.List;
@@ -11,21 +13,24 @@ import java.util.Map;
  *
  * Created by Walker on 2/26/17.
  */
+
 public class ModelFacade {
     private static ModelFacade INSTANCE = new ModelFacade();
     public static ModelFacade getInstance() {
         return INSTANCE;
     }
 
-    private User mCurrentUser;
+    //private User mCurrentUser;
 
     private ReportManager mReportManager;
     //private UserManager mUserManager;
+    private User mUser;
 
     private ModelFacade() {
         mReportManager = new ReportManager();
-        mCurrentUser = User.getInstance();
+        //mCurrentUser = User.getInstance();
         //mUserManager = new UserManager();
+        mUser = User.getInstance();
     }
 
 //    public void addReport(String title, String desc, Location loc) {
@@ -60,15 +65,36 @@ public class ModelFacade {
         return mReportManager.getLastReport();
     }
 
+//    public Map<Marker, Report> getMarkers() {
+//        return mReportManager.getMarkers();
+//    }
+
     /**
      * Gets the current user's name from the User class.
      * @return current user's name
      */
     public String getUserName() {
-        return mCurrentUser.getUserName();
+        return mUser.getUserName();
     }
 
-//    public Map<Marker, Report> getMarkers() {
-//        return mReportManager.getMarkers();
-//    }
+    public String getUserEmail() {
+        return mUser.getEmail();
+    }
+
+    public int getUserAccountTypePosition() {
+        return mUser.getAccountTypePosition();
+    }
+
+    public void updateUserProfile(AuthenticationAPIClient client) {
+        mUser.updateUserProfile(client);
+    }
+
+    public String getUserID() {
+        return mUser.getCredentials().getIdToken();
+    }
+    public void setUserCredentials(Credentials credentials) {
+        mUser.setCredentials(credentials);
+    }
+
+
 }
