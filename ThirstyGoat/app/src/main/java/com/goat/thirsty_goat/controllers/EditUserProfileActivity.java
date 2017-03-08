@@ -24,6 +24,12 @@ import com.goat.thirsty_goat.models.User;
 import java.util.HashMap;
 import java.util.Map;
 
+
+/**
+ * This Activity handles the main edit user profile screen and allows the user to
+ * update their name and email address. It also currently functions as our main screen.
+ */
+//TODO: make this not our main screen
 public class EditUserProfileActivity extends AppCompatActivity {
 
     private EditText mUserNameField;

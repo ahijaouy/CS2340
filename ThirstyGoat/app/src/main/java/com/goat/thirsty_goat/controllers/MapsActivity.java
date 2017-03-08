@@ -20,6 +20,10 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.List;
 
+/**
+ * This activity handles the Google Maps view and is responsible for everything related
+ * to the map and all interactions with it.
+ */
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     public final static String LATITUDE_MESSAGE = "com.goat.thirsty_goat.LATITUDE";

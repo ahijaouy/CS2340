@@ -1,7 +1,7 @@
 package com.goat.thirsty_goat.models;
 
 /**
- * Created by Walker on 2/27/17.
+ * An enum that represents the water type for a given water source.
  */
 
 public enum WaterType {

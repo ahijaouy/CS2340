@@ -60,6 +60,9 @@ import com.goat.thirsty_goat.models.WaterType;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * This activity handles the user submitting a new water report.
+ */
 public class WaterReportActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
 //    private EditText mUserNameField;

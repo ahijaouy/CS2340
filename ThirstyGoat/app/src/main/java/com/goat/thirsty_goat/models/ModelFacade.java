@@ -77,21 +77,42 @@ public class ModelFacade {
         return mUser.getUserName();
     }
 
+    /**
+     * Gets the current user's email.
+     * @return current user's email
+     */
     public String getUserEmail() {
         return mUser.getEmail();
     }
 
+    /**
+     * Gets the position in the AccountType enum of the current user's account type.
+     * @return the position in the enum of the current user's account type
+     */
     public int getUserAccountTypePosition() {
         return mUser.getAccountTypePosition();
     }
 
+    /**
+     * Used to update the user profile with new user informatino from Auth0.
+     * @param client the new client information that we want to use to update this user's profile
+     */
     public void updateUserProfile(AuthenticationAPIClient client) {
         mUser.updateUserProfile(client);
     }
 
+    /**
+     * Gets the ID of the current user.
+     * @return the current user's ID.
+     */
     public String getUserID() {
         return mUser.getCredentials().getIdToken();
     }
+
+    /**
+     * Sets the current user's credentials.
+     * @param credentials the credentials to give to the current user
+     */
     public void setUserCredentials(Credentials credentials) {
         mUser.setCredentials(credentials);
     }

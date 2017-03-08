@@ -3,9 +3,8 @@ package com.goat.thirsty_goat.models;
 import java.io.Serializable;
 
 /**
- * Created by Walker on 2/26/17.
+ * This class represents a location and holds a latitude and longitude.
  */
-
 public class Location {
     private double mLatitude;
     private double mLongitute;
@@ -15,11 +14,18 @@ public class Location {
         mLongitute = lon;
     }
 
-
+    /**
+     * Gets the latitude of this location.
+     * @return the latitude of this location
+     */
     public double getLatitude() {
         return mLatitude;
     }
 
+    /**
+     * Gets the longitude of this location.
+     * @return the longitude of this location
+     */
     public double getLongitude() {
         return mLongitute;
     }

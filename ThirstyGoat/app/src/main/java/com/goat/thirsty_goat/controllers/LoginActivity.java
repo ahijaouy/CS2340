@@ -22,7 +22,9 @@ import com.goat.thirsty_goat.models.ModelFacade;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * This Activity is the main Auth0 login screen that handles log in and registration.
+ */
 public class LoginActivity extends Activity {
 
     private Lock mLock;
@@ -30,6 +32,7 @@ public class LoginActivity extends Activity {
     private Auth0 mAuth0;
     private ModelFacade mFacade;
 
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d("LoginActivity", "On Create Login Activity");
@@ -76,7 +79,7 @@ public class LoginActivity extends Activity {
         }
     };
 
-    public void redirectUser() {
+    private void redirectUser() {
         mClient = new AuthenticationAPIClient(mAuth0);
         mClient.tokenInfo(mFacade.getUserID())
                 .start(new BaseCallback<UserProfile, AuthenticationException>() {

@@ -9,9 +9,9 @@ import com.auth0.android.result.Credentials;
 import com.auth0.android.result.UserProfile;
 
 /**
- * Created by GabrielNAN on 2/21/17.
+ * This class represents a user, which can submit a report on water availability and view
+ * available water sources.
  */
-
 public class User {
     private static User userSingleton = new User();
 
@@ -61,6 +61,10 @@ public class User {
         }
     }
 
+    /**
+     * Updates the user profile based on the information stored with Auth0.
+     * @param client the client to query Auth0 for information about
+     */
     public void updateUserProfile(AuthenticationAPIClient client) {
         client.tokenInfo(mCredentials.getIdToken())
                 .start(new BaseCallback<UserProfile, AuthenticationException>() {
@@ -162,11 +166,19 @@ public class User {
         mEmail = email;
     }
 
+    /**
+     * Gets the credentials of this user.
+     * @return the credentials of this user
+     */
     public Credentials getCredentials() {
         return mCredentials;
     }
+
+    /**
+     * Sets the credentials of this user.
+     * @param credentials the credentials to give this user
+     */
     public void setCredentials(Credentials credentials) {
         mCredentials = credentials;
     }
-
 }

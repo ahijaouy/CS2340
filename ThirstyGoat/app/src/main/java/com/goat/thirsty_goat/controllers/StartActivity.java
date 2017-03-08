@@ -6,6 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.goat.thirsty_goat.R;
 
+/**
+ * This activity is called when the app is started, and it launches the LoginActivity.
+ */
 public class StartActivity extends AppCompatActivity {
 
     @Override

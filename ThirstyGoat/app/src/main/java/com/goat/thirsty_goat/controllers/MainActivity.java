@@ -8,7 +8,10 @@ import android.widget.Button;
 
 import com.goat.thirsty_goat.R;
 
-
+/**
+ * This is the main activity class that allows users to log in again after logging out.
+ */
+//TODO: implement logging out and reaching this screen
 public class MainActivity extends AppCompatActivity {
 
     @Override
