@@ -174,7 +174,7 @@ public class WaterReportActivity extends AppCompatActivity implements AdapterVie
         Log.d("Report", "condition = " + mWaterCondition.toString());
 
         ModelFacade mFacade = ModelFacade.getInstance();
-        mFacade.addReport(mFacade.getUserName(), mWaterType, mWaterCondition, new Location(mLatitude, mLongitude));
+        mFacade.addReport(mWaterType, mWaterCondition, new Location(mLatitude, mLongitude), mFacade.getUserName());
 
 
         finish();

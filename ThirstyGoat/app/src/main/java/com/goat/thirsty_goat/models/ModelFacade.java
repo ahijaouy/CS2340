@@ -43,8 +43,8 @@ public class ModelFacade {
      * @param condition condition of the water
      * @param loc location of the water
      */
-    public void addReport(WaterType type, WaterCondition condition, Location loc) {
-        mReportManager.addReport(new Report(type, condition, loc, mCurrentUser.getUserName()));
+    public void addReport(WaterType type, WaterCondition condition, Location loc, String name) {
+        mReportManager.addReport(new Report(type, condition, loc, name));
     }
 
 //    public void addReportAndMarker(String title, String desc, Location loc, Marker marker) {

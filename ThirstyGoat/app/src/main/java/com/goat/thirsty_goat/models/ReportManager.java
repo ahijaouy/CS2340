@@ -29,8 +29,8 @@ public class ReportManager {
      * Generates dummy reports for populating the map with preexisting reports.
      */
     private void makeDummyReports() {
-        addReport(new Report("Bob", WaterType.BOTTLED, WaterCondition.POTABLE, new Location(33.749, -84.388)));
-        addReport(new Report("Sally", WaterType.LAKE, WaterCondition.WASTE, new Location(33.8, -84.5)));
+        addReport(new Report(WaterType.BOTTLED, WaterCondition.POTABLE, new Location(33.749, -84.388), "Bob"));
+        addReport(new Report(WaterType.LAKE, WaterCondition.WASTE, new Location(33.8, -84.5), "Sally"));
     }
 
     /**
