@@ -11,9 +11,11 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * A class that manages all reports and functionality by keeping a list of all reports
+ * and providing ways to access and add these reports.
+ *
  * Created by Walker on 2/26/17.
  */
-
 public class ReportManager {
     private List<Report> mReports;
 //    private Map<Marker, Report> mMarkers = new HashMap<>();
@@ -23,15 +25,26 @@ public class ReportManager {
         makeDummyReports();
     }
 
+    /**
+     * Generates dummy reports for populating the map with preexisting reports.
+     */
     private void makeDummyReports() {
         addReport(new Report(WaterType.BOTTLED, WaterCondition.POTABLE, new Location(33.749, -84.388), "Thirsty Goat"));
         addReport(new Report(WaterType.LAKE, WaterCondition.WASTE, new Location(33.8, -84.5), "Johnny Watershed"));
     }
 
+    /**
+     * Gets the list of stored reports.
+     * @return the stored list of reports
+     */
     public List<Report> getReportList() {
         return mReports;
     }
 
+    /**
+     * Adds a given report to the list of reports.
+     * @param report the report to add
+     */
     public void addReport(Report report) {
         mReports.add(report);
         Log.d("Report", "Added a water report!");
@@ -46,10 +59,18 @@ public class ReportManager {
 //        return mMarkers;
 //    }
 
+    /**
+     * Gets the last submitted report as a String from the list of reports.
+     * @return the last submitted report as a String
+     */
     public String getLastReportString() {
         return mReports.get(mReports.size() - 1).toString();
     }
 
+    /**
+     * Gets the last submitted report as a String from the list of reports.
+     * @return the last submitted report as a String
+     */
     public Report getLastReport() {
         return mReports.get(mReports.size() - 1);
     }

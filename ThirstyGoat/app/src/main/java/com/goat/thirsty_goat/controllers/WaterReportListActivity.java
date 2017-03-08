@@ -21,10 +21,10 @@ import com.goat.thirsty_goat.models.User;
 import java.util.List;
 
 /**
- * Created by Walker on 3/6/17.
+ * This is the activity that represents and displays the list of water reports that
+ * have been submitted. Uses a RecyclerView.
  *
- * This is the activity that represents the list of water reports that
- * have been submitted.
+ * Created by Walker on 3/6/17.
  */
 public class WaterReportListActivity extends AppCompatActivity {
 
@@ -73,10 +73,6 @@ public class WaterReportListActivity extends AppCompatActivity {
 //        recyclerView.setAdapter(new WaterReportViewAdapter(model.getReports()));
         recyclerView.setAdapter(mAdapter);
     }
-
-
-
-
 
 
     /**
@@ -183,7 +179,6 @@ public class WaterReportListActivity extends AppCompatActivity {
          * about the binding between the model element (in this case a Report) and the widgets in
          * the list view (in this case all the data to display for a report)
          */
-
         public class ViewHolder extends RecyclerView.ViewHolder {
             public final View mView;
             public final TextView mNumber;

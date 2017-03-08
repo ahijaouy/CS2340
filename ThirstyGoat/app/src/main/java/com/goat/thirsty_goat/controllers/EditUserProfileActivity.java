@@ -175,17 +175,17 @@ public class EditUserProfileActivity extends AppCompatActivity {
 
     }
 
-    public void switchToMapView() {
+    private void switchToMapView() {
         Intent intent = new Intent(this, MapsActivity.class);
         startActivity(intent);
     }
 
-    public void switchToAddReportView() {
+    private void switchToAddReportView() {
         Intent intent = new Intent(this, WaterReportActivity.class);
         startActivity(intent);
     }
 
-    public void switchToReportListView(View v) {
+    private void switchToReportListView(View v) {
         Intent intent = new Intent(this, WaterReportListActivity.class);
         startActivity(intent);
     }

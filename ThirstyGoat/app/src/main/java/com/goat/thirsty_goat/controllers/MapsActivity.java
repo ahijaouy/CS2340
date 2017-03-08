@@ -77,6 +77,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         displayMarkers();
     }
 
+    @Override
     public void onResume() {
         Log.d("Report", "MapActivity's onResume");
         super.onResume();
@@ -85,7 +86,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }
 
-    public void displayMarkers() {
+
+    private void displayMarkers() {
         Log.d("Report", "displaying markers");
         List<Report> reportList = mFacade.getReports();
         for (Report r : reportList) {
@@ -96,7 +98,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }
 
-    public void handleReport(LatLng latLng) {
+    private void handleReport(LatLng latLng) {
         Intent intent = new Intent(this, WaterReportActivity.class);
         intent.putExtra(LATITUDE_MESSAGE, latLng.latitude);
         intent.putExtra(LONGITUDE_MESSAGE, latLng.longitude);
