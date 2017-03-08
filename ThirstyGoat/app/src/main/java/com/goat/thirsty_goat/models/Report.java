@@ -3,8 +3,8 @@ package com.goat.thirsty_goat.models;
 import android.util.Log;
 
 import org.joda.time.LocalDateTime;
-
-import java.util.Calendar;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * This class represents a single report submitted by a user, and it holds all data relevant to
@@ -21,7 +21,7 @@ public class Report {
     private Location mLocation;
     private WaterType mWaterType;
     private WaterCondition mWaterCondition;
-//    private Calendar mCalendar;
+    //    private Calendar mCalendar;
     private LocalDateTime mDateTime;
 
     private static final String TAG = Report.class.getSimpleName();
@@ -29,9 +29,10 @@ public class Report {
 
     /**
      * Creates new Report object.
+     *
      * @param type type of water
      * @param cond condition of water
-     * @param loc location of source
+     * @param loc  location of source
      * @param name name of user creating report
      */
     public Report(WaterType type, WaterCondition cond, Location loc, String name) {
@@ -48,13 +49,13 @@ public class Report {
 
     /**
      * Creates new Report object with Calendar param.
-     * @param type type of water
+     *  @param type type of water
      * @param cond condition fo water
-     * @param loc location of source
+     * @param loc  location of source
      * @param name name of user creating report
-     * @param cal date of report being created
+     * @param cal  date of report being created
      */
-    public Report(WaterType type, WaterCondition cond, Location loc, String name, Calendar cal) {
+    public Report(WaterType type, WaterCondition cond, Location loc, String name, int cal) {
         this(type, cond, loc, name);
 //        mCalendar = cal;
     }
@@ -67,6 +68,7 @@ public class Report {
 
     /**
      * Gets the name of the person who submitted this report.
+     *
      * @return the report submitter's name
      */
     public String getName() {
@@ -75,6 +77,7 @@ public class Report {
 
     /**
      * Gets the unique ID number of this report.
+     *
      * @return this report's unique ID number
      */
     public int getReportNumber() {
@@ -83,6 +86,7 @@ public class Report {
 
     /**
      * Gets the water type of this report.
+     *
      * @return the water type of this report
      */
     public WaterType getWaterType() {
@@ -91,14 +95,16 @@ public class Report {
 
     /**
      * Gets the string representation of the water type of this report.
+     *
      * @return the string representation of the water type of this report.
      */
     public String getWaterTypeString() {
-        return  mWaterType.toString();
+        return mWaterType.toString();
     }
 
     /**
      * Gets the water condition of this report.
+     *
      * @return the water condition of this report
      */
     public WaterCondition getWaterCondition() {
@@ -107,6 +113,7 @@ public class Report {
 
     /**
      * Gets the string representation of the water condition of this report.
+     *
      * @return the string representation of the warer condition of this report.
      */
     public String getWaterConditionString() {
@@ -120,6 +127,7 @@ public class Report {
 
     /**
      * Gets the latitude of this report.
+     *
      * @return the latitude of this report
      */
     public double getLatitude() {
@@ -128,6 +136,7 @@ public class Report {
 
     /**
      * Gets the longitude of this report.
+     *
      * @return the longitude of this report.
      */
     public double getLongitude() {
@@ -136,6 +145,7 @@ public class Report {
 
     /**
      * Gets the string representation of the date of this report in ISO 8601 format.
+     *
      * @return string representation of the date of this report
      */
     public String getDateTimeString() {
@@ -144,4 +154,21 @@ public class Report {
 //                + "/" + mCalendar.get(Calendar.YEAR);
     }
 
+    public JSONObject toJson() {
+        JSONObject json = null;
+        try {
+            json = new JSONObject()
+                    .put("location", mLocation)
+                    .put("water_type", mWaterType)
+                    .put("water_condition", mWaterCondition)
+                    .put("date_modified", mDateTime)
+                    .put("user_modified", mName);
+        } catch (JSONException e) {
+            Log.e(TAG, e.getMessage(), e);
+        }
+        return json;
+    }
+    public void setID(int ID) {
+        mID = ID;
+    }
 }

@@ -1,15 +1,16 @@
 package com.goat.thirsty_goat.models;
 
 
-import android.content.Context;
 import android.util.Log;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.goat.thirsty_goat.R;
+import com.goat.thirsty_goat.controllers.App;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,13 +31,14 @@ public class ReportManager {
     private List<Report> mReports;
 //    private Map<Marker, Report> mMarkers = new HashMap<>();
     private static final String TAG = ReportManager.class.getSimpleName();
+    private static final String BASE_URL = App.getContext().getString(R.string.base_url);
 
     /**
      * Creates a ReportManager instance.
      */
     public ReportManager() {
         mReports = new ArrayList<>();
-        makeDummyReports();
+//        makeDummyReports();
     }
 
     /**
@@ -60,12 +62,15 @@ public class ReportManager {
      * @param report the report to add
      */
     public void addReport(Report report) {
+        Log.d(TAG, "Sending report to DB");
+        sendReport(report);
+        Log.d(TAG, "Report Sent");
         mReports.add(report);
-        Log.d("Report", "Added a water report!");
+        Log.d(TAG, "Added a water report!");
     }
 
     /**
-     * Adds all reports in the collection param to the list fo reports.
+     * Adds all reports in the collection of reports param to the list fo reports.
      * @param collection collection of reports to be added
      */
     public void addAllReports(Collection<Report> collection) {
@@ -101,9 +106,8 @@ public class ReportManager {
         return mReports.get(mReports.size() - 1);
     }
 
-    public void fetchReports(Context context) {
-        RequestQueue queue = Volley.newRequestQueue(context);
-        final String BASE_URL = context.getString(R.string.base_url);
+    public void fetchReports() {
+        RequestQueue queue = Volley.newRequestQueue(App.getContext());
 
         JsonArrayRequest jsonArrayRequest =
                 new JsonArrayRequest(BASE_URL, new Response.Listener<JSONArray>() {
@@ -111,8 +115,11 @@ public class ReportManager {
             @Override
             public void onResponse(JSONArray response) {
 //                clearReports();
-                Log.d(TAG, "Adding all reports");
-                addAllReports(getReportsFromJSONArray(response));
+                try {
+                    addAllReports(getReportsFromJSONArray(response));
+                } catch (JSONException e) {
+                    Log.e(TAG, e.getMessage(), e);
+                }
             }
         }, new Response.ErrorListener() {
             @Override
@@ -123,7 +130,31 @@ public class ReportManager {
         queue.add(jsonArrayRequest);
     }
 
-    private List<Report> getReportsFromJSONArray(JSONArray jsonArray) {
+    public void sendReport(final Report report) {
+        RequestQueue queue = Volley.newRequestQueue(App.getContext());
+        JSONObject reportJson = report.toJson();
+
+        JsonObjectRequest jsonRequest = new JsonObjectRequest(BASE_URL, reportJson,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.d(TAG, "Posted: " + response.toString());
+                        try {
+                            report.setID(response.getInt("insertId"));
+                        } catch (JSONException e) {
+                            Log.e(TAG, e.getMessage(), e);
+                        }
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e(TAG, error.getMessage(), error);
+                    }
+        });
+        queue.add(jsonRequest);
+    }
+
+    private List<Report> getReportsFromJSONArray(JSONArray jsonArray) throws JSONException {
         /**
          * "source_report_id" : 2,
          "location" : Michigan,
@@ -148,7 +179,7 @@ public class ReportManager {
         Random rand = new Random();
 
         List<Report> reports = new ArrayList<>();
-        JSONObject reportJson;
+        JSONObject reportJson = null;
         for (int i = 0; i < jsonArray.length(); i++) {
             try {
                 reportJson = jsonArray.getJSONObject(i);
@@ -164,10 +195,10 @@ public class ReportManager {
             double lat = (rand.nextDouble() - 0.5) * 8 + 33;
             double lon = (rand.nextDouble() - 0.5) * 8 - 85;
             Location location = new Location(lat, lon);
-//            String name = reportJson.getString(USER);
-            String name = "J";
+            String name = reportJson.getString(USER);
+            int id = reportJson.getInt(ID);
             // TODO: Calendar(int year, int month, int day) add calendar as param to report
-            reports.add(new Report(waterType, waterCondition, location, name));
+            reports.add(new Report(waterType, waterCondition, location, name, id));
         }
         return reports;
     }

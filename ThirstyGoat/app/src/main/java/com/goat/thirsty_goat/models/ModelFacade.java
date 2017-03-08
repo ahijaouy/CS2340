@@ -2,7 +2,6 @@ package com.goat.thirsty_goat.models;
 
 import com.auth0.android.authentication.AuthenticationAPIClient;
 import com.auth0.android.result.Credentials;
-import com.goat.thirsty_goat.controllers.App;
 
 import java.util.Collection;
 import java.util.List;
@@ -47,7 +46,7 @@ public class ModelFacade {
      * @param collection collection of reports to be added
      */
     public void addAllReports(Collection<Report> collection) {
-        mReportManager.addAllReports(collection);
+//        mReportManager.addAllReports(collection);
     }
 
 //    public void addReportAndMarker(String title, String desc, Location loc, Marker marker) {
@@ -121,7 +120,7 @@ public class ModelFacade {
     }
 
     public void fetchReports() {
-        mReportManager.fetchReports(App.getContext());
+        mReportManager.fetchReports();
     }
 
 
