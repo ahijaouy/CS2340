@@ -38,7 +38,7 @@ public class Report {
     public Report(WaterType type, WaterCondition cond, Location loc, String name) {
         //mDescription = desc;
         mLocation = loc;
-        mID = Next_ID++;
+//        mID = Next_ID++;
         mWaterType = type;
         mWaterCondition = cond;
 //        mCalendar = Calendar.getInstance();
@@ -53,10 +53,12 @@ public class Report {
      * @param cond condition fo water
      * @param loc  location of source
      * @param name name of user creating report
-     * @param cal  date of report being created
+     * @param id id of the user
      */
-    public Report(WaterType type, WaterCondition cond, Location loc, String name, int cal) {
+    public Report(WaterType type, WaterCondition cond, Location loc, String name, int id) {
         this(type, cond, loc, name);
+        mID = id;
+
 //        mCalendar = cal;
     }
 
@@ -156,9 +158,10 @@ public class Report {
 
     public JSONObject toJson() {
         JSONObject json = null;
+        Log.d(TAG, mLocation.toString());
         try {
             json = new JSONObject()
-                    .put("location", mLocation)
+                    .put("location", "Lat: -35.632768328155684; Lon: -66.5422671500")
                     .put("water_type", mWaterType)
                     .put("water_condition", mWaterCondition)
                     .put("date_modified", mDateTime)

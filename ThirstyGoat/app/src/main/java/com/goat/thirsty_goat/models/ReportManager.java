@@ -132,12 +132,13 @@ public class ReportManager {
 
     public void sendReport(final Report report) {
         RequestQueue queue = Volley.newRequestQueue(App.getContext());
-        JSONObject reportJson = report.toJson();
+        final JSONObject reportJson = report.toJson();
 
         JsonObjectRequest jsonRequest = new JsonObjectRequest(BASE_URL, reportJson,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
+                        Log.d(TAG, "Sent: " + reportJson.toString());
                         Log.d(TAG, "Posted: " + response.toString());
                         try {
                             report.setID(response.getInt("insertId"));

@@ -1,7 +1,5 @@
 package com.goat.thirsty_goat.models;
 
-import java.io.Serializable;
-
 /**
  * This class represents a location and holds a latitude and longitude.
  */
@@ -28,5 +26,11 @@ public class Location {
      */
     public double getLongitude() {
         return mLongitute;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Lat: " + mLatitude + "; Lon: " + mLongitute;
     }
 }
