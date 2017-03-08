@@ -135,8 +135,8 @@ public class Report {
     }
 
     /**
-     * Gets the string representation of the date of this report.
-     * @return the string representation of the date of this report.
+     * Gets the string representation of the date of this report in ISO 8601 format.
+     * @return string representation of the date of this report
      */
     public String getDateTimeString() {
         return mDateTime.toString();

@@ -2,6 +2,7 @@ package com.goat.thirsty_goat.models;
 
 import com.auth0.android.authentication.AuthenticationAPIClient;
 import com.auth0.android.result.Credentials;
+import com.goat.thirsty_goat.controllers.App;
 
 import java.util.Collection;
 import java.util.List;
@@ -117,6 +118,10 @@ public class ModelFacade {
      */
     public void setUserCredentials(Credentials credentials) {
         mUser.setCredentials(credentials);
+    }
+
+    public void fetchReports() {
+        mReportManager.fetchReports(App.getContext());
     }
 
 

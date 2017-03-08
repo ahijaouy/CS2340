@@ -1,8 +1,9 @@
-package com.goat.thirsty_goat;
+package com.goat.thirsty_goat.controllers;
 
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.goat.thirsty_goat.R;
 import com.goat.thirsty_goat.models.Location;
 import com.goat.thirsty_goat.models.ModelFacade;
 import com.goat.thirsty_goat.models.Report;
@@ -27,12 +28,18 @@ import java.util.Random;
  * Created by GabrielNAN on 3/7/17.
  */
 
-public class FetchReportsTask extends AsyncTask<Void, Void, List<Report>> {
+public class FetchReportsTask extends AsyncTask<String, Void, List<Report>> {
 
     private static final String TAG = FetchReportsTask.class.getSimpleName();
     private ModelFacade mFacade;
 
 
+    /**
+     * Creates list of reports from JSON string.
+     * @param reportJsonString JSON string to be parsed
+     * @return List of Report objects
+     * @throws JSONException
+     */
     private List<Report> getReportsFromJson(String reportJsonString) throws JSONException {
 
         /**
@@ -88,30 +95,35 @@ public class FetchReportsTask extends AsyncTask<Void, Void, List<Report>> {
 
 
     @Override
-    protected List<Report> doInBackground(Void... voids) {
+    protected List<Report> doInBackground(String... params) {
+
+        if (params.length == 0) {
+            Log.d(TAG, "No parameters passed to FetchReportsTask.execute()");
+            return null;
+        }
 
         HttpURLConnection urlConnection = null;
         BufferedReader reader = null;
 
         String reportJsonString;
-        final String BASE_URL = "http://thirstygoat.myoberon.com/api/source_reports";
-        final String ID_PARAM = "id";
+        final String BASE_URL = App.getResString(R.string.base_url);
+//        final String ID_PARAM = "id";
 
         try {
 
 //            Uri buildUri = Uri.parse(BASE_URL).buildUpon()
 //                    .appendQueryParameter(ID_PARAM, 3);
+
             URL url = new URL(BASE_URL);
-
-
             urlConnection = (HttpURLConnection) url.openConnection();
+
+            // Establish "GET" request connection
             urlConnection.setRequestMethod("GET");
             urlConnection.connect();
 
+            // Receive stream of input from request
             InputStream inputStream = urlConnection.getInputStream();
             Log.d(TAG, "Got input stream");
-            StringBuffer buffer = new StringBuffer();
-
             if (inputStream == null) {
                 Log.d(TAG, "InputStream object null");
                 return null;
@@ -119,18 +131,19 @@ public class FetchReportsTask extends AsyncTask<Void, Void, List<Report>> {
             reader = new BufferedReader(new InputStreamReader(inputStream));
 
             // For debugging purposes
+            StringBuffer buffer = new StringBuffer();
             String line;
             while ((line = reader.readLine()) != null) {
                 buffer.append(line).append("\n");
             }
 
             if (buffer.length() == 0) {
-                Log.d(TAG, "Empty String returned");
+                Log.d(TAG, "Empty string returned from request");
                 return null;
             }
             reportJsonString = buffer.toString();
 
-        } catch(IOException e) {
+        } catch (IOException e) {
             Log.e(TAG, "Error", e);
             return null;
 

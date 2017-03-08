@@ -23,4 +23,7 @@ public class App extends Application {
     public static String getResString(int val) {
         return mContext.getString(val);
     }
+    public static Context getContext() {
+        return mContext;
+    }
 }

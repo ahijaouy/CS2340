@@ -1,12 +1,12 @@
 package com.goat.thirsty_goat.models;
 
-import android.accounts.Account;
-
 import com.auth0.android.authentication.AuthenticationAPIClient;
 import com.auth0.android.authentication.AuthenticationException;
 import com.auth0.android.callback.BaseCallback;
 import com.auth0.android.result.Credentials;
 import com.auth0.android.result.UserProfile;
+import com.goat.thirsty_goat.R;
+import com.goat.thirsty_goat.controllers.App;
 
 /**
  * This class represents a user, which can submit a report on water availability and view
@@ -44,14 +44,14 @@ public class User {
      * Creates new User with default values.
      */
     public User() {
-        this(AccountType.BASICUSER, null, null);
+        this(AccountType.BASIC_USER, null, null);
     }
 
     public enum AccountType {
-        BASICUSER("Basic User"),
-        MANAGER("Manager"),
-        WORKER("Worker"),
-        ADMIN("Administrator");
+        BASIC_USER(App.getResString(R.string.account_type_basic_user)),
+        MANAGER(App.getResString(R.string.account_type_manager)),
+        WORKER(App.getResString(R.string.account_type_worker)),
+        ADMIN(App.getResString(R.string.account_type_admin));
 
         private final String accountType;
         AccountType(String accountType) {
@@ -116,7 +116,7 @@ public class User {
                 return type;
             }
         }
-        return AccountType.BASICUSER;
+        return AccountType.BASIC_USER;
     }
 
 
