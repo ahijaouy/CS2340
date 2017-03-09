@@ -47,7 +47,7 @@ public class ReportManager {
      */
     public void addReport(Report report) {
         mReports.add(report);
-        Log.d("Report", "Added a water report!");
+        Log.d("report", "Added a water report!");
     }
 
 //    public void addReportAndMarker(Report report, Marker marker) {
