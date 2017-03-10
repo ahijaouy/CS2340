@@ -131,7 +131,7 @@ public class MapsActivity extends FragmentActivity implements
         for (Report r : reportList) {
             LatLng loc = new LatLng(r.getLatitude(), r.getLongitude());
             //mMap.addMarker(new MarkerOptions().position(loc).title(r.getName()).snippet(r.getDescription()));
-            String titleString = r.getDateString() + "   Report #: " + r.getReportNumber();
+            String titleString = r.getDateTimeString() + "   Report #: " + r.getReportNumber();
             String snippetString = "Lat: " + r.getLatitude() + "  Long: " + r.getLongitude()
                     + "\nType: " + r.getWaterTypeString()
                     + "\nCondition: " + r.getWaterConditionString()
