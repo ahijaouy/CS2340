@@ -31,6 +31,6 @@ public class Location {
 
     @Override
     public String toString() {
-        return "Lat: " + mLatitude + "; Lon: " + mLongitute;
+        return mLatitude + "," + mLongitute;
     }
 }
