@@ -159,7 +159,7 @@ public class MapsActivity extends FragmentActivity implements
 
 
 
-    class CustomInfoWindowAdapter implements InfoWindowAdapter {
+    private class CustomInfoWindowAdapter implements InfoWindowAdapter {
 
         // These are both viewgroups containing an ImageView with id "badge" and two TextViews with id
         // "title" and "snippet".
