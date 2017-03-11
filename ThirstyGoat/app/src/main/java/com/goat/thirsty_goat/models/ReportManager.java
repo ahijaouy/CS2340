@@ -77,6 +77,9 @@ public class ReportManager {
         mReports.addAll(collection);
     }
 
+    /**
+     * Clear all the reports.
+     */
     public void clearReports() {
         mReports.clear();
     }
@@ -106,6 +109,9 @@ public class ReportManager {
         return mReports.get(mReports.size() - 1);
     }
 
+    /**
+     * Fetch all reports from the database.
+     */
     public void fetchReports() {
         RequestQueue queue = Volley.newRequestQueue(App.getContext());
 
@@ -130,6 +136,10 @@ public class ReportManager {
         queue.add(jsonArrayRequest);
     }
 
+    /**
+     * Send report to Database through a http POST request.
+     * @param report Report instance to be sent
+     */
     public void sendReport(final Report report) {
         RequestQueue queue = Volley.newRequestQueue(App.getContext());
         final JSONObject reportJson = report.toJson();
@@ -155,6 +165,12 @@ public class ReportManager {
         queue.add(jsonRequest);
     }
 
+    /**
+     * Convert JSON array into a list of Report instances.
+     * @param jsonArray JSON array to be converted
+     * @return List of Reports instances.
+     * @throws JSONException
+     */
     private List<Report> getReportsFromJSONArray(JSONArray jsonArray) throws JSONException {
         /**
          * "source_report_id" : 2,

@@ -1,37 +1,23 @@
 package com.goat.thirsty_goat.controllers;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.os.Handler;
-import android.os.SystemClock;
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import android.text.SpannableString;
-import android.text.style.ForegroundColorSpan;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
-import android.view.animation.BounceInterpolator;
-import android.view.animation.Interpolator;
-import android.widget.ImageView;
-import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.goat.thirsty_goat.R;
-import com.goat.thirsty_goat.models.Location;
 import com.goat.thirsty_goat.models.ModelFacade;
 import com.goat.thirsty_goat.models.Report;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMap.InfoWindowAdapter;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-
-import com.google.android.gms.maps.GoogleMap.InfoWindowAdapter;
-
 
 import java.util.HashMap;
 import java.util.List;
@@ -51,6 +37,7 @@ public class MapsActivity extends FragmentActivity implements
 
     public final static String LATITUDE_MESSAGE = "com.goat.thirsty_goat.LATITUDE";
     public final static String LONGITUDE_MESSAGE = "com.goat.thirsty_goat.LONGITUDE";
+    private static final String TAG = MapsActivity.class.getSimpleName();
 
     private GoogleMap mMap;
     private ModelFacade mFacade;
@@ -91,13 +78,13 @@ public class MapsActivity extends FragmentActivity implements
 
                 mCurrLatLong = latLng;
 
-                Log.d("Report", "pre handle");
+                Log.d(TAG, "pre handle");
                 // switches to Wa
                 handleReport(latLng);
-                Log.d("Report", "post handle");
+                Log.d(TAG, "post handle");
 
                 displayMarkers();
-                Log.d("Report", "post display markers");
+                Log.d(TAG, "post display markers");
             }
         });
 
@@ -116,7 +103,7 @@ public class MapsActivity extends FragmentActivity implements
 
     @Override
     public void onResume() {
-        Log.d("Report", "MapActivity's onResume");
+        Log.d(TAG, "MapActivity's onResume");
         super.onResume();
         if (mMap != null) {
             displayMarkers();
@@ -126,7 +113,7 @@ public class MapsActivity extends FragmentActivity implements
     private Map<Marker, Report> markerReportMap = new HashMap<>();
 
     private void displayMarkers() {
-        Log.d("Report", "displaying markers");
+        Log.d(TAG, "displaying markers");
         List<Report> reportList = mFacade.getReports();
         for (Report r : reportList) {
             LatLng loc = new LatLng(r.getLatitude(), r.getLongitude());
@@ -157,8 +144,6 @@ public class MapsActivity extends FragmentActivity implements
 
 
 
-
-
     class CustomInfoWindowAdapter implements InfoWindowAdapter {
 
         // These are both viewgroups containing an ImageView with id "badge" and two TextViews with id
@@ -169,9 +154,9 @@ public class MapsActivity extends FragmentActivity implements
 
         CustomInfoWindowAdapter() {
             //mWindow = getLayoutInflater().inflate(R.layout.custom_info_window, null);
-            Log.d("report", "CustomInfoWindowAdapter constructor p1");
+            Log.d(TAG, "CustomInfoWindowAdapter constructor p1");
             mContents = getLayoutInflater().inflate(R.layout.custom_info_window_contents, null);
-            Log.d("report", "CustomInfoWindowAdapter constructor p2");
+            Log.d(TAG, "CustomInfoWindowAdapter constructor p2");
         }
 
         @Override
@@ -185,7 +170,7 @@ public class MapsActivity extends FragmentActivity implements
 //            return mWindow;
 
             // this defaults to calling getInfoContents below
-            Log.d("report", "getInfoWindow");
+            Log.d(TAG, "getInfoWindow");
             return null;
         }
 
@@ -196,17 +181,17 @@ public class MapsActivity extends FragmentActivity implements
 //                // This means that the default info contents will be used.
 //                return null;
 //            }
-            Log.d("report", "getInfoContents");
+            Log.d(TAG, "getInfoContents");
             render(marker, mContents);
             return mContents;
         }
 
         private void render(Marker marker, View view) {
-            Log.d("report", "render p1");
+            Log.d(TAG, "render p1");
 
             Report thisReport = markerReportMap.get(marker);
 
-            Log.d("report", "render p2");
+            Log.d(TAG, "render p2");
 
             TextView markerDate = (TextView) view.findViewById(R.id.infoWindowDate);
             TextView markerReportNum = (TextView) view.findViewById(R.id.infoWindowReportNum);
@@ -216,9 +201,9 @@ public class MapsActivity extends FragmentActivity implements
             TextView markerCondition = (TextView) view.findViewById(R.id.infoWindowCondition);
             TextView markerReporter = (TextView) view.findViewById(R.id.infoWindowReporter);
 
-            Log.d("report", "render p3");
+            Log.d(TAG, "render p3");
 
-            markerDate.setText(thisReport.getDateString());
+            markerDate.setText(thisReport.getDateTimeString());
             markerReportNum.setText(String.valueOf(thisReport.getReportNumber()));
             markerLatitude.setText(String.valueOf(thisReport.getLatitude()));
             markerLongitude.setText(String.valueOf(thisReport.getLongitude()));
@@ -226,7 +211,7 @@ public class MapsActivity extends FragmentActivity implements
             markerCondition.setText(thisReport.getWaterConditionString());
             markerReporter.setText(thisReport.getName());
 
-            Log.d("report", "render p4");
+            Log.d(TAG, "render p4");
 
             // this is all from the google maps demo
 //            int badge;

@@ -24,6 +24,9 @@ public class ModelFacade {
     private ReportManager mReportManager;
     private User mUser;
 
+    /**
+     * Creates a facade.
+     */
     private ModelFacade() {
         mReportManager = new ReportManager();
         mUser = User.getInstance();

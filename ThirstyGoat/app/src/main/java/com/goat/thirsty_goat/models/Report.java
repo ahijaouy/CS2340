@@ -49,7 +49,8 @@ public class Report {
 
     /**
      * Creates new Report object with Calendar param.
-     *  @param type type of water
+     *
+     * @param type type of water
      * @param cond condition fo water
      * @param loc  location of source
      * @param name name of user creating report
@@ -116,7 +117,7 @@ public class Report {
     /**
      * Gets the string representation of the water condition of this report.
      *
-     * @return the string representation of the warer condition of this report.
+     * @return the string representation of the water condition of this report.
      */
     public String getWaterConditionString() {
         return mWaterCondition.toString();
@@ -156,15 +157,19 @@ public class Report {
 //                + "/" + mCalendar.get(Calendar.YEAR);
     }
 
+    /**
+     * Converts the Report instance to a JSON object.
+     * @return JSON object
+     */
     public JSONObject toJson() {
         JSONObject json = null;
         Log.d(TAG, mLocation.toString());
         try {
             json = new JSONObject()
                     .put("location", "Lat: -35.632768328155684; Lon: -66.5422671500")
-                    .put("water_type", mWaterType)
-                    .put("water_condition", mWaterCondition)
-                    .put("date_modified", mDateTime)
+                    .put("water_type", mWaterType.toString())
+                    .put("water_condition", mWaterCondition.toString())
+                    .put("date_modified", mDateTime.toString())
                     .put("user_modified", mName);
         } catch (JSONException e) {
             Log.e(TAG, e.getMessage(), e);
