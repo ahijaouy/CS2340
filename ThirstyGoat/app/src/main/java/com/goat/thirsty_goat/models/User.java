@@ -1,6 +1,5 @@
 package com.goat.thirsty_goat.models;
 
-import android.accounts.Account;
 import android.util.Log;
 
 import com.auth0.android.authentication.AuthenticationAPIClient;
@@ -96,7 +95,7 @@ public class User {
     }
 
 
-    public void addWaterSourceReport(WaterType type, WaterCondition condition, Location loc) {
+    public void addWaterSourceReport(WaterType type, WaterSourceCondition condition, Location loc) {
         mCurrentUser.addWaterSourceReport(type, condition, loc, mUserName);
     }
 

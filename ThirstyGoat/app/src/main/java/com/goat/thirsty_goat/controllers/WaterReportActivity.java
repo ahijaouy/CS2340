@@ -41,24 +41,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.auth0.android.Auth0;
-import com.auth0.android.authentication.AuthenticationAPIClient;
-import com.auth0.android.authentication.AuthenticationException;
-import com.auth0.android.callback.BaseCallback;
-import com.auth0.android.management.ManagementException;
-import com.auth0.android.management.UsersAPIClient;
-import com.auth0.android.result.UserProfile;
 import com.goat.thirsty_goat.R;
 import com.goat.thirsty_goat.models.Location;
 import com.goat.thirsty_goat.models.ModelFacade;
-import com.goat.thirsty_goat.models.User;
-import com.goat.thirsty_goat.models.WaterCondition;
+import com.goat.thirsty_goat.models.WaterSourceCondition;
 import com.goat.thirsty_goat.models.WaterType;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * This activity handles the user submitting a new water report.
@@ -85,7 +73,7 @@ public class WaterReportActivity extends AppCompatActivity implements AdapterVie
 
     // keeps up with instance data to create the report
     private WaterType mWaterType;
-    private WaterCondition mWaterCondition;
+    private WaterSourceCondition mWaterCondition;
     private double mLongitude;
     private double mLatitude;
 
@@ -113,8 +101,8 @@ public class WaterReportActivity extends AppCompatActivity implements AdapterVie
 //        accountTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 //        mAccounTypeSpinner.setAdapter(accountTypeAdapter);
 
-        ArrayAdapter<WaterCondition> waterConditionAdapter =
-                new ArrayAdapter(this, android.R.layout.simple_spinner_item, WaterCondition.values());
+        ArrayAdapter<WaterSourceCondition> waterConditionAdapter =
+                new ArrayAdapter(this, android.R.layout.simple_spinner_item, WaterSourceCondition.values());
         waterConditionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mWaterConditionSpinner.setAdapter(waterConditionAdapter);
 
@@ -144,7 +132,7 @@ public class WaterReportActivity extends AppCompatActivity implements AdapterVie
                 mWaterType = (WaterType) parent.getItemAtPosition(position);
                 break;
             case R.id.water_condition_spinner:
-                mWaterCondition = (WaterCondition) parent.getItemAtPosition(position);
+                mWaterCondition = (WaterSourceCondition) parent.getItemAtPosition(position);
                 break;
         }
     }
@@ -158,7 +146,7 @@ public class WaterReportActivity extends AppCompatActivity implements AdapterVie
                 mWaterType = WaterType.BOTTLED;
                 break;
             case R.id.water_condition_spinner:
-                mWaterCondition = WaterCondition.POTABLE;
+                mWaterCondition = WaterSourceCondition.POTABLE;
                 break;
         }
     }
@@ -169,7 +157,7 @@ public class WaterReportActivity extends AppCompatActivity implements AdapterVie
         mLongitude = Double.parseDouble(mLongitudeEditText.getText().toString());
 
         mWaterType = (WaterType) mWaterTypeSpinner.getSelectedItem();
-        mWaterCondition = (WaterCondition) mWaterConditionSpinner.getSelectedItem();
+        mWaterCondition = (WaterSourceCondition) mWaterConditionSpinner.getSelectedItem();
 
         Log.d("WaterReport", "long = " + mLongitude);
         Log.d("WaterReport", "lat = " + mLatitude);

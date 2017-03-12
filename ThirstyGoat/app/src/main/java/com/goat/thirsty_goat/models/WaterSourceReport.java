@@ -1,7 +1,5 @@
 package com.goat.thirsty_goat.models;
 
-import android.util.Log;
-
 import java.util.Calendar;
 
 /**
@@ -13,12 +11,12 @@ public class WaterSourceReport {
     private String mName;
     private String mDescription;
     private WaterType mWaterType;
-    private WaterCondition mWaterCondition;
+    private WaterSourceCondition mWaterCondition;
     private Calendar mCalendar;
 
     private WaterPurityReport mWaterPurityReport;
 
-    public WaterSourceReport(WaterType type, WaterCondition condition, String name) {
+    public WaterSourceReport(WaterType type, WaterSourceCondition condition, String name) {
         mCalendar = Calendar.getInstance();
         mID = WaterReport.getAndIncrementID();
         mName = name;
@@ -68,7 +66,7 @@ public class WaterSourceReport {
      * Gets the water condition of this report.
      * @return the water condition of this report
      */
-    public WaterCondition getWaterCondition() {
+    public WaterSourceCondition getWaterCondition() {
         return mWaterCondition;
     }
 

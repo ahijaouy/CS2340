@@ -1,8 +1,6 @@
 package com.goat.thirsty_goat.models;
 
 
-import android.util.Log;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,12 +15,9 @@ import java.util.Map;
 public class ReportManager {
     private static ReportManager INSTANCE = new ReportManager();
 
-    private List<WaterReport> mWaterReports;
     private Map<Location, WaterReport> mWaterReportsMap;
-//    private Map<Marker, WaterReport> mMarkers = new HashMap<>();
 
     public ReportManager() {
-        mWaterReports = new ArrayList<>();
         mWaterReportsMap = new HashMap<>();
         makeDummyReports();
     }
@@ -35,11 +30,11 @@ public class ReportManager {
      * Generates dummy reports for populating the map with preexisting reports.
      */
     private void makeDummyReports() {
-        addWaterSourceReport(WaterType.BOTTLED, WaterCondition.POTABLE, new Location(33.749, -84.388), "Bob");
-        addWaterSourceReport(WaterType.LAKE, WaterCondition.WASTE, new Location(50.8, -70.5), "Sally");
+        addWaterSourceReport(WaterType.BOTTLED, WaterSourceCondition.POTABLE, new Location(33.749, -84.388), "Bob");
+        addWaterSourceReport(WaterType.LAKE, WaterSourceCondition.WASTE, new Location(50.8, -70.5), "Sally");
     }
 
-    public void addWaterSourceReport(WaterType type, WaterCondition condition, Location location, String name) {
+    public void addWaterSourceReport(WaterType type, WaterSourceCondition condition, Location location, String name) {
         if (mWaterReportsMap.get(location) == null) {
             mWaterReportsMap.put(location, new WaterReport(location));
         }
@@ -49,19 +44,6 @@ public class ReportManager {
     }
 
 
-
-
-//    /**
-//     * Adds a given waterReport to the list of reports.
-//     * @param waterReport the waterReport to add
-//     */
-//    public void addReport(WaterReport waterReport) {
-//        mWaterReports.add(waterReport);
-//        Log.d("waterReport", "Added a water waterReport!");
-//    }
-
-
-
     // getters and setters
     /**
      * Gets the list of stored reports.
@@ -69,21 +51,5 @@ public class ReportManager {
      */
     public Map<Location, WaterReport> getReports() {
         return mWaterReportsMap;
-    }
-
-    /**
-     * Gets the last submitted report as a String from the list of reports.
-     * @return the last submitted report as a String
-     */
-    public String getLastReportString() {
-        return mWaterReports.get(mWaterReports.size() - 1).toString();
-    }
-
-    /**
-     * Gets the last submitted report as a String from the list of reports.
-     * @return the last submitted report as a String
-     */
-    public WaterReport getLastReport() {
-        return mWaterReports.get(mWaterReports.size() - 1);
     }
 }

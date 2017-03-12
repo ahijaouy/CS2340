@@ -26,8 +26,6 @@ import java.util.List;
  */
 public class WaterReportListActivity extends AppCompatActivity {
 
-    LinearLayoutManager mLayoutManager;
-
     @Override
     protected void onCreate(Bundle savedInstanceData) {
         super.onCreate(savedInstanceData);
@@ -44,10 +42,7 @@ public class WaterReportListActivity extends AppCompatActivity {
             Log.d("report", "recycler view is not null");
         }
 
-
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-
 
         //Step 2.  Hook up the adapter to the view
 //        setupRecyclerView((RecyclerView) recyclerView);
@@ -59,16 +54,12 @@ public class WaterReportListActivity extends AppCompatActivity {
      * @param recyclerView  the view that needs this adapter
      */
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
-//        mLayoutManager = new LinearLayoutManager(this);
-//        recyclerView.setLayoutManager(mLayoutManager);
-
         ModelFacade model = ModelFacade.getInstance();
         Log.d("report", "setting up recycler view");
-        Log.d("report", model.getReports().get(0).getName());
+        //Log.d("report", model.getReports().get(0).getName());
 
         WaterReportViewAdapter mAdapter = new WaterReportViewAdapter(new ArrayList<WaterReport>(model.getReports().values()));
         Log.d("report", "adapter: " + mAdapter);
-//        recyclerView.setAdapter(new WaterReportViewAdapter(model.getReports()));
         recyclerView.setAdapter(mAdapter);
     }
 
@@ -85,7 +76,6 @@ public class WaterReportListActivity extends AppCompatActivity {
         /**
          * Collection of the items to be shown in this list.
          */
-//        private final List<WaterReport> mWaterReports;
         private List<WaterReport> mWaterReports;
 
         /**
@@ -94,7 +84,7 @@ public class WaterReportListActivity extends AppCompatActivity {
          */
         public WaterReportViewAdapter(List<WaterReport> items) {
             mWaterReports = items;
-            Log.d("report", "Made it to constructor: " + mWaterReports.get(0).getName());
+            Log.d("report", "Made it to constructor: " + mWaterReports.get(0).getCurrentWaterSourceReportName());
             if (items == null) {
                 Log.d("report", "called constructor with null items");
             }
@@ -132,19 +122,24 @@ public class WaterReportListActivity extends AppCompatActivity {
               Now we bind the data to the widgets.  In this case, pretty simple, put the id in one
               textview and the string rep of a course in the other.
              */
-            holder.mNumber.setText("" + mWaterReports.get(position).getReportNumber());
-            holder.mDateAndTime.setText(mWaterReports.get(position).getDateString());
-            holder.mReporterName.setText(mWaterReports.get(position).getName());
+            holder.mNumber.setText("" + mWaterReports.get(position).getCurrentWaterSourceReportNumber());
+            holder.mDateAndTime.setText(mWaterReports.get(position).getCurrentWaterSourceReportDateString());
+            holder.mReporterName.setText(mWaterReports.get(position).getCurrentWaterSourceReportName());
             holder.mLatitude.setText("" + mWaterReports.get(position).getLatitude());
             holder.mLongitude.setText("" + mWaterReports.get(position).getLongitude());
-            holder.mWaterType.setText(mWaterReports.get(position).getWaterTypeString());
-            holder.mWaterCondition.setText(mWaterReports.get(position).getWaterConditionString());
+            holder.mWaterType.setText(mWaterReports.get(position).getCurrentWaterSourceReportTypeString());
+            holder.mWaterCondition.setText(mWaterReports.get(position).getCurrentWaterSourceReportConditionString());
+
+
 
             /*
              * set up a listener to handle if the user clicks on this list item, what should happen?
              */
-            //NOTE: I didn't implement this yet, since it's not required for M6 and the recycler view
-            //shows all the info for each report
+            /*
+              NOTE: I didn't implement this yet, since it's not required for M6 and the recycler view
+              shows all the info for each report. But, if you want to be able to take an action upon
+              clicking the view, this might be a good place to start
+            */
 //            holder.mView.setOnClickListener(new View.OnClickListener() {
 //                @Override
 //                public void onClick(View v) {

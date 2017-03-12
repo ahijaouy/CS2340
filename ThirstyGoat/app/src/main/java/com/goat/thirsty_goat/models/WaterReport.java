@@ -1,14 +1,7 @@
 package com.goat.thirsty_goat.models;
 
-import android.util.Log;
-
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.TimeZone;
 
 /**
  * This class represents a single report submitted by a user, and it holds all data relevant to
@@ -32,7 +25,7 @@ public class WaterReport {
         return Next_ID++;
     }
 
-    public void addSourceReport(WaterType type, WaterCondition condition, String name) {
+    public void addSourceReport(WaterType type, WaterSourceCondition condition, String name) {
         ((LinkedList<WaterSourceReport>) mWaterSourceReports).addFirst(new WaterSourceReport(type, condition, name));
     }
 
@@ -79,123 +72,4 @@ public class WaterReport {
     public Location getLocation() {
         return mLocation;
     }
-
-
-
-
-    
-
-
-    private int mID;
-    private String mName;
-    private String mDescription;
-    private WaterType mWaterType;
-    private WaterCondition mWaterCondition;
-    private Calendar mCalendar;
-
-//    public WaterReport(String name, String desc, Location location) {
-//        mName = name;
-//        mDescription = desc;
-//        mLocation = location;
-//        mID = Next_ID++;
-//    }
-
-    // todo: add name, date and time
-    public WaterReport(WaterType type, WaterCondition condition, Location location, String name) {
-        //TODO: use Auth-O to populate with actual current user's name
-        //mDescription = desc;
-        mLocation = location;
-        mID = Next_ID++;
-        mWaterType = type;
-        mWaterCondition = condition;
-        //TODO: add time
-        mCalendar = Calendar.getInstance();
-        Log.d("report", mCalendar.toString());
-        mName = name;
-    }
-
-
-
-    /**
-     * Gets the name of the person who submitted this report.
-     * @return the report submitter's name
-     */
-    public String getName() {
-        return mName;
-    }
-
-    /**
-     * Gets the unique ID number of this report.
-     * @return this report's unique ID number
-     */
-    public int getReportNumber() {
-        return mID;
-    }
-
-    /**
-     * Gets the water type of this report.
-     * @return the water type of this report
-     */
-    public WaterType getWaterType() {
-        return mWaterType;
-    }
-
-    /**
-     * Gets the string representation of the water type of this report.
-     * @return the string representation of the water type of this report.
-     */
-    public String getWaterTypeString() {
-        return  mWaterType.toString();
-    }
-
-    /**
-     * Gets the water condition of this report.
-     * @return the water condition of this report
-     */
-    public WaterCondition getWaterCondition() {
-        return mWaterCondition;
-    }
-
-    /**
-     * Gets the string representation of the water condition of this report.
-     * @return the string representation of the warer condition of this report.
-     */
-    public String getWaterConditionString() {
-        return mWaterCondition.toString();
-    }
-
-
-//    public String getDescription() {
-//        return mDescription;
-//    }
-
-//    /**
-//     * Gets the latitude of this report.
-//     * @return the latitude of this report
-//     */
-//    public double getLatitude() {
-//        return mLocation.getLatitude();
-//    }
-//
-//    /**
-//     * Gets the longitude of this report.
-//     * @return the longitude of this report.
-//     */
-//    public double getLongitude() {
-//        return mLocation.getLongitude();
-//    }
-//
-//    public Location getLocation() {
-//        return mLocation;
-//    }
-
-    /**
-     * Gets the string representation of the date of this report.
-     * @return the string representation of the date of this report.
-     */
-    public String getDateString() {
-        return "" + mCalendar.get(Calendar.MONTH) + "/" + mCalendar.get(Calendar.DAY_OF_MONTH)
-                + "/" + mCalendar.get(Calendar.YEAR);
-    }
-
 }

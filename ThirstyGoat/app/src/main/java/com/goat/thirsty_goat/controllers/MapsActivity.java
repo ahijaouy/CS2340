@@ -126,6 +126,7 @@ public class MapsActivity extends FragmentActivity implements
 //            String snippetString = "Lat: " + latLng.latitude + "  Long: " + latLng.longitude
 //                    + "\nType: " +
 
+            // this title and snippet should never be shown
             String title = "TITLEEEE";
             String snippet = "SNIPPETTTT";
             Marker markerAdded = mMap.addMarker(new MarkerOptions()
@@ -136,26 +137,6 @@ public class MapsActivity extends FragmentActivity implements
 
             mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
         }
-
-
-//        for (WaterReport r : waterReportList) {
-//            LatLng loc = new LatLng(r.getLatitude(), r.getLongitude());
-//            //mMap.addMarker(new MarkerOptions().position(loc).title(r.getName()).snippet(r.getDescription()));
-//            String titleString = r.getDateString() + "   WaterReport #: " + r.getReportNumber();
-//            String snippetString = "Lat: " + r.getLatitude() + "  Long: " + r.getLongitude()
-//                    + "\nType: " + r.getWaterTypeString()
-//                    + "\nCondition: " + r.getWaterConditionString()
-//                    + "\nReporter name: " + r.getName();
-//
-//            Marker markerAdded = mMap.addMarker(new MarkerOptions()
-//                    .position(loc)
-//                    //.title(r.getWaterCondition().toString())
-//                    .title(titleString)
-//                    .snippet(snippetString));
-//            markerReportMap.put(markerAdded, r);
-//
-//            mMap.moveCamera(CameraUpdateFactory.newLatLng(loc));
-//        }
     }
 
     private void handleReport(LatLng latLng) {
@@ -179,14 +160,6 @@ public class MapsActivity extends FragmentActivity implements
 
         @Override
         public View getInfoWindow(Marker marker) {
-            // default stuff from google maps example
-//            if (mOptions.getCheckedRadioButtonId() != R.id.custom_info_window) {
-//                // This means that getInfoContents will be called.
-//                return null;
-//            }
-//            render(marker, mWindow);
-//            return mWindow;
-
             // this defaults to calling getInfoContents below
             Log.d("report", "getInfoWindow");
             return null;
@@ -194,11 +167,6 @@ public class MapsActivity extends FragmentActivity implements
 
         @Override
         public View getInfoContents(Marker marker) {
-            // default stuff from google maps example
-//            if (mOptions.getCheckedRadioButtonId() != R.id.custom_info_contents) {
-//                // This means that the default info contents will be used.
-//                return null;
-//            }
             Log.d("report", "getInfoContents");
             render(marker, mContents);
             return mContents;
@@ -230,105 +198,11 @@ public class MapsActivity extends FragmentActivity implements
             markerReporter.setText(thisWaterReport.getCurrentWaterSourceReportName());
 
             Log.d("report", "render p4");
-
-            // this is all from the google maps demo
-//            int badge;
-//            // Use the equals() method on a Marker to check for equals.  Do not use ==.
-//            if (marker.equals(mBrisbane)) {
-//                badge = R.drawable.badge_qld;
-//            } else if (marker.equals(mAdelaide)) {
-//                badge = R.drawable.badge_sa;
-//            } else if (marker.equals(mSydney)) {
-//                badge = R.drawable.badge_nsw;
-//            } else if (marker.equals(mMelbourne)) {
-//                badge = R.drawable.badge_victoria;
-//            } else if (marker.equals(mPerth)) {
-//                badge = R.drawable.badge_wa;
-//            } else {
-//                // Passing 0 to setImageResource will clear the image view.
-//                badge = 0;
-//            }
-//            ((ImageView) view.findViewById(R.id.badge)).setImageResource(badge);
-//
-//            String title = marker.getTitle();
-//            TextView titleUi = ((TextView) view.findViewById(R.id.title));
-//            if (title != null) {
-//                // Spannable string allows us to edit the formatting of the text.
-//                SpannableString titleText = new SpannableString(title);
-//                titleText.setSpan(new ForegroundColorSpan(Color.RED), 0, titleText.length(), 0);
-//                titleUi.setText(titleText);
-//            } else {
-//                titleUi.setText("");
-//            }
-//
-//            String snippet = marker.getSnippet();
-//            TextView snippetUi = ((TextView) view.findViewById(R.id.snippet));
-//            if (snippet != null && snippet.length() > 12) {
-//                SpannableString snippetText = new SpannableString(snippet);
-//                snippetText.setSpan(new ForegroundColorSpan(Color.MAGENTA), 0, 10, 0);
-//                snippetText.setSpan(new ForegroundColorSpan(Color.BLUE), 12, snippet.length(), 0);
-//                snippetUi.setText(snippetText);
-//            } else {
-//                snippetUi.setText("");
-//            }
         }
     }
 
     @Override
     public boolean onMarkerClick(final Marker marker) {
-//        if (marker.equals(mPerth)) {
-//            // This causes the marker at Perth to bounce into position when it is clicked.
-//            final Handler handler = new Handler();
-//            final long start = SystemClock.uptimeMillis();
-//            final long duration = 1500;
-//
-//            final Interpolator interpolator = new BounceInterpolator();
-//
-//            handler.post(new Runnable() {
-//                @Override
-//                public void run() {
-//                    long elapsed = SystemClock.uptimeMillis() - start;
-//                    float t = Math.max(
-//                            1 - interpolator.getInterpolation((float) elapsed / duration), 0);
-//                    marker.setAnchor(0.5f, 1.0f + 2 * t);
-//
-//                    if (t > 0.0) {
-//                        // Post again 16ms later.
-//                        handler.postDelayed(this, 16);
-//                    }
-//                }
-//            });
-//        } else if (marker.equals(mAdelaide)) {
-//            // This causes the marker at Adelaide to change color and alpha.
-//            marker.setIcon(BitmapDescriptorFactory.defaultMarker(mRandom.nextFloat() * 360));
-//            marker.setAlpha(mRandom.nextFloat());
-//        }
-//
-//        // Markers have a z-index that is settable and gettable.
-//        float zIndex = marker.getZIndex() + 1.0f;
-//        marker.setZIndex(zIndex);
-//        Toast.makeText(this, marker.getTitle() + " z-index set to " + zIndex,
-//                Toast.LENGTH_SHORT).show();
-//
-//        // Markers can store and retrieve a data object via the getTag/setTag methods.
-//        // Here we use it to retrieve the number of clicks stored for this marker.
-//        Integer clickCount = (Integer) marker.getTag();
-//        // Check if a click count was set.
-//        if (clickCount != null) {
-//            clickCount = clickCount + 1;
-//            // Markers can store and retrieve a data object via the getTag/setTag methods.
-//            // Here we use it to store the number of clicks for this marker.
-//            marker.setTag(clickCount);
-//            mTagText.setText(marker.getTitle() + " has been clicked " + clickCount + " times.");
-//        } else {
-//            mTagText.setText("");
-//        }
-//
-//        mLastSelectedMarker = marker;
-//        // We return false to indicate that we have not consumed the event and that we wish
-//        // for the default behavior to occur (which is for the camera to move such that the
-//        // marker is centered and for the marker's info window to open, if it has one).
-//        return false;
         return false;
     }
 

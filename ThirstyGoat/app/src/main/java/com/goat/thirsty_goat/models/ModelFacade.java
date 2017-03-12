@@ -5,7 +5,6 @@ import android.util.Log;
 import com.auth0.android.authentication.AuthenticationAPIClient;
 import com.auth0.android.result.Credentials;
 
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -35,42 +34,21 @@ public class ModelFacade {
         Log.d("ModelFacade", "model facade constructor");
     }
 
-//    public void addReport(String title, String desc, Location loc) {
-//        mReportManager.addReport(new WaterReport(title, desc, loc));
-//    }
-
     /**
-     * Tells the ReportManager class to add a report with the given parameters to its list of reports.
+     * Tells the User class to add a report with the given parameters.
      * @param type type of water
      * @param condition condition of the water
      * @param loc location of the water
      */
-    public void addWaterSourceReport(WaterType type, WaterCondition condition, Location loc) {
+    public void addWaterSourceReport(WaterType type, WaterSourceCondition condition, Location loc) {
         mUser.addWaterSourceReport(type, condition, loc);
-//        mReportManager.addReport(new WaterReport(type, condition, loc, mUser.getUserName()));
     }
 
-//    public void addReportAndMarker(String title, String desc, Location loc, Marker marker) {
-//        mReportManager.addReportAndMarker(new WaterReport(title, desc, loc), marker);
-//    }
-
     /**
-     * Gets the list of reports from the ReportManager class.
+     * Gets the map of reports from the ReportManager class.
      * @return list of stored reports
      */
     public Map<Location, WaterReport> getReports() { return mReportManager.getReports(); }
-
-    /**
-     * Gets the most recently submitted report from the ReportManager class.
-     * @return most recently submitted report
-     */
-    public WaterReport getLastReport() {
-        return mReportManager.getLastReport();
-    }
-
-//    public Map<Marker, WaterReport> getMarkers() {
-//        return mReportManager.getMarkers();
-//    }
 
     /**
      * Gets the current user's name from the User class.

@@ -9,5 +9,5 @@ public abstract class UserRole {
 
 
 
-    public abstract void addWaterSourceReport(WaterType type, WaterCondition condition, Location loc, String name);
+    public abstract void addWaterSourceReport(WaterType type, WaterSourceCondition condition, Location loc, String name);
 }
