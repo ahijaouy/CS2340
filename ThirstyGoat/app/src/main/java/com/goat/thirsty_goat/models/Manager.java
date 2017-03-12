@@ -7,7 +7,7 @@ import android.util.Log;
  * reports and trends of water purity; they can also delete individual reports.
  */
 public class Manager extends UserRole {
-    private static final String TAG = BasicUser.class.getSimpleName();
+    private static final String TAG = Manager.class.getSimpleName();
 
     public void addWaterSourceReport(WaterType type, WaterSourceCondition condition, Location loc, String name) {
         mReportManager.addWaterSourceReport(type, condition, loc, name);

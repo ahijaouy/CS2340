@@ -15,7 +15,6 @@ public class User {
     private static final String TAG = User.class.getSimpleName();
     // how can we make this not a User at runtime? Want it to be a subclass
     private static User userSingleton = new User();
-    private static ReportManager mReportManager = ReportManager.getInstance();
 
     private static UserRole mCurrentUser;
 
@@ -100,14 +99,6 @@ public class User {
     }
 
 
-
-
-
-
-
-
-
-
     /**
      * Allows an account type to be found by the value of it position in the AccountType enum.
      * @return the integer corresponding to the account type
@@ -141,6 +132,15 @@ public class User {
         switch(accountType) {
             case BASICUSER:
                 mCurrentUser = new BasicUser();
+                break;
+            case WORKER:
+                mCurrentUser = new Worker();
+                break;
+            case MANAGER:
+                mCurrentUser = new Manager();
+                break;
+            case ADMIN:
+                mCurrentUser = new Admin();
                 break;
             default:
                 Log.d(TAG, "You reached the default while setting the current user. This shouldn't happen.");
