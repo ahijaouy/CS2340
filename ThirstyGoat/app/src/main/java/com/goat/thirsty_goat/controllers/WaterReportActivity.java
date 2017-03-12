@@ -138,7 +138,7 @@ public class WaterReportActivity extends AppCompatActivity implements AdapterVie
     // for some reason, these aren't updating when clicked
     @ Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        Log.d("Report", "something selected");
+        Log.d("WaterReport", "something selected");
         switch (parent.getId()){
             case R.id.water_type_spinner:
                 mWaterType = (WaterType) parent.getItemAtPosition(position);
@@ -152,7 +152,7 @@ public class WaterReportActivity extends AppCompatActivity implements AdapterVie
     // for some reason, this isn't doing anything
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
-        Log.d("Report", "nothing selected");
+        Log.d("WaterReport", "nothing selected");
         switch (parent.getId()){
             case R.id.water_type_spinner:
                 mWaterType = WaterType.BOTTLED;
@@ -164,27 +164,27 @@ public class WaterReportActivity extends AppCompatActivity implements AdapterVie
     }
 
     protected void onSubmitPressed(View view) {
-        Log.d("Report", "pressed submit in water report");
+        Log.d("WaterReport", "pressed submit in water report");
         mLatitude = Double.parseDouble(mLatitudeEditText.getText().toString());
         mLongitude = Double.parseDouble(mLongitudeEditText.getText().toString());
 
         mWaterType = (WaterType) mWaterTypeSpinner.getSelectedItem();
         mWaterCondition = (WaterCondition) mWaterConditionSpinner.getSelectedItem();
 
-        Log.d("Report", "long = " + mLongitude);
-        Log.d("Report", "lat = " + mLatitude);
-        Log.d("Report", "type = " + mWaterType.toString());
-        Log.d("Report", "condition = " + mWaterCondition.toString());
+        Log.d("WaterReport", "long = " + mLongitude);
+        Log.d("WaterReport", "lat = " + mLatitude);
+        Log.d("WaterReport", "type = " + mWaterType.toString());
+        Log.d("WaterReport", "condition = " + mWaterCondition.toString());
 
         ModelFacade mFacade = ModelFacade.getInstance();
-        mFacade.addReport(mWaterType, mWaterCondition, new Location(mLatitude, mLongitude), mFacade.getUserName());
+        mFacade.addWaterSourceReport(mWaterType, mWaterCondition, new Location(mLatitude, mLongitude));
 
 
         finish();
     }
 
     protected void onCancelPressed(View view) {
-        Log.d("Report", "pressed cancel in water report");
+        Log.d("WaterReport", "pressed cancel in water report");
         finish();
     }
 }

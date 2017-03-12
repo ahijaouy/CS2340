@@ -1,6 +1,7 @@
 package com.goat.thirsty_goat.models;
 
 import android.accounts.Account;
+import android.util.Log;
 
 import com.auth0.android.authentication.AuthenticationAPIClient;
 import com.auth0.android.authentication.AuthenticationException;
@@ -9,11 +10,15 @@ import com.auth0.android.result.Credentials;
 import com.auth0.android.result.UserProfile;
 
 /**
- * This class represents a user, which can submit a report on water availability and view
- * available water sources.
+ * This class represents a generic user from which all other user types are derived.
  */
 public class User {
+    private static final String TAG = User.class.getSimpleName();
+    // how can we make this not a User at runtime? Want it to be a subclass
     private static User userSingleton = new User();
+    private static ReportManager mReportManager = ReportManager.getInstance();
+
+    private static UserRole mCurrentUser;
 
     /**
      * Gets the singleton instance of this User class.
@@ -72,6 +77,7 @@ public class User {
                     public void onSuccess(UserProfile payload) {
                         String accountType = payload.getUserMetadata().get("account_type").toString();
                         System.out.print(accountType);
+                        setCurrentUser(getAccountTypeFromString(accountType));
                         setAccountType(getAccountTypeFromString(accountType));
                         if (payload.getUserMetadata().get("name") != null) {
                             setUserName(payload.getUserMetadata().get("name").toString());
@@ -88,6 +94,21 @@ public class User {
                     }
                 });
     }
+
+
+    public void addWaterSourceReport(WaterType type, WaterCondition condition, Location loc) {
+        mCurrentUser.addWaterSourceReport(type, condition, loc, mUserName);
+    }
+
+
+
+
+
+
+
+
+
+
     /**
      * Allows an account type to be found by the value of it position in the AccountType enum.
      * @return the integer corresponding to the account type
@@ -113,9 +134,19 @@ public class User {
                 return type;
             }
         }
+        Log.d(TAG, "getAccountTypeFromString didn't find a match");
         return AccountType.BASICUSER;
     }
 
+    private void setCurrentUser(AccountType accountType) {
+        switch(accountType) {
+            case BASICUSER:
+                mCurrentUser = new BasicUser();
+                break;
+            default:
+                Log.d(TAG, "You reached the default while setting the current user. This shouldn't happen.");
+        }
+    }
 
     // Getters and setters
     /**

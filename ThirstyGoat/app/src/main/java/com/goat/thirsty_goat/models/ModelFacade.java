@@ -1,8 +1,9 @@
 package com.goat.thirsty_goat.models;
 
+import android.util.Log;
+
 import com.auth0.android.authentication.AuthenticationAPIClient;
 import com.auth0.android.result.Credentials;
-import com.google.android.gms.maps.model.Marker;
 
 import java.util.List;
 import java.util.Map;
@@ -27,14 +28,15 @@ public class ModelFacade {
     private User mUser;
 
     private ModelFacade() {
-        mReportManager = new ReportManager();
+        mReportManager = ReportManager.getInstance();
         //mCurrentUser = User.getInstance();
         //mUserManager = new UserManager();
         mUser = User.getInstance();
+        Log.d("ModelFacade", "model facade constructor");
     }
 
 //    public void addReport(String title, String desc, Location loc) {
-//        mReportManager.addReport(new Report(title, desc, loc));
+//        mReportManager.addReport(new WaterReport(title, desc, loc));
 //    }
 
     /**
@@ -43,29 +45,30 @@ public class ModelFacade {
      * @param condition condition of the water
      * @param loc location of the water
      */
-    public void addReport(WaterType type, WaterCondition condition, Location loc, String name) {
-        mReportManager.addReport(new Report(type, condition, loc, name));
+    public void addWaterSourceReport(WaterType type, WaterCondition condition, Location loc) {
+        mUser.addWaterSourceReport(type, condition, loc);
+//        mReportManager.addReport(new WaterReport(type, condition, loc, mUser.getUserName()));
     }
 
 //    public void addReportAndMarker(String title, String desc, Location loc, Marker marker) {
-//        mReportManager.addReportAndMarker(new Report(title, desc, loc), marker);
+//        mReportManager.addReportAndMarker(new WaterReport(title, desc, loc), marker);
 //    }
 
     /**
      * Gets the list of reports from the ReportManager class.
      * @return list of stored reports
      */
-    public List<Report> getReports() { return mReportManager.getReportList(); }
+    public Map<Location, WaterReport> getReports() { return mReportManager.getReports(); }
 
     /**
      * Gets the most recently submitted report from the ReportManager class.
      * @return most recently submitted report
      */
-    public Report getLastReport() {
+    public WaterReport getLastReport() {
         return mReportManager.getLastReport();
     }
 
-//    public Map<Marker, Report> getMarkers() {
+//    public Map<Marker, WaterReport> getMarkers() {
 //        return mReportManager.getMarkers();
 //    }
 

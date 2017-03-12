@@ -3,8 +3,11 @@ package com.goat.thirsty_goat.models;
 import android.util.Log;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.TimeZone;
 
 /**
@@ -14,17 +17,83 @@ import java.util.TimeZone;
  * Created by Walker on 2/26/17.
  */
 
-public class Report {
+public class WaterReport {
     private static int Next_ID = 0;
+
+    protected Location mLocation;
+    private List<WaterSourceReport> mWaterSourceReports;
+
+    public WaterReport(Location location) {
+        mWaterSourceReports = new LinkedList<>();
+        mLocation = location;
+    }
+
+    public static int getAndIncrementID() {
+        return Next_ID++;
+    }
+
+    public void addSourceReport(WaterType type, WaterCondition condition, String name) {
+        ((LinkedList<WaterSourceReport>) mWaterSourceReports).addFirst(new WaterSourceReport(type, condition, name));
+    }
+
+    public WaterSourceReport getCurrentWaterSourceReport() {
+        return ((LinkedList<WaterSourceReport>) mWaterSourceReports).getFirst();
+    }
+
+    public String getCurrentWaterSourceReportDateString() {
+        return getCurrentWaterSourceReport().getDateString();
+    }
+
+    public int getCurrentWaterSourceReportNumber() {
+        return getCurrentWaterSourceReport().getReportNumber();
+    }
+
+    public String getCurrentWaterSourceReportTypeString() {
+        return getCurrentWaterSourceReport().getWaterTypeString();
+    }
+
+    public String getCurrentWaterSourceReportConditionString() {
+        return getCurrentWaterSourceReport().getWaterConditionString();
+    }
+
+    public String getCurrentWaterSourceReportName() {
+        return getCurrentWaterSourceReport().getName();
+    }
+
+    /**
+     * Gets the latitude of this report.
+     * @return the latitude of this report
+     */
+    public double getLatitude() {
+        return mLocation.getLatitude();
+    }
+
+    /**
+     * Gets the longitude of this report.
+     * @return the longitude of this report.
+     */
+    public double getLongitude() {
+        return mLocation.getLongitude();
+    }
+
+    public Location getLocation() {
+        return mLocation;
+    }
+
+
+
+
+    
+
+
     private int mID;
     private String mName;
     private String mDescription;
-    private Location mLocation;
     private WaterType mWaterType;
     private WaterCondition mWaterCondition;
     private Calendar mCalendar;
 
-//    public Report(String name, String desc, Location location) {
+//    public WaterReport(String name, String desc, Location location) {
 //        mName = name;
 //        mDescription = desc;
 //        mLocation = location;
@@ -32,7 +101,7 @@ public class Report {
 //    }
 
     // todo: add name, date and time
-    public Report(WaterType type, WaterCondition condition, Location location, String name) {
+    public WaterReport(WaterType type, WaterCondition condition, Location location, String name) {
         //TODO: use Auth-O to populate with actual current user's name
         //mDescription = desc;
         mLocation = location;
@@ -45,10 +114,6 @@ public class Report {
         mName = name;
     }
 
-//    @ Override
-//    public String toString() {
-//        return mName + "\n" + mDescription;
-//    }
 
 
     /**
@@ -104,21 +169,25 @@ public class Report {
 //        return mDescription;
 //    }
 
-    /**
-     * Gets the latitude of this report.
-     * @return the latitude of this report
-     */
-    public double getLatitude() {
-        return mLocation.getLatitude();
-    }
-
-    /**
-     * Gets the longitude of this report.
-     * @return the longitude of this report.
-     */
-    public double getLongitude() {
-        return mLocation.getLongitude();
-    }
+//    /**
+//     * Gets the latitude of this report.
+//     * @return the latitude of this report
+//     */
+//    public double getLatitude() {
+//        return mLocation.getLatitude();
+//    }
+//
+//    /**
+//     * Gets the longitude of this report.
+//     * @return the longitude of this report.
+//     */
+//    public double getLongitude() {
+//        return mLocation.getLongitude();
+//    }
+//
+//    public Location getLocation() {
+//        return mLocation;
+//    }
 
     /**
      * Gets the string representation of the date of this report.

@@ -1,31 +1,20 @@
 package com.goat.thirsty_goat.controllers;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.os.Handler;
-import android.os.SystemClock;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import android.text.SpannableString;
-import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.View;
-import android.view.animation.BounceInterpolator;
-import android.view.animation.Interpolator;
-import android.widget.ImageView;
-import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.goat.thirsty_goat.R;
 import com.goat.thirsty_goat.models.Location;
 import com.goat.thirsty_goat.models.ModelFacade;
-import com.goat.thirsty_goat.models.Report;
+import com.goat.thirsty_goat.models.WaterReport;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -91,13 +80,13 @@ public class MapsActivity extends FragmentActivity implements
 
                 mCurrLatLong = latLng;
 
-                Log.d("Report", "pre handle");
+                Log.d("WaterReport", "pre handle");
                 // switches to Wa
                 handleReport(latLng);
-                Log.d("Report", "post handle");
+                Log.d("WaterReport", "post handle");
 
                 displayMarkers();
-                Log.d("Report", "post display markers");
+                Log.d("WaterReport", "post display markers");
             }
         });
 
@@ -116,36 +105,57 @@ public class MapsActivity extends FragmentActivity implements
 
     @Override
     public void onResume() {
-        Log.d("Report", "MapActivity's onResume");
+        Log.d("WaterReport", "MapActivity's onResume");
         super.onResume();
         if (mMap != null) {
             displayMarkers();
         }
     }
 
-    private Map<Marker, Report> markerReportMap = new HashMap<>();
+    private Map<Marker, WaterReport> markerReportMap = new HashMap<>();
 
     private void displayMarkers() {
-        Log.d("Report", "displaying markers");
-        List<Report> reportList = mFacade.getReports();
-        for (Report r : reportList) {
-            LatLng loc = new LatLng(r.getLatitude(), r.getLongitude());
-            //mMap.addMarker(new MarkerOptions().position(loc).title(r.getName()).snippet(r.getDescription()));
-            String titleString = r.getDateString() + "   Report #: " + r.getReportNumber();
-            String snippetString = "Lat: " + r.getLatitude() + "  Long: " + r.getLongitude()
-                    + "\nType: " + r.getWaterTypeString()
-                    + "\nCondition: " + r.getWaterConditionString()
-                    + "\nReporter name: " + r.getName();
+        Log.d("WaterReport", "displaying markers");
+        Map<Location, WaterReport> waterReportsMap = mFacade.getReports();
 
+        for (Location location : waterReportsMap.keySet()) {
+            WaterReport waterReport = waterReportsMap.get(location);
+            LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+//            String titleString = waterReport.getCurrentWaterSourceReportDateString();
+//            titleString += "   Water Report #: " + waterReport.getCurrentWaterSourceReportNumber();
+//            String snippetString = "Lat: " + latLng.latitude + "  Long: " + latLng.longitude
+//                    + "\nType: " +
+
+            String title = "TITLEEEE";
+            String snippet = "SNIPPETTTT";
             Marker markerAdded = mMap.addMarker(new MarkerOptions()
-                    .position(loc)
-                    //.title(r.getWaterCondition().toString())
-                    .title(titleString)
-                    .snippet(snippetString));
-            markerReportMap.put(markerAdded, r);
+                    .position(latLng)
+                    .title(title)
+                    .snippet(snippet));
+            markerReportMap.put(markerAdded, waterReport);
 
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(loc));
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
         }
+
+
+//        for (WaterReport r : waterReportList) {
+//            LatLng loc = new LatLng(r.getLatitude(), r.getLongitude());
+//            //mMap.addMarker(new MarkerOptions().position(loc).title(r.getName()).snippet(r.getDescription()));
+//            String titleString = r.getDateString() + "   WaterReport #: " + r.getReportNumber();
+//            String snippetString = "Lat: " + r.getLatitude() + "  Long: " + r.getLongitude()
+//                    + "\nType: " + r.getWaterTypeString()
+//                    + "\nCondition: " + r.getWaterConditionString()
+//                    + "\nReporter name: " + r.getName();
+//
+//            Marker markerAdded = mMap.addMarker(new MarkerOptions()
+//                    .position(loc)
+//                    //.title(r.getWaterCondition().toString())
+//                    .title(titleString)
+//                    .snippet(snippetString));
+//            markerReportMap.put(markerAdded, r);
+//
+//            mMap.moveCamera(CameraUpdateFactory.newLatLng(loc));
+//        }
     }
 
     private void handleReport(LatLng latLng) {
@@ -156,14 +166,7 @@ public class MapsActivity extends FragmentActivity implements
     }
 
 
-
-
-
     private class CustomInfoWindowAdapter implements InfoWindowAdapter {
-
-        // These are both viewgroups containing an ImageView with id "badge" and two TextViews with id
-        // "title" and "snippet".
-        //private final View mWindow;
 
         private final View mContents;
 
@@ -204,7 +207,7 @@ public class MapsActivity extends FragmentActivity implements
         private void render(Marker marker, View view) {
             Log.d("report", "render p1");
 
-            Report thisReport = markerReportMap.get(marker);
+            WaterReport thisWaterReport = markerReportMap.get(marker);
 
             Log.d("report", "render p2");
 
@@ -218,13 +221,13 @@ public class MapsActivity extends FragmentActivity implements
 
             Log.d("report", "render p3");
 
-            markerDate.setText(thisReport.getDateString());
-            markerReportNum.setText(String.valueOf(thisReport.getReportNumber()));
-            markerLatitude.setText(String.valueOf(thisReport.getLatitude()));
-            markerLongitude.setText(String.valueOf(thisReport.getLongitude()));
-            markerType.setText(thisReport.getWaterTypeString());
-            markerCondition.setText(thisReport.getWaterConditionString());
-            markerReporter.setText(thisReport.getName());
+            markerDate.setText(thisWaterReport.getCurrentWaterSourceReportDateString());
+            markerReportNum.setText(String.valueOf(thisWaterReport.getCurrentWaterSourceReportNumber()));
+            markerLatitude.setText(String.valueOf(thisWaterReport.getLatitude()));
+            markerLongitude.setText(String.valueOf(thisWaterReport.getLongitude()));
+            markerType.setText(thisWaterReport.getCurrentWaterSourceReportTypeString());
+            markerCondition.setText(thisWaterReport.getCurrentWaterSourceReportConditionString());
+            markerReporter.setText(thisWaterReport.getCurrentWaterSourceReportName());
 
             Log.d("report", "render p4");
 
