@@ -23,7 +23,6 @@ import com.google.android.gms.maps.GoogleMap.InfoWindowAdapter;
 
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -140,7 +139,7 @@ public class MapsActivity extends FragmentActivity implements
     }
 
     private void handleReport(LatLng latLng) {
-        Intent intent = new Intent(this, WaterReportActivity.class);
+        Intent intent = new Intent(this, WaterSourceReportActivity.class);
         intent.putExtra(LATITUDE_MESSAGE, latLng.latitude);
         intent.putExtra(LONGITUDE_MESSAGE, latLng.longitude);
         startActivity(intent);

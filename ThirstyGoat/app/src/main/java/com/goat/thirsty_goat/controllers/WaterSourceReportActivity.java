@@ -51,7 +51,7 @@ import com.goat.thirsty_goat.models.WaterType;
 /**
  * This activity handles the user submitting a new water report.
  */
-public class WaterReportActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class WaterSourceReportActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
 //    private EditText mUserNameField;
 //    private EditText mEmailField;

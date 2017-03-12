@@ -95,6 +95,7 @@ public class User {
 
 
     public void addWaterSourceReport(WaterType type, WaterSourceCondition condition, Location loc) {
+        Log.d(TAG, mAccountType.toString());
         mCurrentUser.addWaterSourceReport(type, condition, loc, mUserName);
     }
 
