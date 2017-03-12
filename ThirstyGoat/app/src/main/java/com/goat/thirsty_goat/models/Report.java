@@ -166,7 +166,7 @@ public class Report {
         Log.d(TAG, mLocation.toString());
         try {
             json = new JSONObject()
-                    .put("location", "Lat: -35.632768328155684; Lon: -66.5422671500")
+                    .put("location", mLocation)
                     .put("water_type", mWaterType.toString())
                     .put("water_condition", mWaterCondition.toString())
                     .put("date_modified", mDateTime.toString())
