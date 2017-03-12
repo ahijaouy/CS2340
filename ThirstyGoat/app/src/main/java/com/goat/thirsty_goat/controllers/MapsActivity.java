@@ -15,6 +15,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.InfoWindowAdapter;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -35,18 +36,27 @@ public class MapsActivity extends FragmentActivity implements
         GoogleMap.OnInfoWindowLongClickListener,
         GoogleMap.OnInfoWindowCloseListener {
 
+    private static final String TAG = MapsActivity.class.getSimpleName();
+
     public final static String LATITUDE_MESSAGE = "com.goat.thirsty_goat.LATITUDE";
     public final static String LONGITUDE_MESSAGE = "com.goat.thirsty_goat.LONGITUDE";
-    private static final String TAG = MapsActivity.class.getSimpleName();
+
+    private static final String KEY_CAMERA_POSITION = "camera_position";
 
     private GoogleMap mMap;
     private ModelFacade mFacade;
+    private CameraPosition mCameraPosition;
 
     private LatLng mCurrLatLong;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Retrieve camera position from saved isntance state
+        if (savedInstanceState != null) {
+            mCameraPosition = savedInstanceState.getParcelable(KEY_CAMERA_POSITION);
+        }
         setContentView(R.layout.activity_maps);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -99,6 +109,29 @@ public class MapsActivity extends FragmentActivity implements
         mMap.setOnMarkerDragListener(this);
         mMap.setOnInfoWindowCloseListener(this);
         mMap.setOnInfoWindowLongClickListener(this);
+//        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+//                == PackageManager.PERMISSION_GRANTED) {
+//            mMap.setMyLocationEnabled(true);
+//        } else {
+//            // Show rationale and request permission.
+//            Log.d(TAG, "my location not working");
+//        }
+
+        // Moving camera position back
+        if (mCameraPosition != null) {
+            mMap.moveCamera(CameraUpdateFactory.newCameraPosition(mCameraPosition));
+            Log.d(TAG, "Moving camera to position");
+        }
+
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        if (mMap != null) {
+            Log.d(TAG, "Saving Camera Position");
+            outState.putParcelable(KEY_CAMERA_POSITION, mMap.getCameraPosition());
+            super.onSaveInstanceState(outState);
+        }
     }
 
     @Override
