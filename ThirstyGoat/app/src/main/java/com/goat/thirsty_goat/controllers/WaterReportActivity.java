@@ -31,8 +31,8 @@ package com.goat.thirsty_goat.controllers;
  */
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -40,30 +40,22 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.auth0.android.Auth0;
-import com.auth0.android.authentication.AuthenticationAPIClient;
-import com.auth0.android.authentication.AuthenticationException;
-import com.auth0.android.callback.BaseCallback;
-import com.auth0.android.management.ManagementException;
-import com.auth0.android.management.UsersAPIClient;
-import com.auth0.android.result.UserProfile;
 import com.goat.thirsty_goat.R;
 import com.goat.thirsty_goat.models.Location;
 import com.goat.thirsty_goat.models.ModelFacade;
-import com.goat.thirsty_goat.models.User;
 import com.goat.thirsty_goat.models.WaterCondition;
 import com.goat.thirsty_goat.models.WaterType;
-
-import java.util.HashMap;
-import java.util.Map;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
 
 /**
  * This activity handles the user submitting a new water report.
  */
-public class WaterReportActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class WaterReportActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, OnMapReadyCallback {
 
 //    private EditText mUserNameField;
 //    private EditText mEmailField;
@@ -84,12 +76,15 @@ public class WaterReportActivity extends AppCompatActivity implements AdapterVie
     private Button mSubmitButton;
     private Button mCancelButton;
 
+    private GoogleMap mMap;
+
 
     // keeps up with instance data to create the report
     private WaterType mWaterType;
     private WaterCondition mWaterCondition;
     private double mLongitude;
     private double mLatitude;
+    private LatLng mLatLng;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,8 +97,8 @@ public class WaterReportActivity extends AppCompatActivity implements AdapterVie
 
         mSubmitButton = (Button) findViewById(R.id.submit_report_button);
         mCancelButton = (Button) findViewById(R.id.cancel_report_button);
-        mLatitudeEditText = (EditText) findViewById(R.id.latitude_edit_text);
-        mLongitudeEditText = (EditText) findViewById(R.id.longitude_edit_text);
+//        mLatitudeEditText = (EditText) findViewById(R.id.latitude_edit_text);
+//        mLongitudeEditText = (EditText) findViewById(R.id.longitude_edit_text);
         mWaterConditionSpinner = (Spinner) findViewById(R.id.water_condition_spinner);
         mWaterTypeSpinner = (Spinner) findViewById(R.id.water_type_spinner);
 
@@ -132,9 +127,15 @@ public class WaterReportActivity extends AppCompatActivity implements AdapterVie
             mLongitude = extras.getDouble(MapsActivity.LONGITUDE_MESSAGE);
             mLatitude = extras.getDouble(MapsActivity.LATITUDE_MESSAGE);
 
-            mLatitudeEditText.setText(String.valueOf(mLatitude), TextView.BufferType.EDITABLE);
-            mLongitudeEditText.setText(String.valueOf(mLongitude), TextView.BufferType.EDITABLE);
+//            mLatitudeEditText.setText(String.valueOf(mLatitude), TextView.BufferType.EDITABLE);
+//            mLongitudeEditText.setText(String.valueOf(mLongitude), TextView.BufferType.EDITABLE);
         }
+
+        // Maps things
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.mapFragment);
+        mapFragment.getMapAsync(this);
+
     }
 
     // for some reason, these aren't updating when clicked
@@ -167,8 +168,13 @@ public class WaterReportActivity extends AppCompatActivity implements AdapterVie
 
     protected void onSubmitPressed(View view) {
         Log.d(TAG, "pressed submit in water report");
-        mLatitude = Double.parseDouble(mLatitudeEditText.getText().toString());
-        mLongitude = Double.parseDouble(mLongitudeEditText.getText().toString());
+//        mLatitude = Double.parseDouble(mLatitudeEditText.getText().toString());
+//        mLongitude = Double.parseDouble(mLongitudeEditText.getText().toString());
+
+        // Maps things
+        LatLng mLatLng = mMap.getCameraPosition().target;
+        mLatitude = mLatLng.latitude;
+        mLongitude = mLatLng.longitude;
 
         mWaterType = (WaterType) mWaterTypeSpinner.getSelectedItem();
         mWaterCondition = (WaterCondition) mWaterConditionSpinner.getSelectedItem();
@@ -188,5 +194,11 @@ public class WaterReportActivity extends AppCompatActivity implements AdapterVie
     protected void onCancelPressed(View view) {
         Log.d(TAG, "pressed cancel in water report");
         finish();
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(mLatitude, mLongitude)));
     }
 }

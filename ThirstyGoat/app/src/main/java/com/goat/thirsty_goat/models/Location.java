@@ -1,15 +1,23 @@
 package com.goat.thirsty_goat.models;
 
+import com.google.android.gms.maps.model.LatLng;
+
 /**
  * This class represents a location and holds a latitude and longitude.
  */
 public class Location {
-    private double mLatitude;
-    private double mLongitute;
+//    private double mLatitude;
+//    private double mLongitute;
+    private LatLng mLatLng;
 
     public Location(double lat, double lon) {
-        mLatitude = lat;
-        mLongitute = lon;
+        mLatLng = new LatLng(lat, lon);
+//        mLatitude = lat;
+//        mLongitute = lon;
+    }
+
+    public Location(LatLng latLng) {
+        mLatLng = latLng;
     }
 
     /**
@@ -17,7 +25,8 @@ public class Location {
      * @return the latitude of this location
      */
     public double getLatitude() {
-        return mLatitude;
+        return mLatLng.latitude;
+//        return mLatitude;
     }
 
     /**
@@ -25,12 +34,14 @@ public class Location {
      * @return the longitude of this location
      */
     public double getLongitude() {
-        return mLongitute;
+        return mLatLng.longitude;
+//        return mLongitute;
     }
 
 
     @Override
     public String toString() {
-        return mLatitude + "," + mLongitute;
+        return getLatitude() + "," + getLongitude();
+//        return mLatitude + "," + mLongitute;
     }
 }

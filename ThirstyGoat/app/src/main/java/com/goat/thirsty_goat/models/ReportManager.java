@@ -209,8 +209,8 @@ public class ReportManager {
             WaterCondition waterCondition = waterCondValues[rand.nextInt(waterCondValues.length)];
 //            double lat = reportJson.getDouble(LAT);
 //            double lon = reportJson.getDouble(LON);
-            double lat = (rand.nextDouble() - 0.5) * 8 + 33;
-            double lon = (rand.nextDouble() - 0.5) * 8 - 85;
+            double lat = (rand.nextDouble() - 0.5) * 15 + 33;
+            double lon = (rand.nextDouble() - 0.5) * 15 - 85;
             Location location = new Location(lat, lon);
             String name = reportJson.getString(USER);
             int id = reportJson.getInt(ID);
