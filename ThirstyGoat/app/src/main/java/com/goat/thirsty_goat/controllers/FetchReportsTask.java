@@ -7,7 +7,7 @@ import com.goat.thirsty_goat.R;
 import com.goat.thirsty_goat.models.Location;
 import com.goat.thirsty_goat.models.ModelFacade;
 import com.goat.thirsty_goat.models.Report;
-import com.goat.thirsty_goat.models.WaterCondition;
+import com.goat.thirsty_goat.models.WaterSourceCondition;
 import com.goat.thirsty_goat.models.WaterType;
 
 import org.json.JSONArray;
@@ -64,7 +64,7 @@ public class FetchReportsTask extends AsyncTask<String, Void, List<Report>> {
 
         // Random testing
         WaterType[] waterTypeValues = WaterType.values();
-        WaterCondition[] waterCondValues = WaterCondition.values();
+        WaterSourceCondition[] waterCondValues = WaterSourceCondition.values();
         Random rand = new Random();
 
         List<Report> reports = new ArrayList<>();
@@ -72,9 +72,9 @@ public class FetchReportsTask extends AsyncTask<String, Void, List<Report>> {
 
             JSONObject reportJson = reportJsonArray.getJSONObject(i);
 //            WaterType waterType = WaterType.valueOf(reportJson.getString(WATER_TYPE));
-//            WaterCondition waterCondition = WaterCondition.valueOf(reportJson.getString(WATER_COND));
+//            WaterSourceCondition waterSourceCondition = WaterSourceCondition.valueOf(reportJson.getString(WATER_COND));
             WaterType waterType = waterTypeValues[rand.nextInt(waterTypeValues.length)];
-            WaterCondition waterCondition = waterCondValues[rand.nextInt(waterCondValues.length)];
+            WaterSourceCondition waterSourceCondition = waterCondValues[rand.nextInt(waterCondValues.length)];
 //            double lat = reportJson.getDouble(LAT);
 //            double lon = reportJson.getDouble(LON);
             double lat = (rand.nextDouble() - 0.5) * 8 + 33;
@@ -82,7 +82,7 @@ public class FetchReportsTask extends AsyncTask<String, Void, List<Report>> {
             Location location = new Location(lat, lon);
             String name = reportJson.getString(USER);
             // TODO: Calendar(int year, int month, int day) add calendar as param to report
-            reports.add(new Report(waterType, waterCondition, location, name));
+            reports.add(new Report(waterType, waterSourceCondition, location, name));
         }
         Log.d(TAG, "Created reports");
         return reports;
@@ -106,7 +106,7 @@ public class FetchReportsTask extends AsyncTask<String, Void, List<Report>> {
         BufferedReader reader = null;
 
         String reportJsonString;
-        final String BASE_URL = App.getResString(R.string.base_url);
+        final String BASE_URL = App.getResString(R.string.base_url_source_reports);
 //        final String ID_PARAM = "id";
 
         try {

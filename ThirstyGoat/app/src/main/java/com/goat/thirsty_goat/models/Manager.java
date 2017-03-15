@@ -10,7 +10,7 @@ public class Manager extends UserRole {
     private static final String TAG = Manager.class.getSimpleName();
 
     public void addWaterSourceReport(WaterType type, WaterSourceCondition condition, Location loc, String name) {
-        mReportManager.addWaterSourceReport(type, condition, loc, name);
+        mReportManager.setSourceReport(type, condition, loc, name);
         Log.d(TAG, "Manager addReport");
     }
 }

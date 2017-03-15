@@ -6,14 +6,14 @@ import com.google.android.gms.maps.model.LatLng;
  * This class represents a location and holds a latitude and longitude.
  */
 public class Location {
-//    private double mLatitude;
-//    private double mLongitute;
+    private double mLatitude;
+    private double mLongitute;
     private LatLng mLatLng;
 
     public Location(double lat, double lon) {
         mLatLng = new LatLng(lat, lon);
-//        mLatitude = lat;
-//        mLongitute = lon;
+        mLatitude = lat;
+        mLongitute = lon;
     }
 
     public Location(LatLng latLng) {

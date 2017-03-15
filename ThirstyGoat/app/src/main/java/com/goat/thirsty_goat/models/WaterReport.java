@@ -15,12 +15,12 @@ public class WaterReport {
 
     protected Location mLocation;
 //    private List<WaterSourceReport> mWaterSourceReports;
-    private WaterSourceReport mWaterSourceReport;
-    private List<WaterPurityReport> mWaterPurityReports;
+    private WaterSourceReport mSourceReport;
+    private List<WaterPurityReport> mPurityReport;
 
     public WaterReport(Location location) {
 //        mWaterSourceReports = new LinkedList<>();
-        mWaterPurityReports = new LinkedList<>();
+        mPurityReport = new LinkedList<>();
         mLocation = location;
     }
 
@@ -28,18 +28,21 @@ public class WaterReport {
         return Next_ID++;
     }
 
-    public void addSourceReport(WaterType type, WaterSourceCondition condition, String name) {
-//        ((LinkedList<WaterSourceReport>) mWaterSourceReports).addFirst(new WaterSourceReport(type, condition, name));
-        mWaterSourceReport = new WaterSourceReport(type, condition, name);
+    public void setSourceReport(WaterType type, WaterSourceCondition condition, String name) {
+        mSourceReport = new WaterSourceReport(type, condition, name);
+    }
+
+    public void setSourceReport(WaterSourceReport report) {
+        mSourceReport = report;
     }
 
     public WaterSourceReport getCurrentWaterSourceReport() {
 //        return ((LinkedList<WaterSourceReport>) mWaterSourceReports).getFirst();
-        return mWaterSourceReport;
+        return mSourceReport;
     }
 
     public String getCurrentWaterSourceReportDateString() {
-        return getCurrentWaterSourceReport().getDateString();
+        return getCurrentWaterSourceReport().getDateTimeString();
     }
 
     public int getCurrentWaterSourceReportNumber() {
@@ -72,7 +75,7 @@ public class WaterReport {
      * @param name the name of the person who submitted this purity report
      */
     public void addWaterPurityReport(WaterPurityCondition condition, double virusPPM, double contaminantPPM, String name) {
-        ((LinkedList<WaterPurityReport>) mWaterPurityReports).addFirst(new WaterPurityReport(condition, virusPPM, contaminantPPM, name));
+        ((LinkedList<WaterPurityReport>) mPurityReport).addFirst(new WaterPurityReport(condition, virusPPM, contaminantPPM, name));
     }
 
     /**
@@ -80,7 +83,7 @@ public class WaterReport {
      * @return the purity report associated with this source report, or null if none exists
      */
     public WaterPurityReport getWaterPurityReport() {
-        return ((LinkedList<WaterPurityReport>) mWaterPurityReports).getFirst();
+        return ((LinkedList<WaterPurityReport>) mPurityReport).getFirst();
     }
 
     /**

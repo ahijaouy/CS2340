@@ -24,26 +24,26 @@ public class ModelFacade {
 
 
     private ReportManager mReportManager;
-    private User mUser;
+    private UserManager mUserManager;
 
     /**
      * Creates a facade.
      */
     private ModelFacade() {
         mReportManager = new ReportManager();
-        mUser = User.getInstance();
+        mUserManager = UserManager.getInstance();
         Log.d(TAG, "model facade constructor");
     }
 
 
     /**
-     * Tells the User class to add a report with the given parameters.
+     * Tells the UserManager class to add a report with the given parameters.
      * @param type type of water
      * @param condition condition of the water
      * @param loc location of the water
      */
     public void addWaterSourceReport(WaterType type, WaterSourceCondition condition, Location loc) {
-        mUser.addWaterSourceReport(type, condition, loc);
+        mUserManager.addWaterSourceReport(type, condition, loc);
     }
 
     /**
@@ -65,11 +65,11 @@ public class ModelFacade {
     public Map<Location, WaterReport> getReports() { return mReportManager.getReports(); }
 
     /**
-     * Gets the current user's name from the User class.
+     * Gets the current user's name from the UserManager class.
      * @return current user's name
      */
     public String getUserName() {
-        return mUser.getUserName();
+        return mUserManager.getUserName();
     }
 
     /**
@@ -77,7 +77,7 @@ public class ModelFacade {
      * @return current user's email
      */
     public String getUserEmail() {
-        return mUser.getEmail();
+        return mUserManager.getEmail();
     }
 
     /**
@@ -85,7 +85,7 @@ public class ModelFacade {
      * @return the position in the enum of the current user's account type
      */
     public int getUserAccountTypePosition() {
-        return mUser.getAccountTypePosition();
+        return mUserManager.getAccountTypePosition();
     }
 
     /**
@@ -93,7 +93,7 @@ public class ModelFacade {
      * @param client the new client information that we want to use to update this user's profile
      */
     public void updateUserProfile(AuthenticationAPIClient client) {
-        mUser.updateUserProfile(client);
+        mUserManager.updateUserProfile(client);
     }
 
     /**
@@ -101,7 +101,7 @@ public class ModelFacade {
      * @return the current user's ID.
      */
     public String getUserID() {
-        return mUser.getCredentials().getIdToken();
+        return mUserManager.getCredentials().getIdToken();
     }
 
     /**
@@ -109,11 +109,11 @@ public class ModelFacade {
      * @param credentials the credentials to give to the current user
      */
     public void setUserCredentials(Credentials credentials) {
-        mUser.setCredentials(credentials);
+        mUserManager.setCredentials(credentials);
     }
 
     public void fetchReports() {
-        mReportManager.fetchReports();
+        mReportManager.fetchSourceReports();
     }
 
 

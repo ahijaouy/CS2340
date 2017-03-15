@@ -29,7 +29,7 @@ public class AddReportTask extends AsyncTask<Report, Void, Report> {
         HttpURLConnection urlConnection = null;
 
         String reportJsonString;
-        final String BASE_URL = App.getResString(R.string.base_url);
+        final String BASE_URL = App.getResString(R.string.base_url_source_reports);
 
         try {
 

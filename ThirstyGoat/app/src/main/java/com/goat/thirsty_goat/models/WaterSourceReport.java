@@ -14,55 +14,47 @@ import org.json.JSONObject;
  */
 
 public class WaterSourceReport {
+
+    private static final String TAG = WaterSourceReport.class.getSimpleName();
+
     private int mID;
     private String mName;
     private WaterType mWaterType;
     private WaterSourceCondition mWaterCondition;
-    private Calendar mCalendar;
     private LocalDateTime mDateTime;
-
-    private static final String TAG = WaterSourceReport.class.getSimpleName();
-
 
     /**
      * Creates new Report object.
      *
      * @param type type of water
      * @param cond condition of water
-     * @param loc  location of source
      * @param name name of user creating report
      */
-    public WaterSourceReport(WaterType type, WaterCondition cond, Location loc, String name) {
-        mLocation = loc;
+    public WaterSourceReport(WaterType type, WaterSourceCondition cond, String name) {
         mWaterType = type;
         mWaterCondition = cond;
         mDateTime = LocalDateTime.now();
-        Log.d(TAG, "DateTime: " + getDateTimeString());
         mName = name;
     }
 
     /**
-     * Creates new Report object with Calendar param.
+     * Creates new Report object with ID param.
      *
      * @param type type of water
      * @param cond condition fo water
-     * @param loc  location of source
      * @param name name of user creating report
      * @param id id of the user
+     * @param dateTime date/time of report when created
      */
-    public WwaterSourceReport(WaterType type, WaterCondition cond, Location loc, String name, int id) {
-        this(type, cond, loc, name);
+    public WaterSourceReport(WaterType type, WaterSourceCondition cond, String name, int id, LocalDateTime dateTime) {
+        this(type, cond, name);
         mID = id;
+        mDateTime = dateTime;
     }
 
     // ##########################################################
     // Methods dealing with getters/setters for WaterSourceReport
     // ##########################################################
-
-//    @ Override
-//    public String toString() {
-//        return mName + "\n" + mDescription;
-//    }
 
 
     /**

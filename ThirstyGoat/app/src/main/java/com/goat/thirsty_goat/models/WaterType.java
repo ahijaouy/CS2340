@@ -15,14 +15,22 @@ public enum WaterType {
     SPRING(App.getResString(R.string.water_type_spring)),
     OTHER(App.getResString(R.string.water_type_other));
 
-    private final String value;
+    private final String waterType;
 
     WaterType(String value) {
-        this.value = value;
+        this.waterType = value;
+    }
+
+    public static WaterType stringOf(String waterTypeString) {
+        try {
+            return valueOf(waterTypeString);
+        } catch (IllegalArgumentException e) {
+            return WaterType.values()[0];
+        }
     }
 
     @Override
     public String toString() {
-        return value;
+        return waterType;
     }
 }

@@ -107,6 +107,7 @@
     <string name="account_type_admin">Administrator</string>
 
     <!--Web stuff-->
-    <string name="base_url">http://thirstygoat.myoberon.com/api/source_reports</string>
+    <string name="base_url_source_reports">http://thirstygoat.myoberon.com/api/source_reports</string>
+    <string name="base_url_purity_reports">http://thirstygoat.myoberon.com/api/purity_reports</string>
 
 </resources>

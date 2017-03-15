@@ -13,18 +13,18 @@ import com.goat.thirsty_goat.controllers.App;
 /**
  * This class represents a generic user from which all other user types are derived.
  */
-public class User {
-    private static final String TAG = User.class.getSimpleName();
-    // how can we make this not a User at runtime? Want it to be a subclass
-    private static User INSTANCE = new User();
+public class UserManager {
+    private static final String TAG = UserManager.class.getSimpleName();
+    // how can we make this not a UserManager at runtime? Want it to be a subclass
+    private static UserManager INSTANCE = new UserManager();
 
     private static UserRole mCurrentUser;
 
     /**
-     * Gets the singleton instance of this User class.
-     * @return singleton instance of User
+     * Gets the singleton instance of this UserManager class.
+     * @return singleton instance of UserManager
      */
-    public static User getInstance() {
+    public static UserManager getInstance() {
         return INSTANCE;
     }
 
@@ -34,21 +34,21 @@ public class User {
     private Credentials mCredentials;
 
     /**
-     * Creates new User
+     * Creates new UserManager
      * @param accountType type of account for authority purposes
      * @param userName name of the user
      * @param email email of the user
      */
-    public User(AccountType accountType, String userName, String email) {
+    public UserManager(AccountType accountType, String userName, String email) {
         mAccountType = accountType;
         mUserName = userName;
         mEmail = email;
     }
 
     /**
-     * Creates new User with default values.
+     * Creates new UserManager with default values.
      */
-    public User() {
+    public UserManager() {
         this(AccountType.BASIC_USER, null, null);
     }
 
@@ -87,8 +87,8 @@ public class User {
                         if (payload.getUserMetadata().get("email") != null) {
                             setEmail(payload.getUserMetadata().get("email").toString());
                         }
-//                        User.setUserName(payload.getName());
-//                        User.setEmail(payload.getEmail());
+//                        UserManager.setUserName(payload.getName());
+//                        UserManager.setEmail(payload.getEmail());
                     }
                     @Override
                     public void onFailure(AuthenticationException error) {

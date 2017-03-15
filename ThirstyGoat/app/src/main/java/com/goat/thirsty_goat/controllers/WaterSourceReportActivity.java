@@ -19,7 +19,7 @@
 //import com.auth0.android.result.UserProfile;
 //import com.goat.thirsty_goat.R;
 //import com.goat.thirsty_goat.application.App;
-//import com.goat.thirsty_goat.models.User;
+//import com.goat.thirsty_goat.models.UserManager;
 //
 //import java.util.HashMap;
 //import java.util.Map;
@@ -40,12 +40,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import com.goat.thirsty_goat.R;
 import com.goat.thirsty_goat.models.Location;
 import com.goat.thirsty_goat.models.ModelFacade;
-import com.goat.thirsty_goat.models.WaterSourceCondition;
 import com.goat.thirsty_goat.models.WaterType;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -107,8 +105,8 @@ public class WaterSourceReportActivity extends AppCompatActivity implements Adap
 //        /**
 //         * Set up adapter to select account type
 //         */
-//        ArrayAdapter<User.AccountType> accountTypeAdapter =
-//                new ArrayAdapter(this, android.R.layout.simple_spinner_item, User.AccountType.values());
+//        ArrayAdapter<UserManager.AccountType> accountTypeAdapter =
+//                new ArrayAdapter(this, android.R.layout.simple_spinner_item, UserManager.AccountType.values());
 //        accountTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 //        mAccounTypeSpinner.setAdapter(accountTypeAdapter);
 
