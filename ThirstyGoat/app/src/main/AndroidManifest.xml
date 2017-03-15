@@ -77,8 +77,8 @@
             android:name=".controllers.WaterReportListActivity"
             android:label="Report List" />
         <activity
-            android:name=".controllers.WaterReportActivity"
-            android:label="@string/title_activity_water_report" />
+            android:name=".controllers.WaterSourceReportActivity"
+            android:label="@string/title_activity_water_report"/>
     </application>
 
 </manifest>

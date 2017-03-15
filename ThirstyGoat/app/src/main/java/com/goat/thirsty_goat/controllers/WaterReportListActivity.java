@@ -13,8 +13,9 @@ import android.widget.TextView;
 
 import com.goat.thirsty_goat.R;
 import com.goat.thirsty_goat.models.ModelFacade;
-import com.goat.thirsty_goat.models.Report;
+import com.goat.thirsty_goat.models.WaterReport;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,7 +26,6 @@ import java.util.List;
  */
 public class WaterReportListActivity extends AppCompatActivity {
 
-    LinearLayoutManager mLayoutManager;
     private static final String TAG = WaterReportListActivity.class.getSimpleName();
 
     @Override
@@ -44,10 +44,7 @@ public class WaterReportListActivity extends AppCompatActivity {
             Log.d(TAG, "recycler view is not null");
         }
 
-
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-
 
         //Step 2.  Hook up the adapter to the view
 //        setupRecyclerView((RecyclerView) recyclerView);
@@ -59,16 +56,12 @@ public class WaterReportListActivity extends AppCompatActivity {
      * @param recyclerView  the view that needs this adapter
      */
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
-//        mLayoutManager = new LinearLayoutManager(this);
-//        recyclerView.setLayoutManager(mLayoutManager);
-
-
         ModelFacade model = ModelFacade.getInstance();
         Log.d(TAG, "setting up recycler view");
         Log.d(TAG, model.getReports().get(0).getName());
+
         WaterReportViewAdapter mAdapter = new WaterReportViewAdapter(model.getReports());
         Log.d(TAG, "adapter: " + mAdapter);
-//        recyclerView.setAdapter(new WaterReportViewAdapter(model.getReports()));
         recyclerView.setAdapter(mAdapter);
     }
 
@@ -85,16 +78,15 @@ public class WaterReportListActivity extends AppCompatActivity {
         /**
          * Collection of the items to be shown in this list.
          */
-//        private final List<Report> mReports;
-        private List<Report> mReports;
+        private List<WaterReport> mWaterReports;
 
         /**
          * set the items to be used by the adapter
          * @param items the list of items to be displayed in the recycler view
          */
-        public WaterReportViewAdapter(List<Report> items) {
-            mReports = items;
-            Log.d(TAG, "Made it to constructor: " + mReports.get(0).getName());
+        public WaterReportViewAdapter(List<WaterReport> items) {
+            mWaterReports = items;
+            Log.d(TAG, "Made it to constructor: " + mWaterReports.get(0).getCurrentWaterSourceReportName());
             if (items == null) {
                 Log.d(TAG, "called constructor with null items");
             }
@@ -127,24 +119,29 @@ public class WaterReportListActivity extends AppCompatActivity {
             to an element in the view (which is one of our two TextView widgets
              */
             //start by getting the element at the correct position
-            holder.mReport = mReports.get(position);
+            holder.mWaterReport = mWaterReports.get(position);
             /*
               Now we bind the data to the widgets.  In this case, pretty simple, put the id in one
               textview and the string rep of a course in the other.
              */
-            holder.mNumber.setText("" + mReports.get(position).getReportNumber());
-            holder.mDateAndTime.setText(mReports.get(position).getDateTimeString());
-            holder.mReporterName.setText(mReports.get(position).getName());
-            holder.mLatitude.setText("" + mReports.get(position).getLatitude());
-            holder.mLongitude.setText("" + mReports.get(position).getLongitude());
-            holder.mWaterType.setText(mReports.get(position).getWaterTypeString());
-            holder.mWaterCondition.setText(mReports.get(position).getWaterConditionString());
+            holder.mNumber.setText("" + mWaterReports.get(position).getCurrentWaterSourceReportNumber());
+            holder.mDateAndTime.setText(mWaterReports.get(position).getCurrentWaterSourceReportDateString());
+            holder.mReporterName.setText(mWaterReports.get(position).getCurrentWaterSourceReportName());
+            holder.mLatitude.setText("" + mWaterReports.get(position).getLatitude());
+            holder.mLongitude.setText("" + mWaterReports.get(position).getLongitude());
+            holder.mWaterType.setText(mWaterReports.get(position).getCurrentWaterSourceReportTypeString());
+            holder.mWaterCondition.setText(mWaterReports.get(position).getCurrentWaterSourceReportConditionString());
+
+
 
             /*
              * set up a listener to handle if the user clicks on this list item, what should happen?
              */
-            //NOTE: I didn't implement this yet, since it's not required for M6 and the recycler view
-            //shows all the info for each report
+            /*
+              NOTE: I didn't implement this yet, since it's not required for M6 and the recycler view
+              shows all the info for each report. But, if you want to be able to take an action upon
+              clicking the view, this might be a good place to start
+            */
 //            holder.mView.setOnClickListener(new View.OnClickListener() {
 //                @Override
 //                public void onClick(View v) {
@@ -168,12 +165,13 @@ public class WaterReportListActivity extends AppCompatActivity {
 
         @Override
         public int getItemCount() {
-            return mReports.size();
+            Log.d(TAG, "is this ever called? 3");
+            return mWaterReports.size();
         }
 
         /**
          * This inner class represents a ViewHolder which provides us a way to cache information
-         * about the binding between the model element (in this case a Report) and the widgets in
+         * about the binding between the model element (in this case a WaterReport) and the widgets in
          * the list view (in this case all the data to display for a report)
          */
         public class ViewHolder extends RecyclerView.ViewHolder {
@@ -185,7 +183,7 @@ public class WaterReportListActivity extends AppCompatActivity {
             public final TextView mLongitude;
             public final TextView mWaterType;
             public final TextView mWaterCondition;
-            public Report mReport;
+            public WaterReport mWaterReport;
 
             public ViewHolder(View view) {
                 super(view);

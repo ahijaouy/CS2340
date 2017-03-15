@@ -40,11 +40,12 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.goat.thirsty_goat.R;
 import com.goat.thirsty_goat.models.Location;
 import com.goat.thirsty_goat.models.ModelFacade;
-import com.goat.thirsty_goat.models.WaterCondition;
+import com.goat.thirsty_goat.models.WaterSourceCondition;
 import com.goat.thirsty_goat.models.WaterType;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -52,10 +53,11 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 
+
 /**
  * This activity handles the user submitting a new water report.
  */
-public class WaterReportActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, OnMapReadyCallback {
+public class WaterSourceReportActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, OnMapReadyCallback {
 
 //    private EditText mUserNameField;
 //    private EditText mEmailField;
@@ -67,7 +69,7 @@ public class WaterReportActivity extends AppCompatActivity implements AdapterVie
 //    private AuthenticationAPIClient mClient;
 //    private UserProfile mUserProfile;
 
-    private static final String TAG = WaterReportActivity.class.getSimpleName();
+    private static final String TAG = WaterSourceReportActivity.class.getSimpleName();
 
     private EditText mLatitudeEditText;
     private EditText mLongitudeEditText;
@@ -81,7 +83,7 @@ public class WaterReportActivity extends AppCompatActivity implements AdapterVie
 
     // keeps up with instance data to create the report
     private WaterType mWaterType;
-    private WaterCondition mWaterCondition;
+    private WaterSourceCondition mWaterCondition;
     private double mLongitude;
     private double mLatitude;
     private LatLng mLatLng;
@@ -110,8 +112,8 @@ public class WaterReportActivity extends AppCompatActivity implements AdapterVie
 //        accountTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 //        mAccounTypeSpinner.setAdapter(accountTypeAdapter);
 
-        ArrayAdapter<WaterCondition> waterConditionAdapter =
-                new ArrayAdapter(this, android.R.layout.simple_spinner_item, WaterCondition.values());
+        ArrayAdapter<WaterSourceCondition> waterConditionAdapter =
+                new ArrayAdapter(this, android.R.layout.simple_spinner_item, WaterSourceCondition.values());
         waterConditionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mWaterConditionSpinner.setAdapter(waterConditionAdapter);
 
@@ -147,7 +149,7 @@ public class WaterReportActivity extends AppCompatActivity implements AdapterVie
                 mWaterType = (WaterType) parent.getItemAtPosition(position);
                 break;
             case R.id.water_condition_spinner:
-                mWaterCondition = (WaterCondition) parent.getItemAtPosition(position);
+                mWaterCondition = (WaterSourceCondition) parent.getItemAtPosition(position);
                 break;
         }
     }
@@ -161,7 +163,7 @@ public class WaterReportActivity extends AppCompatActivity implements AdapterVie
                 mWaterType = WaterType.BOTTLED;
                 break;
             case R.id.water_condition_spinner:
-                mWaterCondition = WaterCondition.POTABLE;
+                mWaterCondition = WaterSourceCondition.POTABLE;
                 break;
         }
     }
@@ -177,7 +179,7 @@ public class WaterReportActivity extends AppCompatActivity implements AdapterVie
         mLongitude = mLatLng.longitude;
 
         mWaterType = (WaterType) mWaterTypeSpinner.getSelectedItem();
-        mWaterCondition = (WaterCondition) mWaterConditionSpinner.getSelectedItem();
+        mWaterCondition = (WaterSourceCondition) mWaterConditionSpinner.getSelectedItem();
 
         Log.d(TAG, "long = " + mLongitude);
         Log.d(TAG, "lat = " + mLatitude);
@@ -185,7 +187,7 @@ public class WaterReportActivity extends AppCompatActivity implements AdapterVie
         Log.d(TAG, "condition = " + mWaterCondition.toString());
 
         ModelFacade mFacade = ModelFacade.getInstance();
-        mFacade.addReport(mWaterType, mWaterCondition, new Location(mLatitude, mLongitude), mFacade.getUserName());
+        mFacade.addWaterSourceReport(mWaterType, mWaterCondition, new Location(mLatitude, mLongitude));
 
 
         finish();

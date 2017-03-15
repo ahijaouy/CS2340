@@ -128,6 +128,9 @@ public class EditUserProfileActivity extends AppCompatActivity {
         mMapButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // this line clears any unsaved changes they may have made from appearing in the text fields
+                updateFields();
+
                 switchToMapView();
             }
         });
@@ -135,6 +138,9 @@ public class EditUserProfileActivity extends AppCompatActivity {
         mReportButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // this line clears any unsaved changes they may have made from appearing in the text fields
+                updateFields();
+
                 switchToAddReportView();
             }
         });
@@ -142,6 +148,9 @@ public class EditUserProfileActivity extends AppCompatActivity {
         mViewReportListButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // this line clears any unsaved changes they may have made from appearing in the text fields
+                updateFields();
+
                 switchToReportListView(v);
             }
         });
@@ -189,7 +198,7 @@ public class EditUserProfileActivity extends AppCompatActivity {
     }
 
     private void switchToAddReportView() {
-        Intent intent = new Intent(this, WaterReportActivity.class);
+        Intent intent = new Intent(this, WaterSourceReportActivity.class);
         startActivity(intent);
     }
 

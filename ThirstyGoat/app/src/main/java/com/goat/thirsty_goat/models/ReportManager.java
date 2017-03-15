@@ -17,9 +17,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Random;
+import java.util.Map;
 
 /**
  * A class that manages all reports and functionality by keeping a list of all reports
@@ -28,85 +28,50 @@ import java.util.Random;
  * Created by Walker on 2/26/17.
  */
 public class ReportManager {
-    private List<Report> mReports;
-//    private Map<Marker, Report> mMarkers = new HashMap<>();
+
     private static final String TAG = ReportManager.class.getSimpleName();
+
+    private static ReportManager INSTANCE = new ReportManager();
+    private Map<Location, WaterReport> mWaterReportsMap;
     private static final String BASE_URL = App.getContext().getString(R.string.base_url);
 
     /**
      * Creates a ReportManager instance.
      */
     public ReportManager() {
-        mReports = new ArrayList<>();
+        mWaterReportsMap = new HashMap<>();
 //        makeDummyReports();
+    }
+
+    public static ReportManager getInstance() {
+        return INSTANCE;
     }
 
     /**
      * Generates dummy reports for populating the map with preexisting reports.
      */
     private void makeDummyReports() {
-        addReport(new Report(WaterType.BOTTLED, WaterCondition.POTABLE, new Location(33.749, -84.388), "Bob"));
-        addReport(new Report(WaterType.LAKE, WaterCondition.WASTE, new Location(33.8, -84.5), "Sally"));
+        addWaterSourceReport(WaterType.BOTTLED, WaterSourceCondition.POTABLE, new Location(33.749, -84.388), "Bob");
+        addWaterSourceReport(WaterType.LAKE, WaterSourceCondition.WASTE, new Location(50.8, -70.5), "Sally");
     }
 
+    public void addWaterSourceReport(WaterType type, WaterSourceCondition condition, Location location, String name) {
+        if (mWaterReportsMap.get(location) == null) {
+            mWaterReportsMap.put(location, new WaterReport(location));
+        }
+        WaterReport waterReport = mWaterReportsMap.get(location);
+        waterReport.addSourceReport(type, condition, name);
+
+    }
+
+
+    // getters and setters
     /**
      * Gets the list of stored reports.
      * @return the stored list of reports
      */
-    public List<Report> getReportList() {
-        return mReports;
-    }
-
-    /**
-     * Adds a given report to the list of reports.
-     * @param report the report to add
-     */
-    public void addReport(Report report) {
-        Log.d(TAG, "Sending report to DB");
-        sendReport(report);
-        Log.d(TAG, "Report Sent");
-        mReports.add(report);
-        Log.d(TAG, "Added a water report!");
-    }
-
-    /**
-     * Adds all reports in the collection of reports param to the list fo reports.
-     * @param collection collection of reports to be added
-     */
-    public void addAllReports(Collection<Report> collection) {
-        mReports.addAll(collection);
-    }
-
-    /**
-     * Clear all the reports.
-     */
-    public void clearReports() {
-        mReports.clear();
-    }
-
-//    public void addReportAndMarker(Report report, Marker marker) {
-//        addReport(report);
-//        mMarkers.put(marker, report);
-//    }
-
-//    public Map<Marker, Report> getMarkers() {
-//        return mMarkers;
-//    }
-
-    /**
-     * Gets the last submitted report as a String from the list of reports.
-     * @return the last submitted report as a String
-     */
-    public String getLastReportString() {
-        return mReports.get(mReports.size() - 1).toString();
-    }
-
-    /**
-     * Gets the last submitted report as a String from the list of reports.
-     * @return the last submitted report as a String
-     */
-    public Report getLastReport() {
-        return mReports.get(mReports.size() - 1);
+    public Map<Location, WaterReport> getReports() {
+        return mWaterReportsMap;
     }
 
     /**

@@ -13,18 +13,15 @@ import org.json.JSONObject;
  * Created by Walker on 2/26/17.
  */
 
-public class Report {
-    private static int Next_ID = 0;
+public class WaterSourceReport {
     private int mID;
     private String mName;
-    private String mDescription;
-    private Location mLocation;
     private WaterType mWaterType;
-    private WaterCondition mWaterCondition;
-    //    private Calendar mCalendar;
+    private WaterSourceCondition mWaterCondition;
+    private Calendar mCalendar;
     private LocalDateTime mDateTime;
 
-    private static final String TAG = Report.class.getSimpleName();
+    private static final String TAG = WaterSourceReport.class.getSimpleName();
 
 
     /**
@@ -35,13 +32,10 @@ public class Report {
      * @param loc  location of source
      * @param name name of user creating report
      */
-    public Report(WaterType type, WaterCondition cond, Location loc, String name) {
-        //mDescription = desc;
+    public WaterSourceReport(WaterType type, WaterCondition cond, Location loc, String name) {
         mLocation = loc;
-//        mID = Next_ID++;
         mWaterType = type;
         mWaterCondition = cond;
-//        mCalendar = Calendar.getInstance();
         mDateTime = LocalDateTime.now();
         Log.d(TAG, "DateTime: " + getDateTimeString());
         mName = name;
@@ -56,12 +50,14 @@ public class Report {
      * @param name name of user creating report
      * @param id id of the user
      */
-    public Report(WaterType type, WaterCondition cond, Location loc, String name, int id) {
+    public WwaterSourceReport(WaterType type, WaterCondition cond, Location loc, String name, int id) {
         this(type, cond, loc, name);
         mID = id;
-
-//        mCalendar = cal;
     }
+
+    // ##########################################################
+    // Methods dealing with getters/setters for WaterSourceReport
+    // ##########################################################
 
 //    @ Override
 //    public String toString() {
@@ -71,7 +67,6 @@ public class Report {
 
     /**
      * Gets the name of the person who submitted this report.
-     *
      * @return the report submitter's name
      */
     public String getName() {
@@ -80,7 +75,6 @@ public class Report {
 
     /**
      * Gets the unique ID number of this report.
-     *
      * @return this report's unique ID number
      */
     public int getReportNumber() {
@@ -89,7 +83,6 @@ public class Report {
 
     /**
      * Gets the water type of this report.
-     *
      * @return the water type of this report
      */
     public WaterType getWaterType() {
@@ -98,7 +91,6 @@ public class Report {
 
     /**
      * Gets the string representation of the water type of this report.
-     *
      * @return the string representation of the water type of this report.
      */
     public String getWaterTypeString() {
@@ -107,10 +99,9 @@ public class Report {
 
     /**
      * Gets the water condition of this report.
-     *
      * @return the water condition of this report
      */
-    public WaterCondition getWaterCondition() {
+    public WaterSourceCondition getWaterCondition() {
         return mWaterCondition;
     }
 
@@ -123,29 +114,6 @@ public class Report {
         return mWaterCondition.toString();
     }
 
-
-//    public String getDescription() {
-//        return mDescription;
-//    }
-
-    /**
-     * Gets the latitude of this report.
-     *
-     * @return the latitude of this report
-     */
-    public double getLatitude() {
-        return mLocation.getLatitude();
-    }
-
-    /**
-     * Gets the longitude of this report.
-     *
-     * @return the longitude of this report.
-     */
-    public double getLongitude() {
-        return mLocation.getLongitude();
-    }
-
     /**
      * Gets the string representation of the date of this report in ISO 8601 format.
      *
@@ -153,8 +121,6 @@ public class Report {
      */
     public String getDateTimeString() {
         return mDateTime.toString();
-//        return "" + mCalendar.get(Calendar.MONTH) + "/" + mCalendar.get(Calendar.DAY_OF_MONTH)
-//                + "/" + mCalendar.get(Calendar.YEAR);
     }
 
     /**
