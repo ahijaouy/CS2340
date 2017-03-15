@@ -14,7 +14,7 @@ import com.auth0.android.result.UserProfile;
 public class User {
     private static final String TAG = User.class.getSimpleName();
     // how can we make this not a User at runtime? Want it to be a subclass
-    private static User userSingleton = new User();
+    private static User INSTANCE = new User();
 
     private static UserRole mCurrentUser;
 
@@ -23,7 +23,7 @@ public class User {
      * @return singleton instance of User
      */
     public static User getInstance() {
-        return userSingleton;
+        return INSTANCE;
     }
 
     private AccountType mAccountType;
@@ -44,11 +44,11 @@ public class User {
     }
 
     public User() {
-        this(AccountType.BASICUSER, null, null);
+        this(AccountType.BASIC_USER, null, null);
     }
 
     public enum AccountType {
-        BASICUSER("Basic User"),
+        BASIC_USER("Basic User"),
         MANAGER("Manager"),
         WORKER("Worker"),
         ADMIN("Administrator");
@@ -74,7 +74,6 @@ public class User {
                     @Override
                     public void onSuccess(UserProfile payload) {
                         String accountType = payload.getUserMetadata().get("account_type").toString();
-                        System.out.print(accountType);
                         setCurrentUser(getAccountTypeFromString(accountType));
                         setAccountType(getAccountTypeFromString(accountType));
                         if (payload.getUserMetadata().get("name") != null) {
@@ -88,7 +87,7 @@ public class User {
                     }
                     @Override
                     public void onFailure(AuthenticationException error) {
-
+                        Log.d(TAG, error.getMessage(), error);
                     }
                 });
     }
@@ -126,12 +125,12 @@ public class User {
             }
         }
         Log.d(TAG, "getAccountTypeFromString didn't find a match");
-        return AccountType.BASICUSER;
+        return AccountType.BASIC_USER;
     }
 
     private void setCurrentUser(AccountType accountType) {
         switch(accountType) {
-            case BASICUSER:
+            case BASIC_USER:
                 mCurrentUser = new BasicUser();
                 break;
             case WORKER:
