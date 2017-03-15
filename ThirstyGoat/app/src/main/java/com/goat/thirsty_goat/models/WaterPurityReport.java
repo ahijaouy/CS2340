@@ -1,22 +1,33 @@
 package com.goat.thirsty_goat.models;
 
-import java.util.Calendar;
+import android.util.Log;
+
+import org.joda.time.LocalDateTime;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * Created by Walker on 3/11/17.
  */
 
 public class WaterPurityReport {
+
+    private static final String TAG = WaterPurityReport.class.getSimpleName();
+
     private int mID;
     private String mName;
-    private WaterPurityCondition mWaterCondition;
-    private Calendar mCalendar;
+    private WaterPurityCondition mCondition;
+    private LocalDateTime mDateTime;
+    private double mVirusPPM;
+    private double mContaminantPPM;
 
     public WaterPurityReport(WaterPurityCondition condition, double virusPPM, double contaminantPPM, String name) {
-        mCalendar = Calendar.getInstance();
         mID = WaterReport.getAndIncrementID();
         mName = name;
-        mWaterCondition = condition;
+        mCondition = condition;
+        mDateTime = LocalDateTime.now();
+        mVirusPPM = virusPPM;
+        mContaminantPPM = contaminantPPM;
     }
 
     /**
@@ -40,7 +51,7 @@ public class WaterPurityReport {
      * @return the water condition of this report
      */
     public WaterPurityCondition getWaterCondition() {
-        return mWaterCondition;
+        return mCondition;
     }
 
     /**
@@ -48,7 +59,7 @@ public class WaterPurityReport {
      * @return the string representation of the warer condition of this report.
      */
     public String getWaterConditionString() {
-        return mWaterCondition.toString();
+        return mCondition.toString();
     }
 
     /**
@@ -56,7 +67,21 @@ public class WaterPurityReport {
      * @return the string representation of the date of this report.
      */
     public String getDateString() {
-        return "" + mCalendar.get(Calendar.MONTH) + "/" + mCalendar.get(Calendar.DAY_OF_MONTH)
-                + "/" + mCalendar.get(Calendar.YEAR);
+        return mDateTime.toString();
+    }
+
+    public JSONObject toJson() {
+        JSONObject json = null;
+        try {
+            json = new JSONObject()
+                    .put("overall_condition", mCondition.name())
+                    .put("virus_ppm", mVirusPPM)
+                    .put("contaminant_ppm", mContaminantPPM)
+                    .put("date_modified", mDateTime.toString())
+                    .put("user_modified", mName);
+        } catch (JSONException e) {
+            Log.e(TAG, e.getMessage(), e);
+        }
+        return json;
     }
 }

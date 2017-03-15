@@ -8,10 +8,10 @@ import com.goat.thirsty_goat.controllers.App;
  */
 
 public enum WaterSourceCondition {
-    WASTE(App.getResString(R.string.water_condition_waste)),
-    TREATABLE_CLEAR(App.getResString(R.string.water_condition_treatable_clear)),
-    TREATABLE_MUDDY(App.getResString(R.string.water_condition_treatable_muddy)),
-    POTABLE(App.getResString(R.string.water_condition_potable));
+    WASTE(App.getResString(R.string.source_condition_waste)),
+    TREATABLE_CLEAR(App.getResString(R.string.source_condition_treatable_clear)),
+    TREATABLE_MUDDY(App.getResString(R.string.source_condition_treatable_muddy)),
+    POTABLE(App.getResString(R.string.source_condition_potable));
 
     private final String value;
 

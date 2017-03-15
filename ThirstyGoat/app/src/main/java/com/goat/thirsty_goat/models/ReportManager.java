@@ -65,7 +65,7 @@ public class ReportManager {
     public void setSourceReport(WaterType type, WaterSourceCondition cond, Location location, String name) {
         WaterReport report = getReport(location);
         if (report.hasSourceReport()) {
-            // TODO delete old sourceReport in DB
+            // TODO: delete old sourceReport in DB
         }
         WaterSourceReport sourceReport = new WaterSourceReport(type, cond, name);
         report.setSourceReport(sourceReport);

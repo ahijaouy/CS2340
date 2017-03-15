@@ -87,8 +87,8 @@
 
     <string name="pref_title_vibrate">Vibrate</string>
 
+
     <!--Enums-->
-    
     <string name="water_type_bottled">Bottled</string>
     <string name="water_type_well">Well</string>
     <string name="water_type_stream">Stream</string>
@@ -96,18 +96,26 @@
     <string name="water_type_spring">Spring</string>
     <string name="water_type_other">Other</string>
 
-    <string name="water_condition_waste">Waste</string>
-    <string name="water_condition_treatable_clear">Treatable Clear</string>
-    <string name="water_condition_treatable_muddy">Treatable Muddy</string>
-    <string name="water_condition_potable">Potable</string>
+    <string name="source_condition_waste">Waste</string>
+    <string name="source_condition_treatable_clear">Treatable Clear</string>
+    <string name="source_condition_treatable_muddy">Treatable Muddy</string>
+    <string name="source_condition_potable">Potable</string>
+
+    <string name="purity_condition_safe">Safe</string>
+    <string name="purity_condition_treatable">Treatable</string>
+    <string name="purity_condition_unsafe">Unsafe</string>
 
     <string name="account_type_basic_user">Basic User</string>
     <string name="account_type_manager">Manager</string>
     <string name="account_type_worker">Worker</string>
     <string name="account_type_admin">Administrator</string>
 
+
+
     <!--Web stuff-->
     <string name="base_url_source_reports">http://thirstygoat.myoberon.com/api/source_reports</string>
     <string name="base_url_purity_reports">http://thirstygoat.myoberon.com/api/purity_reports</string>
+
+
 
 </resources>

@@ -57,11 +57,11 @@ public class WaterReportListActivity extends AppCompatActivity {
      */
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
         ModelFacade model = ModelFacade.getInstance();
-        Log.d(TAG, "setting up recycler view");
-        Log.d(TAG, model.getReports().get(0).getName());
+        Log.d("report", "setting up recycler view");
+        //Log.d("report", model.getReports().get(0).getName());
 
-        WaterReportViewAdapter mAdapter = new WaterReportViewAdapter(model.getReports());
-        Log.d(TAG, "adapter: " + mAdapter);
+        WaterReportViewAdapter mAdapter = new WaterReportViewAdapter(new ArrayList<WaterReport>(model.getReports().values()));
+        Log.d("report", "adapter: " + mAdapter);
         recyclerView.setAdapter(mAdapter);
     }
 

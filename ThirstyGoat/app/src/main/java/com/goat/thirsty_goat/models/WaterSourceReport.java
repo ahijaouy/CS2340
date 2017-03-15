@@ -19,8 +19,8 @@ public class WaterSourceReport {
 
     private int mID;
     private String mName;
-    private WaterType mWaterType;
-    private WaterSourceCondition mWaterCondition;
+    private WaterType mType;
+    private WaterSourceCondition mCondition;
     private LocalDateTime mDateTime;
 
     /**
@@ -31,8 +31,8 @@ public class WaterSourceReport {
      * @param name name of user creating report
      */
     public WaterSourceReport(WaterType type, WaterSourceCondition cond, String name) {
-        mWaterType = type;
-        mWaterCondition = cond;
+        mType = type;
+        mCondition = cond;
         mDateTime = LocalDateTime.now();
         mName = name;
     }
@@ -78,7 +78,7 @@ public class WaterSourceReport {
      * @return the water type of this report
      */
     public WaterType getWaterType() {
-        return mWaterType;
+        return mType;
     }
 
     /**
@@ -86,7 +86,7 @@ public class WaterSourceReport {
      * @return the string representation of the water type of this report.
      */
     public String getWaterTypeString() {
-        return mWaterType.toString();
+        return mType.toString();
     }
 
     /**
@@ -94,7 +94,7 @@ public class WaterSourceReport {
      * @return the water condition of this report
      */
     public WaterSourceCondition getWaterCondition() {
-        return mWaterCondition;
+        return mCondition;
     }
 
     /**
@@ -103,7 +103,7 @@ public class WaterSourceReport {
      * @return the string representation of the water condition of this report.
      */
     public String getWaterConditionString() {
-        return mWaterCondition.toString();
+        return mCondition.toString();
     }
 
     /**
@@ -123,8 +123,8 @@ public class WaterSourceReport {
         JSONObject json = null;
         try {
             json = new JSONObject()
-                    .put("water_type", mWaterType.toString())
-                    .put("water_condition", mWaterCondition.toString())
+                    .put("water_type", mType.name())
+                    .put("water_condition", mCondition.name())
                     .put("date_modified", mDateTime.toString())
                     .put("user_modified", mName);
         } catch (JSONException e) {

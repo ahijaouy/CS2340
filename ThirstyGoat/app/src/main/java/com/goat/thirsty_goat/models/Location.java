@@ -7,17 +7,15 @@ import com.google.android.gms.maps.model.LatLng;
  */
 public class Location {
     private double mLatitude;
-    private double mLongitute;
-    private LatLng mLatLng;
+    private double mLongitude;
 
     public Location(double lat, double lon) {
-        mLatLng = new LatLng(lat, lon);
         mLatitude = lat;
-        mLongitute = lon;
+        mLongitude = lon;
     }
 
     public Location(LatLng latLng) {
-        mLatLng = latLng;
+        this(latLng.latitude, latLng.longitude);
     }
 
     /**
@@ -25,8 +23,7 @@ public class Location {
      * @return the latitude of this location
      */
     public double getLatitude() {
-        return mLatLng.latitude;
-//        return mLatitude;
+        return mLatitude;
     }
 
     /**
@@ -34,15 +31,14 @@ public class Location {
      * @return the longitude of this location
      */
     public double getLongitude() {
-        return mLatLng.longitude;
-//        return mLongitute;
+        return mLongitude;
     }
 
 
     @Override
     public String toString() {
-        return getLatitude() + "," + getLongitude();
-//        return mLatitude + "," + mLongitute;
+//        return getLatitude() + "," + getLongitude();
+        return mLatitude + "," + mLongitude;
     }
 
     @Override
@@ -53,8 +49,7 @@ public class Location {
         Location location = (Location) o;
 
         if (Double.compare(location.mLatitude, mLatitude) != 0) return false;
-        return Double.compare(location.mLongitute, mLongitute) == 0;
-
+        return Double.compare(location.mLongitude, mLongitude) == 0;
     }
 
     @Override
@@ -63,7 +58,7 @@ public class Location {
         long temp;
         temp = Double.doubleToLongBits(mLatitude);
         result = (int) (temp ^ (temp >>> 32));
-        temp = Double.doubleToLongBits(mLongitute);
+        temp = Double.doubleToLongBits(mLongitude);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         return result;
     }
