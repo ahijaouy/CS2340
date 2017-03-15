@@ -121,10 +121,8 @@ public class WaterSourceReport {
      */
     public JSONObject toJson() {
         JSONObject json = null;
-        Log.d(TAG, mLocation.toString());
         try {
             json = new JSONObject()
-                    .put("location", mLocation)
                     .put("water_type", mWaterType.toString())
                     .put("water_condition", mWaterCondition.toString())
                     .put("date_modified", mDateTime.toString())

@@ -44,6 +44,7 @@ import android.widget.Spinner;
 import com.goat.thirsty_goat.R;
 import com.goat.thirsty_goat.models.Location;
 import com.goat.thirsty_goat.models.ModelFacade;
+import com.goat.thirsty_goat.models.WaterSourceCondition;
 import com.goat.thirsty_goat.models.WaterType;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -101,14 +102,6 @@ public class WaterSourceReportActivity extends AppCompatActivity implements Adap
 //        mLongitudeEditText = (EditText) findViewById(R.id.longitude_edit_text);
         mWaterConditionSpinner = (Spinner) findViewById(R.id.water_condition_spinner);
         mWaterTypeSpinner = (Spinner) findViewById(R.id.water_type_spinner);
-
-//        /**
-//         * Set up adapter to select account type
-//         */
-//        ArrayAdapter<UserManager.AccountType> accountTypeAdapter =
-//                new ArrayAdapter(this, android.R.layout.simple_spinner_item, UserManager.AccountType.values());
-//        accountTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//        mAccounTypeSpinner.setAdapter(accountTypeAdapter);
 
         ArrayAdapter<WaterSourceCondition> waterConditionAdapter =
                 new ArrayAdapter(this, android.R.layout.simple_spinner_item, WaterSourceCondition.values());
@@ -186,7 +179,6 @@ public class WaterSourceReportActivity extends AppCompatActivity implements Adap
 
         ModelFacade mFacade = ModelFacade.getInstance();
         mFacade.addWaterSourceReport(mWaterType, mWaterCondition, new Location(mLatitude, mLongitude));
-
 
         finish();
     }

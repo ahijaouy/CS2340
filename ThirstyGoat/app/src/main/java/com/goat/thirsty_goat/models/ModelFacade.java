@@ -47,18 +47,6 @@ public class ModelFacade {
     }
 
     /**
-     * Uses the singleton ReportManager to add all reports in the collection parameter.
-     * @param collection collection of reports to be added
-     */
-    public void addAllReports(Collection<Report> collection) {
-//        mReportManager.addAllReports(collection);
-    }
-
-//    public void addReportAndMarker(String title, String desc, Location loc, Marker marker) {
-//        mReportManager.addReportAndMarker(new Report(title, desc, loc), marker);
-//    }
-
-    /**
      * Gets the map of reports from the ReportManager class.
      * @return list of stored reports
      */

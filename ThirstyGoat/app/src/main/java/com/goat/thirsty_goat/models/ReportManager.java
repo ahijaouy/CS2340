@@ -62,21 +62,26 @@ public class ReportManager {
         setSourceReport(WaterType.LAKE, WaterSourceCondition.WASTE, new Location(50.8, -70.5), "Sally");
     }
 
-    public void setSourceReport(WaterType type, WaterSourceCondition condition, Location location, String name) {
-        if (mReportsMap.get(location) == null) {
-            mReportsMap.put(location, new WaterReport(location));
+    public void setSourceReport(WaterType type, WaterSourceCondition cond, Location location, String name) {
+        WaterReport report = getReport(location);
+        if (report.hasSourceReport()) {
+            // TODO delete old sourceReport in DB
         }
-        WaterReport report = mReportsMap.get(location);
-        report.setSourceReport(type, condition, name);
-
+        WaterSourceReport sourceReport = new WaterSourceReport(type, cond, name);
+        report.setSourceReport(sourceReport);
+        sendSourceReport(sourceReport, location);
     }
 
-    private void setSourceReport(Location location, WaterSourceReport sourceReport) {
+    private void setOldSourceReport(Location location, WaterSourceReport sourceReport) {
+        WaterReport report = getReport(location);
+        report.setSourceReport(sourceReport);
+    }
+
+    private WaterReport getReport(Location location) {
         if (mReportsMap.get(location) == null) {
             mReportsMap.put(location, new WaterReport(location));
         }
-        WaterReport report = mReportsMap.get(location);
-        report.setSourceReport(sourceReport);
+        return mReportsMap.get(location);
     }
 
 
@@ -105,7 +110,7 @@ public class ReportManager {
             public void onResponse(JSONArray response) {
                 clearReports();
                 try {
-                    addAllSourceReports(response);
+                    addOldSourceReports(response);
                 } catch (JSONException e) {
                     Log.e(TAG, e.getMessage(), e);
                 }
@@ -125,7 +130,7 @@ public class ReportManager {
                     @Override
                     public void onResponse(JSONArray response) {
                         try {
-                            addAllPurityReports(response);
+                            addOldPurityReports(response);
                         } catch (JSONException e) {
                             Log.e(TAG, e.getMessage(), e);
                         }
@@ -141,11 +146,15 @@ public class ReportManager {
 
     /**
      * Send report to Database through a http POST request.
-     * @param report Report instance to be sent
+     * @param sourceReport Report instance to be sent
      */
-    public void sendSourceReport(final WaterSourceReport report) {
-        RequestQueue queue = Volley.newRequestQueue(App.getContext());
-        final JSONObject reportJson = report.toJson();
+    public void sendSourceReport(final WaterSourceReport sourceReport, Location location) {
+        final JSONObject reportJson = sourceReport.toJson();
+        try {
+           reportJson.put("location", location);
+        } catch (JSONException e) {
+            Log.d(TAG, e.getMessage(), e);
+        }
 
         JsonObjectRequest jsonRequest = new JsonObjectRequest(SOURCE_REPORTS_URL, reportJson,
                 new Response.Listener<JSONObject>() {
@@ -154,7 +163,7 @@ public class ReportManager {
                         Log.d(TAG, "Sent: " + reportJson.toString());
                         Log.d(TAG, "Posted: " + response.toString());
                         try {
-                            report.setID(response.getInt("insertId"));
+                            sourceReport.setID(response.getInt("insertId"));
                         } catch (JSONException e) {
                             Log.e(TAG, e.getMessage(), e);
                         }
@@ -165,7 +174,7 @@ public class ReportManager {
                         Log.e(TAG, error.getMessage(), error);
                     }
         });
-        queue.add(jsonRequest);
+        mRequestQueue.add(jsonRequest);
     }
 
     /**
@@ -173,7 +182,7 @@ public class ReportManager {
      * @param jsonArray JSON array to be parsed and added
      * @throws JSONException
      */
-    private void addAllSourceReports(JSONArray jsonArray) throws JSONException {
+    private void addOldSourceReports(JSONArray jsonArray) throws JSONException {
 
         // JSON object names
         final String SOURCE_ID = "source_report_id";
@@ -204,12 +213,12 @@ public class ReportManager {
             String name = reportJson.getString(USER);
             int id = reportJson.getInt(SOURCE_ID);
             LocalDateTime dateTime = LocalDateTime.parse(reportJson.getString(DATE));
-            setSourceReport(location, new WaterSourceReport(waterType, condition, name, id, dateTime));
+            setOldSourceReport(location, new WaterSourceReport(waterType, condition, name, id, dateTime));
             Log.d(TAG, "Adding source report from DB");
         }
     }
 
-    private void addAllPurityReports(JSONArray jsonArray) throws JSONException {
+    private void addOldPurityReports(JSONArray jsonArray) throws JSONException {
 
         // JSON object names
         final String PURITY_ID = "source_id";

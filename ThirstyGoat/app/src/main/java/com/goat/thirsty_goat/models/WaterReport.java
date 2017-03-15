@@ -28,6 +28,10 @@ public class WaterReport {
         return Next_ID++;
     }
 
+    public boolean hasSourceReport() {
+        return mSourceReport != null;
+    }
+
     public void setSourceReport(WaterType type, WaterSourceCondition condition, String name) {
         mSourceReport = new WaterSourceReport(type, condition, name);
     }
