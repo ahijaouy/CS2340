@@ -34,7 +34,7 @@ import android.view.View;
  */
 public class WaterReportListActivity extends AppCompatActivity  {
 
-    int size_of_list = 1;
+    int size_of_list = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceData) {
