@@ -13,4 +13,9 @@ public class BasicUser extends UserRole {
         mReportManager.addWaterSourceReport(type, condition, loc, name);
         Log.d(TAG, "BasicUser addReport");
     }
+
+    @Override
+    public void addWaterPurityReport(WaterPurityCondition condition, String name, double virusPPM, double contaminantPPM) {
+
+    }
 }

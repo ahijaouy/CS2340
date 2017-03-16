@@ -11,12 +11,16 @@ public class WaterPurityReport {
     private String mName;
     private WaterPurityCondition mWaterCondition;
     private Calendar mCalendar;
+    private double mVirusPPM;
+    private double mContaminantPPM;
 
     public WaterPurityReport(WaterPurityCondition condition, double virusPPM, double contaminantPPM, String name) {
         mCalendar = Calendar.getInstance();
         mID = WaterReport.getAndIncrementID();
         mName = name;
         mWaterCondition = condition;
+        mVirusPPM = virusPPM;
+        mContaminantPPM = contaminantPPM;
     }
 
     /**

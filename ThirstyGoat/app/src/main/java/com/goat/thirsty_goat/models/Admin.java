@@ -21,4 +21,9 @@ public class Admin extends UserRole {
           that would allow this method to be reached.
         */
     }
+
+    @Override
+    public void addWaterPurityReport(WaterPurityCondition condition, String name, double virusPPM, double contaminantPPM) {
+
+    }
 }

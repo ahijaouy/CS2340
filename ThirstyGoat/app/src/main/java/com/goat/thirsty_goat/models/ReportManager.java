@@ -40,9 +40,7 @@ public class ReportManager {
         }
         WaterReport waterReport = mWaterReportsMap.get(location);
         waterReport.addSourceReport(type, condition, name);
-
     }
-
 
     // getters and setters
     /**
