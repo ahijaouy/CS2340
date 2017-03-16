@@ -17,4 +17,6 @@ public abstract class UserRole {
     */
 
     public abstract void addWaterSourceReport(WaterType type, WaterSourceCondition condition, Location loc, String name);
+
+    public abstract void addWaterPurityReport(WaterPurityCondition condition, String name, double virusPPM, double contaminantPPM);
 }

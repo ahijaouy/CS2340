@@ -13,4 +13,9 @@ public class Manager extends UserRole {
         mReportManager.addWaterSourceReport(type, condition, loc, name);
         Log.d(TAG, "Manager addReport");
     }
+
+    @Override
+    public void addWaterPurityReport(WaterPurityCondition condition, String name, double virusPPM, double contaminantPPM) {
+
+    }
 }

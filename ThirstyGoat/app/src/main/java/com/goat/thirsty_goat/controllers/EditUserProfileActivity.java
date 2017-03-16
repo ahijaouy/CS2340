@@ -198,7 +198,7 @@ public class EditUserProfileActivity extends AppCompatActivity {
     }
 
     private void switchToAddReportView() {
-        Intent intent = new Intent(this, WaterSourceReportActivity.class);
+        Intent intent = new Intent(this, WaterPurityReportActivity.class);
         startActivity(intent);
     }
 

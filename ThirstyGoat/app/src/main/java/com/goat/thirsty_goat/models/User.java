@@ -98,6 +98,10 @@ public class User {
         mCurrentUser.addWaterSourceReport(type, condition, loc, mUserName);
     }
 
+    public void addWaterPurityReport(WaterPurityCondition condition, double virusPPM, double contaminantPPM) {
+        mCurrentUser.addWaterPurityReport(condition, mUserName, virusPPM, contaminantPPM);
+    }
+
 
     /**
      * Allows an account type to be found by the value of it position in the AccountType enum.

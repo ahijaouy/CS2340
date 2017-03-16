@@ -44,6 +44,10 @@ public class ModelFacade {
         mUser.addWaterSourceReport(type, condition, loc);
     }
 
+    public void addWaterPurityReport(WaterPurityCondition condition, double virusPPM, double contaminantPPM) {
+        mUser.addWaterPurityReport(condition, virusPPM, contaminantPPM);
+    }
+
     /**
      * Gets the map of reports from the ReportManager class.
      * @return list of stored reports
