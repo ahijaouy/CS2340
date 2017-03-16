@@ -18,13 +18,23 @@ import com.goat.thirsty_goat.models.WaterReport;
 import java.util.ArrayList;
 import java.util.List;
 
+//imports ladd added
+import android.content.Context;
+import android.support.v7.widget.RecyclerView;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
+import android.view.View;
+
+
 /**
  * This is the activity that represents and displays the list of water reports that
  * have been submitted. Uses a RecyclerView.
  *
  * Created by Walker on 3/6/17.
  */
-public class WaterReportListActivity extends AppCompatActivity {
+public class WaterReportListActivity extends AppCompatActivity  {
+
+    int size_of_list = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceData) {
@@ -34,7 +44,29 @@ public class WaterReportListActivity extends AppCompatActivity {
 
         //Step 1.  Setup the recycler view by getting it from our layout in the main window
 //        View recyclerView = findViewById(R.id.water_report_list);
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.water_report_list);
+        final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.water_report_list);
+
+        // start of stuff Ladd added
+        recyclerView.addOnItemTouchListener(
+                //Context context = WaterReportListActivity.getContext();
+                new RecyclerItemClickListener(getApplicationContext(), recyclerView ,new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override public void onItemClick(View view, int position) {
+                        // do whatever
+                        Log.d("report", "ladd's code is actually doing something");
+                        for (int i = 0; i < size_of_list; i++) {
+                            if (position == i) {
+                                Log.d("report", "you clicked on the #:" + i + " element in the list");
+                            }
+                        }
+                    }
+
+                    @Override public void onLongItemClick(View view, int position) {
+                        // do whatever
+                    }
+                })
+        );
+        //end of stuff Ladd added
+
 //        assert recyclerView != null;
         if (recyclerView == null) {
             Log.d("report", "recycler view is null");
@@ -61,8 +93,57 @@ public class WaterReportListActivity extends AppCompatActivity {
         WaterReportViewAdapter mAdapter = new WaterReportViewAdapter(new ArrayList<WaterReport>(model.getReports().values()));
         Log.d("report", "adapter: " + mAdapter);
         recyclerView.setAdapter(mAdapter);
+        //ladd added this
+        size_of_list = mAdapter.getItemCount();
+        //end of what ladd added
     }
 
+    //start of stuff Ladd added
+    public static class RecyclerItemClickListener implements RecyclerView.OnItemTouchListener {
+        private OnItemClickListener mListener;
+
+        public interface OnItemClickListener {
+            void onItemClick(View view, int position);
+
+            void onLongItemClick(View view, int position);
+        }
+
+        GestureDetector mGestureDetector;
+
+        public  RecyclerItemClickListener(Context context, final RecyclerView recyclerView, OnItemClickListener listener) {
+            mListener = listener;
+            mGestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
+                @Override
+                public boolean onSingleTapUp(MotionEvent e) {
+                    return true;
+                }
+
+                @Override
+                public void onLongPress(MotionEvent e) {
+                    View child = recyclerView.findChildViewUnder(e.getX(), e.getY());
+                    if (child != null && mListener != null) {
+                        mListener.onLongItemClick(child, recyclerView.getChildAdapterPosition(child));
+                    }
+                }
+            });
+        }
+
+        @Override public boolean onInterceptTouchEvent(RecyclerView view, MotionEvent e) {
+            View childView = view.findChildViewUnder(e.getX(), e.getY());
+            if (childView != null && mListener != null && mGestureDetector.onTouchEvent(e)) {
+                mListener.onItemClick(childView, view.getChildAdapterPosition(childView));
+                return true;
+            }
+            return false;
+        }
+
+        @Override
+        public void onTouchEvent(RecyclerView view, MotionEvent motionEvent) {}
+
+        @Override
+        public void onRequestDisallowInterceptTouchEvent (boolean disallowIntercept){}
+    }
+    //end of stuff Ladd added
 
     /**
      * This inner class is our custom adapter.  It takes our basic model information and
@@ -72,6 +153,7 @@ public class WaterReportListActivity extends AppCompatActivity {
      */
     public class WaterReportViewAdapter
             extends RecyclerView.Adapter<WaterReportViewAdapter.ViewHolder> {
+
 
         /**
          * Collection of the items to be shown in this list.
@@ -202,4 +284,5 @@ public class WaterReportListActivity extends AppCompatActivity {
             }
         }
     }
+
 }
