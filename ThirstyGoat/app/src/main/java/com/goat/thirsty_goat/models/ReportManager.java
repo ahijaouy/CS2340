@@ -3,6 +3,7 @@ package com.goat.thirsty_goat.models;
 
 import android.util.Log;
 
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -238,5 +239,54 @@ public class ReportManager {
 
             // TODO Implement json parsing adding purity report to report map
         }
+    }
+
+    private void deleteSourceReport(int id) {
+        String url = PURITY_REPORTS_URL + "/" + id;
+    }
+
+    private void deleteReport(Object o) {
+        String url;
+        int id;
+        if (o instanceof WaterSourceReport) {
+            id = ((WaterSourceReport) o).getReportNumber();
+            url = SOURCE_REPORTS_URL + "/" + id;
+        } else if (o instanceof  WaterPurityReport) {
+            id = ((WaterPurityReport) o).getReportNumber();
+            url = PURITY_REPORTS_URL + "/" + id;
+        } else {
+            Log.d(TAG, "Object passed to deleteReport not a source nor purity Report");
+            url = null;
+        }
+
+//        switch (o.getClass().getName()) {
+//            case WaterSourceReport.class.getName():
+//                id = ((WaterSourceReport) o).getReportNumber();
+//                url = SOURCE_REPORTS_URL + "/" + id;
+//                break;
+//            case WaterPurityReport.class:
+//                id = ((WaterPurityReport) o).getReportNumber();
+//                url = PURITY_REPORTS_URL + "/" + id;
+//                break;
+//            default:
+//                Log.d(TAG, "Object passed to deleteReport not a source nor purity Report");
+//                url = null;
+//                break;
+//        }
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.DELETE, url, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.d(TAG, response.toString());
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e(TAG, error.getMessage(), error);
+                    }
+        });
+
+        mRequestQueue.add(request);
     }
 }
