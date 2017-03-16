@@ -113,8 +113,8 @@
 
 
     <!--Web stuff-->
-    <string name="base_url_source_reports">http://thirstygoat.myoberon.com/api/source_reports</string>
-    <string name="base_url_purity_reports">http://thirstygoat.myoberon.com/api/purity_reports</string>
+    <string name="base_url_source_reports">https://thirstygoat.myoberon.com/api/source_reports</string>
+    <string name="base_url_purity_reports">https://thirstygoat.myoberon.com/api/purity_reports</string>
 
 
 

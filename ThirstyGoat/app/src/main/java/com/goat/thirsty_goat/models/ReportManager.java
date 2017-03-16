@@ -48,7 +48,7 @@ public class ReportManager {
     public ReportManager() {
         mReportsMap = new HashMap<>();
         mRequestQueue = Volley.newRequestQueue(App.getContext());
-//        makeDummyReports();
+        makeDummyReports();
     }
 
     public static ReportManager getInstance() {
@@ -64,13 +64,16 @@ public class ReportManager {
     }
 
     public void setSourceReport(SourceType type, SourceCondition cond, Location location, String name) {
+        Log.d(TAG, "Setting new Report");
         Report report = getReport(location);
         if (report.hasSourceReport()) {
             // TODO: delete old sourceReport in DB
         }
         SourceReport sourceReport = new SourceReport(type, cond, name);
         report.setSourceReport(sourceReport);
+        Log.d(TAG, "Sending report");
         sendSourceReport(sourceReport, location);
+        Log.d(TAG, "Added new report");
     }
 
     private void setOldSourceReport(Location location, SourceReport sourceReport) {

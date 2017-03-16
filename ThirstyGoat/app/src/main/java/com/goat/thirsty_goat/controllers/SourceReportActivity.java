@@ -168,6 +168,7 @@ public class SourceReportActivity extends AppCompatActivity implements AdapterVi
         LatLng mLatLng = mMap.getCameraPosition().target;
         mLatitude = mLatLng.latitude;
         mLongitude = mLatLng.longitude;
+        Log.d(TAG, "Latitude to add:" + Double.toString(mLatitude));
 
         mSourceType = (SourceType) mWaterTypeSpinner.getSelectedItem();
         mWaterCondition = (SourceCondition) mWaterConditionSpinner.getSelectedItem();
