@@ -42,7 +42,7 @@ public class ModelFacade {
      * @param condition condition of the water
      * @param loc location of the water
      */
-    public void addWaterSourceReport(WaterType type, WaterSourceCondition condition, Location loc) {
+    public void addWaterSourceReport(SourceType type, SourceCondition condition, Location loc) {
         mUserManager.addWaterSourceReport(type, condition, loc);
     }
 
@@ -50,7 +50,7 @@ public class ModelFacade {
      * Gets the map of reports from the ReportManager class.
      * @return list of stored reports
      */
-    public Map<Location, WaterReport> getReports() { return mReportManager.getReports(); }
+    public Map<Location, Report> getReports() { return mReportManager.getReports(); }
 
     /**
      * Gets the current user's name from the UserManager class.

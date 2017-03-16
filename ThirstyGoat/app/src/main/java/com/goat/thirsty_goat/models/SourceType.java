@@ -7,7 +7,7 @@ import com.goat.thirsty_goat.controllers.App;
  * An enum that represents the water type for a given water source.
  */
 
-public enum WaterType {
+public enum SourceType {
     BOTTLED(App.getResString(R.string.water_type_bottled)),
     WELL(App.getResString(R.string.water_type_well)),
     STREAM(App.getResString(R.string.water_type_stream)),
@@ -17,15 +17,15 @@ public enum WaterType {
 
     private final String waterType;
 
-    WaterType(String value) {
+    SourceType(String value) {
         this.waterType = value;
     }
 
-    public static WaterType stringOf(String waterTypeString) {
+    public static SourceType stringOf(String waterTypeString) {
         try {
             return valueOf(waterTypeString);
         } catch (IllegalArgumentException e) {
-            return WaterType.values()[0];
+            return SourceType.values()[0];
         }
     }
 

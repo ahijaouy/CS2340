@@ -10,15 +10,15 @@ import java.util.List;
  * Created by Walker on 2/26/17.
  */
 
-public class WaterReport {
+public class Report {
     private static int Next_ID = 0;
 
     protected Location mLocation;
-//    private List<WaterSourceReport> mWaterSourceReports;
-    private WaterSourceReport mSourceReport;
-    private List<WaterPurityReport> mPurityReport;
+//    private List<SourceReport> mWaterSourceReports;
+    private SourceReport mSourceReport;
+    private List<PurityReport> mPurityReport;
 
-    public WaterReport(Location location) {
+    public Report(Location location) {
 //        mWaterSourceReports = new LinkedList<>();
         mPurityReport = new LinkedList<>();
         mLocation = location;
@@ -32,16 +32,16 @@ public class WaterReport {
         return mSourceReport != null;
     }
 
-    public void setSourceReport(WaterType type, WaterSourceCondition condition, String name) {
-        mSourceReport = new WaterSourceReport(type, condition, name);
+    public void setSourceReport(SourceType type, SourceCondition condition, String name) {
+        mSourceReport = new SourceReport(type, condition, name);
     }
 
-    public void setSourceReport(WaterSourceReport report) {
+    public void setSourceReport(SourceReport report) {
         mSourceReport = report;
     }
 
-    public WaterSourceReport getCurrentWaterSourceReport() {
-//        return ((LinkedList<WaterSourceReport>) mWaterSourceReports).getFirst();
+    public SourceReport getCurrentWaterSourceReport() {
+//        return ((LinkedList<SourceReport>) mWaterSourceReports).getFirst();
         return mSourceReport;
     }
 
@@ -66,7 +66,7 @@ public class WaterReport {
     }
 
     // #####################################################
-    // Methods dealing with the associated WaterPurityReport
+    // Methods dealing with the associated PurityReport
     // #####################################################
 
     /**
@@ -78,16 +78,16 @@ public class WaterReport {
      * @param contaminantPPM the amount of contaminants in the water in parts per million
      * @param name the name of the person who submitted this purity report
      */
-    public void addWaterPurityReport(WaterPurityCondition condition, double virusPPM, double contaminantPPM, String name) {
-        ((LinkedList<WaterPurityReport>) mPurityReport).addFirst(new WaterPurityReport(condition, virusPPM, contaminantPPM, name));
+    public void addWaterPurityReport(PurityCondition condition, double virusPPM, double contaminantPPM, String name) {
+        ((LinkedList<PurityReport>) mPurityReport).addFirst(new PurityReport(condition, virusPPM, contaminantPPM, name));
     }
 
     /**
      * Gets the purity report associated with this water source report.
      * @return the purity report associated with this source report, or null if none exists
      */
-    public WaterPurityReport getWaterPurityReport() {
-        return ((LinkedList<WaterPurityReport>) mPurityReport).getFirst();
+    public PurityReport getWaterPurityReport() {
+        return ((LinkedList<PurityReport>) mPurityReport).getFirst();
     }
 
     /**

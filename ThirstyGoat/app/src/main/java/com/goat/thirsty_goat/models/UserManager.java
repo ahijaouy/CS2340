@@ -9,6 +9,11 @@ import com.auth0.android.result.Credentials;
 import com.auth0.android.result.UserProfile;
 import com.goat.thirsty_goat.R;
 import com.goat.thirsty_goat.controllers.App;
+import com.goat.thirsty_goat.models.users.Admin;
+import com.goat.thirsty_goat.models.users.BasicUser;
+import com.goat.thirsty_goat.models.users.Manager;
+import com.goat.thirsty_goat.models.users.UserRole;
+import com.goat.thirsty_goat.models.users.Worker;
 
 /**
  * This class represents a generic user from which all other user types are derived.
@@ -98,7 +103,7 @@ public class UserManager {
     }
 
 
-    public void addWaterSourceReport(WaterType type, WaterSourceCondition condition, Location loc) {
+    public void addWaterSourceReport(SourceType type, SourceCondition condition, Location loc) {
         Log.d(TAG, mAccountType.toString());
         mCurrentUser.addWaterSourceReport(type, condition, loc, mUserName);
     }

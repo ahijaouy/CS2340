@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.goat.thirsty_goat.R;
 import com.goat.thirsty_goat.models.Location;
 import com.goat.thirsty_goat.models.ModelFacade;
-import com.goat.thirsty_goat.models.WaterReport;
+import com.goat.thirsty_goat.models.Report;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.InfoWindowAdapter;
@@ -143,17 +143,17 @@ public class MapsActivity extends FragmentActivity implements
         }
     }
 
-    private Map<Marker, WaterReport> markerReportMap = new HashMap<>();
+    private Map<Marker, Report> markerReportMap = new HashMap<>();
 
     private void displayMarkers() {
         Log.d(TAG, "displaying markers");
-        Map<Location, WaterReport> waterReportsMap = mFacade.getReports();
+        Map<Location, Report> waterReportsMap = mFacade.getReports();
 
         for (Location location : waterReportsMap.keySet()) {
-            WaterReport waterReport = waterReportsMap.get(location);
+            Report report = waterReportsMap.get(location);
             LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-//            String titleString = waterReport.getCurrentWaterSourceReportDateString();
-//            titleString += "   Water Report #: " + waterReport.getCurrentWaterSourceReportNumber();
+//            String titleString = report.getCurrentWaterSourceReportDateString();
+//            titleString += "   Water Report #: " + report.getCurrentWaterSourceReportNumber();
 //            String snippetString = "Lat: " + latLng.latitude + "  Long: " + latLng.longitude
 //                    + "\nType: " +
 
@@ -164,14 +164,14 @@ public class MapsActivity extends FragmentActivity implements
                     .position(latLng)
                     .title(title)
                     .snippet(snippet));
-            markerReportMap.put(markerAdded, waterReport);
+            markerReportMap.put(markerAdded, report);
 
             mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
         }
     }
 
     private void handleReport(LatLng latLng) {
-        Intent intent = new Intent(this, WaterSourceReportActivity.class);
+        Intent intent = new Intent(this, SourceReportActivity.class);
         intent.putExtra(LATITUDE_MESSAGE, latLng.latitude);
         intent.putExtra(LONGITUDE_MESSAGE, latLng.longitude);
         startActivity(intent);
@@ -206,7 +206,7 @@ public class MapsActivity extends FragmentActivity implements
         private void render(Marker marker, View view) {
             Log.d(TAG, "render p1");
 
-            WaterReport thisWaterReport = markerReportMap.get(marker);
+            Report thisReport = markerReportMap.get(marker);
 
             Log.d(TAG, "render p2");
 
@@ -220,13 +220,13 @@ public class MapsActivity extends FragmentActivity implements
 
             Log.d(TAG, "render p3");
 
-            markerDate.setText(thisWaterReport.getCurrentWaterSourceReportDateString());
-            markerReportNum.setText(String.valueOf(thisWaterReport.getCurrentWaterSourceReportNumber()));
-            markerLatitude.setText(String.valueOf(thisWaterReport.getLatitude()));
-            markerLongitude.setText(String.valueOf(thisWaterReport.getLongitude()));
-            markerType.setText(thisWaterReport.getCurrentWaterSourceReportTypeString());
-            markerCondition.setText(thisWaterReport.getCurrentWaterSourceReportConditionString());
-            markerReporter.setText(thisWaterReport.getCurrentWaterSourceReportName());
+            markerDate.setText(thisReport.getCurrentWaterSourceReportDateString());
+            markerReportNum.setText(String.valueOf(thisReport.getCurrentWaterSourceReportNumber()));
+            markerLatitude.setText(String.valueOf(thisReport.getLatitude()));
+            markerLongitude.setText(String.valueOf(thisReport.getLongitude()));
+            markerType.setText(thisReport.getCurrentWaterSourceReportTypeString());
+            markerCondition.setText(thisReport.getCurrentWaterSourceReportConditionString());
+            markerReporter.setText(thisReport.getCurrentWaterSourceReportName());
 
             Log.d(TAG, "render p4");
         }

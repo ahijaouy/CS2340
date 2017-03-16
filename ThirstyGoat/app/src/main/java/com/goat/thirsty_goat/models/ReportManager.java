@@ -33,7 +33,7 @@ public class ReportManager {
     private static final String TAG = ReportManager.class.getSimpleName();
 
     private static ReportManager INSTANCE = new ReportManager();
-    private Map<Location, WaterReport> mReportsMap;
+    private Map<Location, Report> mReportsMap;
     private RequestQueue mRequestQueue;
 
     // URLs for http requests
@@ -59,28 +59,28 @@ public class ReportManager {
      * Generates dummy reports for populating the map with preexisting reports.
      */
     private void makeDummyReports() {
-        setSourceReport(WaterType.BOTTLED, WaterSourceCondition.POTABLE, new Location(33.749, -84.388), "Bob");
-        setSourceReport(WaterType.LAKE, WaterSourceCondition.WASTE, new Location(50.8, -70.5), "Sally");
+        setSourceReport(SourceType.BOTTLED, SourceCondition.POTABLE, new Location(33.749, -84.388), "Bob");
+        setSourceReport(SourceType.LAKE, SourceCondition.WASTE, new Location(50.8, -70.5), "Sally");
     }
 
-    public void setSourceReport(WaterType type, WaterSourceCondition cond, Location location, String name) {
-        WaterReport report = getReport(location);
+    public void setSourceReport(SourceType type, SourceCondition cond, Location location, String name) {
+        Report report = getReport(location);
         if (report.hasSourceReport()) {
             // TODO: delete old sourceReport in DB
         }
-        WaterSourceReport sourceReport = new WaterSourceReport(type, cond, name);
+        SourceReport sourceReport = new SourceReport(type, cond, name);
         report.setSourceReport(sourceReport);
         sendSourceReport(sourceReport, location);
     }
 
-    private void setOldSourceReport(Location location, WaterSourceReport sourceReport) {
-        WaterReport report = getReport(location);
+    private void setOldSourceReport(Location location, SourceReport sourceReport) {
+        Report report = getReport(location);
         report.setSourceReport(sourceReport);
     }
 
-    private WaterReport getReport(Location location) {
+    private Report getReport(Location location) {
         if (mReportsMap.get(location) == null) {
-            mReportsMap.put(location, new WaterReport(location));
+            mReportsMap.put(location, new Report(location));
         }
         return mReportsMap.get(location);
     }
@@ -91,7 +91,7 @@ public class ReportManager {
      * Gets the list of stored reports.
      * @return the stored list of reports
      */
-    public Map<Location, WaterReport> getReports() {
+    public Map<Location, Report> getReports() {
         return mReportsMap;
     }
 
@@ -149,7 +149,7 @@ public class ReportManager {
      * Send report to Database through a http POST request.
      * @param sourceReport Report instance to be sent
      */
-    public void sendSourceReport(final WaterSourceReport sourceReport, Location location) {
+    public void sendSourceReport(final SourceReport sourceReport, Location location) {
         final JSONObject reportJson = sourceReport.toJson();
         try {
            reportJson.put("location", location);
@@ -204,8 +204,8 @@ public class ReportManager {
                 Log.e(TAG, e.getMessage());
             }
 
-            WaterType waterType = WaterType.stringOf(reportJson.getString(WATER_TYPE));
-            WaterSourceCondition condition = WaterSourceCondition.stringOf(reportJson.getString(WATER_COND));
+            SourceType sourceType = SourceType.stringOf(reportJson.getString(WATER_TYPE));
+            SourceCondition condition = SourceCondition.stringOf(reportJson.getString(WATER_COND));
 //            double lat = reportJson.getDouble(LAT);
 //            double lon = reportJson.getDouble(LNG);
             double lat = (rand.nextDouble() - 0.5) * 30 + 33;
@@ -214,7 +214,7 @@ public class ReportManager {
             String name = reportJson.getString(USER);
             int id = reportJson.getInt(SOURCE_ID);
             LocalDateTime dateTime = LocalDateTime.parse(reportJson.getString(DATE));
-            setOldSourceReport(location, new WaterSourceReport(waterType, condition, name, id, dateTime));
+            setOldSourceReport(location, new SourceReport(sourceType, condition, name, id, dateTime));
             Log.d(TAG, "Adding source report from DB");
         }
     }
@@ -248,11 +248,11 @@ public class ReportManager {
     private void deleteReport(Object o) {
         String url;
         int id;
-        if (o instanceof WaterSourceReport) {
-            id = ((WaterSourceReport) o).getReportNumber();
+        if (o instanceof SourceReport) {
+            id = ((SourceReport) o).getReportNumber();
             url = SOURCE_REPORTS_URL + "/" + id;
-        } else if (o instanceof  WaterPurityReport) {
-            id = ((WaterPurityReport) o).getReportNumber();
+        } else if (o instanceof PurityReport) {
+            id = ((PurityReport) o).getReportNumber();
             url = PURITY_REPORTS_URL + "/" + id;
         } else {
             Log.d(TAG, "Object passed to deleteReport not a source nor purity Report");
@@ -260,12 +260,12 @@ public class ReportManager {
         }
 
 //        switch (o.getClass().getName()) {
-//            case WaterSourceReport.class.getName():
-//                id = ((WaterSourceReport) o).getReportNumber();
+//            case SourceReport.class.getName():
+//                id = ((SourceReport) o).getReportNumber();
 //                url = SOURCE_REPORTS_URL + "/" + id;
 //                break;
-//            case WaterPurityReport.class:
-//                id = ((WaterPurityReport) o).getReportNumber();
+//            case PurityReport.class:
+//                id = ((PurityReport) o).getReportNumber();
 //                url = PURITY_REPORTS_URL + "/" + id;
 //                break;
 //            default:

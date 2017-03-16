@@ -7,7 +7,7 @@ import com.goat.thirsty_goat.controllers.App;
  * An enum that represents the water condition for a given water source.
  */
 
-public enum WaterSourceCondition {
+public enum SourceCondition {
     WASTE(App.getResString(R.string.source_condition_waste)),
     TREATABLE_CLEAR(App.getResString(R.string.source_condition_treatable_clear)),
     TREATABLE_MUDDY(App.getResString(R.string.source_condition_treatable_muddy)),
@@ -15,15 +15,15 @@ public enum WaterSourceCondition {
 
     private final String value;
 
-    WaterSourceCondition(String value) {
+    SourceCondition(String value) {
         this.value = value;
     }
 
-    public static WaterSourceCondition stringOf(String waterConditionString) {
+    public static SourceCondition stringOf(String waterConditionString) {
         try {
             return valueOf(waterConditionString);
         } catch (IllegalArgumentException e) {
-            return WaterSourceCondition.values()[0];
+            return SourceCondition.values()[0];
         }
     }
 

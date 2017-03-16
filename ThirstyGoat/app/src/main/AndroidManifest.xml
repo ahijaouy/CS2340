@@ -74,10 +74,10 @@
             android:name=".controllers.MapsActivity"
             android:label="@string/title_activity_maps" />
         <activity
-            android:name=".controllers.WaterReportListActivity"
+            android:name=".controllers.SourceReportListActivity"
             android:label="Report List" />
         <activity
-            android:name=".controllers.WaterSourceReportActivity"
+            android:name=".controllers.SourceReportActivity"
             android:label="@string/title_activity_water_report"/>
     </application>
 

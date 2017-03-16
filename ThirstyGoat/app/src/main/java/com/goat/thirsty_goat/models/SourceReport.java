@@ -13,14 +13,14 @@ import org.json.JSONObject;
  * Created by Walker on 2/26/17.
  */
 
-public class WaterSourceReport {
+public class SourceReport {
 
-    private static final String TAG = WaterSourceReport.class.getSimpleName();
+    private static final String TAG = SourceReport.class.getSimpleName();
 
     private int mID;
     private String mName;
-    private WaterType mType;
-    private WaterSourceCondition mCondition;
+    private SourceType mType;
+    private SourceCondition mCondition;
     private LocalDateTime mDateTime;
 
     /**
@@ -30,7 +30,7 @@ public class WaterSourceReport {
      * @param cond condition of water
      * @param name name of user creating report
      */
-    public WaterSourceReport(WaterType type, WaterSourceCondition cond, String name) {
+    public SourceReport(SourceType type, SourceCondition cond, String name) {
         mType = type;
         mCondition = cond;
         mDateTime = LocalDateTime.now();
@@ -46,14 +46,14 @@ public class WaterSourceReport {
      * @param id id of the user
      * @param dateTime date/time of report when created
      */
-    public WaterSourceReport(WaterType type, WaterSourceCondition cond, String name, int id, LocalDateTime dateTime) {
+    public SourceReport(SourceType type, SourceCondition cond, String name, int id, LocalDateTime dateTime) {
         this(type, cond, name);
         mID = id;
         mDateTime = dateTime;
     }
 
     // ##########################################################
-    // Methods dealing with getters/setters for WaterSourceReport
+    // Methods dealing with getters/setters for SourceReport
     // ##########################################################
 
 
@@ -77,7 +77,7 @@ public class WaterSourceReport {
      * Gets the water type of this report.
      * @return the water type of this report
      */
-    public WaterType getWaterType() {
+    public SourceType getWaterType() {
         return mType;
     }
 
@@ -93,7 +93,7 @@ public class WaterSourceReport {
      * Gets the water condition of this report.
      * @return the water condition of this report
      */
-    public WaterSourceCondition getWaterCondition() {
+    public SourceCondition getWaterCondition() {
         return mCondition;
     }
 

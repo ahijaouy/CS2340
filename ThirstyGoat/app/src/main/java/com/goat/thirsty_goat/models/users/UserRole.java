@@ -1,4 +1,9 @@
-package com.goat.thirsty_goat.models;
+package com.goat.thirsty_goat.models.users;
+
+import com.goat.thirsty_goat.models.Location;
+import com.goat.thirsty_goat.models.ReportManager;
+import com.goat.thirsty_goat.models.SourceCondition;
+import com.goat.thirsty_goat.models.SourceType;
 
 /**
  * Created by Walker on 3/11/17.
@@ -16,5 +21,5 @@ public abstract class UserRole {
       left a blank/wasted implementation in Admin).
     */
 
-    public abstract void addWaterSourceReport(WaterType type, WaterSourceCondition condition, Location loc, String name);
+    public abstract void addWaterSourceReport(SourceType type, SourceCondition condition, Location loc, String name);
 }

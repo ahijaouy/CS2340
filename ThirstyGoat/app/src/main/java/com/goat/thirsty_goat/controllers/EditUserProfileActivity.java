@@ -198,12 +198,12 @@ public class EditUserProfileActivity extends AppCompatActivity {
     }
 
     private void switchToAddReportView() {
-        Intent intent = new Intent(this, WaterSourceReportActivity.class);
+        Intent intent = new Intent(this, SourceReportActivity.class);
         startActivity(intent);
     }
 
     private void switchToReportListView(View v) {
-        Intent intent = new Intent(this, WaterReportListActivity.class);
+        Intent intent = new Intent(this, SourceReportListActivity.class);
         startActivity(intent);
     }
 }

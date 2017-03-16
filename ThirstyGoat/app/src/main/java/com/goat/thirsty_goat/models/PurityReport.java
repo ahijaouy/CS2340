@@ -10,19 +10,19 @@ import org.json.JSONObject;
  * Created by Walker on 3/11/17.
  */
 
-public class WaterPurityReport {
+public class PurityReport {
 
-    private static final String TAG = WaterPurityReport.class.getSimpleName();
+    private static final String TAG = PurityReport.class.getSimpleName();
 
     private int mID;
     private String mName;
-    private WaterPurityCondition mCondition;
+    private PurityCondition mCondition;
     private LocalDateTime mDateTime;
     private double mVirusPPM;
     private double mContaminantPPM;
 
-    public WaterPurityReport(WaterPurityCondition condition, double virusPPM, double contaminantPPM, String name) {
-        mID = WaterReport.getAndIncrementID();
+    public PurityReport(PurityCondition condition, double virusPPM, double contaminantPPM, String name) {
+        mID = Report.getAndIncrementID();
         mName = name;
         mCondition = condition;
         mDateTime = LocalDateTime.now();
@@ -50,7 +50,7 @@ public class WaterPurityReport {
      * Gets the water condition of this report.
      * @return the water condition of this report
      */
-    public WaterPurityCondition getWaterCondition() {
+    public PurityCondition getWaterCondition() {
         return mCondition;
     }
 
