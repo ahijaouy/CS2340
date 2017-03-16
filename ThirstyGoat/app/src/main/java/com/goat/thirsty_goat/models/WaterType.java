@@ -5,5 +5,21 @@ package com.goat.thirsty_goat.models;
  */
 
 public enum WaterType {
-    BOTTLED, WELL, STREAM, LAKE, SPRING, OTHER
+    BOTTLED("Bottled"),
+    WELL("Well"),
+    STREAM("Stream"),
+    LAKE("Lake"),
+    SPRING("Spring"),
+    OTHER("Other");
+
+    private final String waterType;
+
+    WaterType(String waterType) {
+        this.waterType = waterType;
+    }
+
+    @Override
+    public String toString() {
+        return waterType;
+    }
 }

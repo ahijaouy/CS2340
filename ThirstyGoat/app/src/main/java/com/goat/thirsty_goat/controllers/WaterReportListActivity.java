@@ -1,7 +1,5 @@
 package com.goat.thirsty_goat.controllers;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -15,10 +13,18 @@ import android.widget.TextView;
 
 import com.goat.thirsty_goat.R;
 import com.goat.thirsty_goat.models.ModelFacade;
-import com.goat.thirsty_goat.models.Report;
-import com.goat.thirsty_goat.models.User;
+import com.goat.thirsty_goat.models.WaterReport;
 
+import java.util.ArrayList;
 import java.util.List;
+
+//imports ladd added
+import android.content.Context;
+import android.support.v7.widget.RecyclerView;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
+import android.view.View;
+
 
 /**
  * This is the activity that represents and displays the list of water reports that
@@ -26,9 +32,9 @@ import java.util.List;
  *
  * Created by Walker on 3/6/17.
  */
-public class WaterReportListActivity extends AppCompatActivity {
+public class WaterReportListActivity extends AppCompatActivity  {
 
-    LinearLayoutManager mLayoutManager;
+    int size_of_list = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceData) {
@@ -38,7 +44,29 @@ public class WaterReportListActivity extends AppCompatActivity {
 
         //Step 1.  Setup the recycler view by getting it from our layout in the main window
 //        View recyclerView = findViewById(R.id.water_report_list);
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.water_report_list);
+        final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.water_report_list);
+
+        // start of stuff Ladd added
+        recyclerView.addOnItemTouchListener(
+                //Context context = WaterReportListActivity.getContext();
+                new RecyclerItemClickListener(getApplicationContext(), recyclerView ,new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override public void onItemClick(View view, int position) {
+                        // do whatever
+                        Log.d("report", "ladd's code is actually doing something");
+                        for (int i = 0; i < size_of_list; i++) {
+                            if (position == i) {
+                                Log.d("report", "you clicked on the #:" + i + " element in the list");
+                            }
+                        }
+                    }
+
+                    @Override public void onLongItemClick(View view, int position) {
+                        // do whatever
+                    }
+                })
+        );
+        //end of stuff Ladd added
+
 //        assert recyclerView != null;
         if (recyclerView == null) {
             Log.d("report", "recycler view is null");
@@ -46,10 +74,7 @@ public class WaterReportListActivity extends AppCompatActivity {
             Log.d("report", "recycler view is not null");
         }
 
-
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-
 
         //Step 2.  Hook up the adapter to the view
 //        setupRecyclerView((RecyclerView) recyclerView);
@@ -61,19 +86,64 @@ public class WaterReportListActivity extends AppCompatActivity {
      * @param recyclerView  the view that needs this adapter
      */
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
-//        mLayoutManager = new LinearLayoutManager(this);
-//        recyclerView.setLayoutManager(mLayoutManager);
-
-
         ModelFacade model = ModelFacade.getInstance();
         Log.d("report", "setting up recycler view");
-        Log.d("report", model.getReports().get(0).getName());
-        WaterReportViewAdapter mAdapter = new WaterReportViewAdapter(model.getReports());
+        //Log.d("report", model.getReports().get(0).getName());
+
+        WaterReportViewAdapter mAdapter = new WaterReportViewAdapter(new ArrayList<WaterReport>(model.getReports().values()));
         Log.d("report", "adapter: " + mAdapter);
-//        recyclerView.setAdapter(new WaterReportViewAdapter(model.getReports()));
         recyclerView.setAdapter(mAdapter);
+        //ladd added this
+        size_of_list = mAdapter.getItemCount();
+        //end of what ladd added
     }
 
+    //start of stuff Ladd added
+    public static class RecyclerItemClickListener implements RecyclerView.OnItemTouchListener {
+        private OnItemClickListener mListener;
+
+        public interface OnItemClickListener {
+            void onItemClick(View view, int position);
+
+            void onLongItemClick(View view, int position);
+        }
+
+        GestureDetector mGestureDetector;
+
+        public  RecyclerItemClickListener(Context context, final RecyclerView recyclerView, OnItemClickListener listener) {
+            mListener = listener;
+            mGestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
+                @Override
+                public boolean onSingleTapUp(MotionEvent e) {
+                    return true;
+                }
+
+                @Override
+                public void onLongPress(MotionEvent e) {
+                    View child = recyclerView.findChildViewUnder(e.getX(), e.getY());
+                    if (child != null && mListener != null) {
+                        mListener.onLongItemClick(child, recyclerView.getChildAdapterPosition(child));
+                    }
+                }
+            });
+        }
+
+        @Override public boolean onInterceptTouchEvent(RecyclerView view, MotionEvent e) {
+            View childView = view.findChildViewUnder(e.getX(), e.getY());
+            if (childView != null && mListener != null && mGestureDetector.onTouchEvent(e)) {
+                mListener.onItemClick(childView, view.getChildAdapterPosition(childView));
+                return true;
+            }
+            return false;
+        }
+
+        @Override
+        public void onTouchEvent(RecyclerView view, MotionEvent motionEvent) {}
+
+        @Override
+        public void onRequestDisallowInterceptTouchEvent (boolean disallowIntercept){}
+    }
+    //end of stuff Ladd added
 
     /**
      * This inner class is our custom adapter.  It takes our basic model information and
@@ -84,19 +154,19 @@ public class WaterReportListActivity extends AppCompatActivity {
     public class WaterReportViewAdapter
             extends RecyclerView.Adapter<WaterReportViewAdapter.ViewHolder> {
 
+
         /**
          * Collection of the items to be shown in this list.
          */
-//        private final List<Report> mReports;
-        private List<Report> mReports;
+        private List<WaterReport> mWaterReports;
 
         /**
          * set the items to be used by the adapter
          * @param items the list of items to be displayed in the recycler view
          */
-        public WaterReportViewAdapter(List<Report> items) {
-            mReports = items;
-            Log.d("report", "Made it to constructor: " + mReports.get(0).getName());
+        public WaterReportViewAdapter(List<WaterReport> items) {
+            mWaterReports = items;
+            Log.d("report", "Made it to constructor: " + mWaterReports.get(0).getCurrentWaterSourceReportName());
             if (items == null) {
                 Log.d("report", "called constructor with null items");
             }
@@ -129,24 +199,29 @@ public class WaterReportListActivity extends AppCompatActivity {
             to an element in the view (which is one of our two TextView widgets
              */
             //start by getting the element at the correct position
-            holder.mReport = mReports.get(position);
+            holder.mWaterReport = mWaterReports.get(position);
             /*
               Now we bind the data to the widgets.  In this case, pretty simple, put the id in one
               textview and the string rep of a course in the other.
              */
-            holder.mNumber.setText("" + mReports.get(position).getReportNumber());
-            holder.mDateAndTime.setText(mReports.get(position).getDateString());
-            holder.mReporterName.setText(mReports.get(position).getName());
-            holder.mLatitude.setText("" + mReports.get(position).getLatitude());
-            holder.mLongitude.setText("" + mReports.get(position).getLongitude());
-            holder.mWaterType.setText(mReports.get(position).getWaterTypeString());
-            holder.mWaterCondition.setText(mReports.get(position).getWaterConditionString());
+            holder.mNumber.setText("" + mWaterReports.get(position).getCurrentWaterSourceReportNumber());
+            holder.mDateAndTime.setText(mWaterReports.get(position).getCurrentWaterSourceReportDateString());
+            holder.mReporterName.setText(mWaterReports.get(position).getCurrentWaterSourceReportName());
+            holder.mLatitude.setText("" + mWaterReports.get(position).getLatitude());
+            holder.mLongitude.setText("" + mWaterReports.get(position).getLongitude());
+            holder.mWaterType.setText(mWaterReports.get(position).getCurrentWaterSourceReportTypeString());
+            holder.mWaterCondition.setText(mWaterReports.get(position).getCurrentWaterSourceReportConditionString());
+
+
 
             /*
              * set up a listener to handle if the user clicks on this list item, what should happen?
              */
-            //NOTE: I didn't implement this yet, since it's not required for M6 and the recycler view
-            //shows all the info for each report
+            /*
+              NOTE: I didn't implement this yet, since it's not required for M6 and the recycler view
+              shows all the info for each report. But, if you want to be able to take an action upon
+              clicking the view, this might be a good place to start
+            */
 //            holder.mView.setOnClickListener(new View.OnClickListener() {
 //                @Override
 //                public void onClick(View v) {
@@ -171,12 +246,12 @@ public class WaterReportListActivity extends AppCompatActivity {
         @Override
         public int getItemCount() {
             Log.d("report", "is this ever called? 3");
-            return mReports.size();
+            return mWaterReports.size();
         }
 
         /**
          * This inner class represents a ViewHolder which provides us a way to cache information
-         * about the binding between the model element (in this case a Report) and the widgets in
+         * about the binding between the model element (in this case a WaterReport) and the widgets in
          * the list view (in this case all the data to display for a report)
          */
         public class ViewHolder extends RecyclerView.ViewHolder {
@@ -188,7 +263,7 @@ public class WaterReportListActivity extends AppCompatActivity {
             public final TextView mLongitude;
             public final TextView mWaterType;
             public final TextView mWaterCondition;
-            public Report mReport;
+            public WaterReport mWaterReport;
 
             public ViewHolder(View view) {
                 super(view);
@@ -209,4 +284,5 @@ public class WaterReportListActivity extends AppCompatActivity {
             }
         }
     }
+
 }

@@ -1,6 +1,6 @@
 package com.goat.thirsty_goat.models;
 
-import android.accounts.Account;
+import android.util.Log;
 
 import com.auth0.android.authentication.AuthenticationAPIClient;
 import com.auth0.android.authentication.AuthenticationException;
@@ -9,18 +9,21 @@ import com.auth0.android.result.Credentials;
 import com.auth0.android.result.UserProfile;
 
 /**
- * This class represents a user, which can submit a report on water availability and view
- * available water sources.
+ * This class represents a generic user from which all other user types are derived.
  */
 public class User {
-    private static User userSingleton = new User();
+    private static final String TAG = User.class.getSimpleName();
+    // how can we make this not a User at runtime? Want it to be a subclass
+    private static User INSTANCE = new User();
+
+    private static UserRole mCurrentUser;
 
     /**
      * Gets the singleton instance of this User class.
      * @return singleton instance of User
      */
     public static User getInstance() {
-        return userSingleton;
+        return INSTANCE;
     }
 
     private AccountType mAccountType;
@@ -41,11 +44,11 @@ public class User {
     }
 
     public User() {
-        this(AccountType.BASICUSER, null, null);
+        this(AccountType.BASIC_USER, null, null);
     }
 
     public enum AccountType {
-        BASICUSER("Basic User"),
+        BASIC_USER("Basic User"),
         MANAGER("Manager"),
         WORKER("Worker"),
         ADMIN("Administrator");
@@ -71,7 +74,7 @@ public class User {
                     @Override
                     public void onSuccess(UserProfile payload) {
                         String accountType = payload.getUserMetadata().get("account_type").toString();
-                        System.out.print(accountType);
+                        setCurrentUser(getAccountTypeFromString(accountType));
                         setAccountType(getAccountTypeFromString(accountType));
                         if (payload.getUserMetadata().get("name") != null) {
                             setUserName(payload.getUserMetadata().get("name").toString());
@@ -84,10 +87,22 @@ public class User {
                     }
                     @Override
                     public void onFailure(AuthenticationException error) {
-
+                        Log.d(TAG, error.getMessage(), error);
                     }
                 });
     }
+
+
+    public void addWaterSourceReport(WaterType type, WaterSourceCondition condition, Location loc) {
+        Log.d(TAG, mAccountType.toString());
+        mCurrentUser.addWaterSourceReport(type, condition, loc, mUserName);
+    }
+
+    public void addWaterPurityReport(WaterPurityCondition condition, double virusPPM, double contaminantPPM) {
+        mCurrentUser.addWaterPurityReport(condition, mUserName, virusPPM, contaminantPPM);
+    }
+
+
     /**
      * Allows an account type to be found by the value of it position in the AccountType enum.
      * @return the integer corresponding to the account type
@@ -113,9 +128,28 @@ public class User {
                 return type;
             }
         }
-        return AccountType.BASICUSER;
+        Log.d(TAG, "getAccountTypeFromString didn't find a match");
+        return AccountType.BASIC_USER;
     }
 
+    private void setCurrentUser(AccountType accountType) {
+        switch(accountType) {
+            case BASIC_USER:
+                mCurrentUser = new BasicUser();
+                break;
+            case WORKER:
+                mCurrentUser = new Worker();
+                break;
+            case MANAGER:
+                mCurrentUser = new Manager();
+                break;
+            case ADMIN:
+                mCurrentUser = new Admin();
+                break;
+            default:
+                Log.d(TAG, "You reached the default while setting the current user. This shouldn't happen.");
+        }
+    }
 
     // Getters and setters
     /**

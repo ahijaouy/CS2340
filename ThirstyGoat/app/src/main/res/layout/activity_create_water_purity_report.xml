@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_user_profile"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.goat.thirsty_goat.controllers.EditUserProfileActivity">
+
+    <TextView
+        android:id="@+id/overall_purity_condition"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="29dp"
+        android:text="Overall Condition" />
+
+    <TextView
+        android:id="@+id/virus_PPM"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="59dp"
+        android:text="Virus in PPM"
+        android:layout_below="@+id/overall_purity_condition"
+        android:layout_toLeftOf="@+id/condition_spinner"
+        android:layout_toStartOf="@+id/condition_spinner" />
+
+    <TextView
+        android:id="@+id/contaminant_PPM"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="46dp"
+        android:text="Contaminant in PPM"
+        android:layout_below="@+id/virus_PPM"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:id="@+id/virus_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="numberDecimal"
+        android:layout_alignTop="@+id/virus_PPM"
+        android:layout_toRightOf="@+id/virus_PPM"
+        android:layout_toEndOf="@+id/virus_PPM"
+        android:layout_above="@+id/contaminant_PPM" />
+
+    <EditText
+        android:id="@+id/contaminant_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/contaminant_PPM"
+        android:layout_alignTop="@+id/contaminant_PPM"
+        android:layout_toEndOf="@+id/contaminant_PPM"
+        android:layout_toRightOf="@+id/contaminant_PPM"
+        android:ems="10"
+        android:inputType="numberDecimal" />
+
+    <Spinner
+        android:id="@+id/condition_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/overall_purity_condition"
+        android:layout_toEndOf="@+id/overall_purity_condition"
+        android:layout_toRightOf="@+id/overall_purity_condition"
+        android:layout_above="@+id/virus_PPM" />
+
+    <Button
+        android:id="@+id/submit_purity_report"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/virus_text"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/virus_text"
+        android:layout_marginBottom="62dp"
+        android:layout_marginEnd="11dp"
+        android:layout_marginRight="11dp"
+        android:onClick="onSubmitPressed"
+        android:text="Submit Purity Report" />
+
+    <Button
+        android:id="@+id/cancel_purity_report"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/submit_purity_report"
+        android:layout_alignBottom="@+id/submit_purity_report"
+        android:layout_toLeftOf="@+id/virus_text"
+        android:layout_toStartOf="@+id/virus_text"
+        android:onClick="onCancelPressed"
+        android:text="Cancel" />
+</RelativeLayout>

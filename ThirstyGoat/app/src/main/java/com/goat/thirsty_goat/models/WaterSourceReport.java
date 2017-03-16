@@ -1,56 +1,31 @@
 package com.goat.thirsty_goat.models;
 
-import android.util.Log;
-
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.TimeZone;
 
 /**
- * This class represents a single report submitted by a user, and it holds all data relevant to
- * a report's operation and usefulness.
- *
- * Created by Walker on 2/26/17.
+ * Created by Walker on 3/11/17.
  */
 
-public class Report {
-    private static int Next_ID = 0;
+public class WaterSourceReport {
     private int mID;
     private String mName;
-    private String mDescription;
-    private Location mLocation;
     private WaterType mWaterType;
-    private WaterCondition mWaterCondition;
+    private WaterSourceCondition mWaterCondition;
     private Calendar mCalendar;
 
-//    public Report(String name, String desc, Location location) {
-//        mName = name;
-//        mDescription = desc;
-//        mLocation = location;
-//        mID = Next_ID++;
-//    }
+//    private WaterPurityReport mWaterPurityReport;
 
-    // todo: add name, date and time
-    public Report(WaterType type, WaterCondition condition, Location location, String name) {
-        //TODO: use Auth-O to populate with actual current user's name
-        //mDescription = desc;
-        mLocation = location;
-        mID = Next_ID++;
+    public WaterSourceReport(WaterType type, WaterSourceCondition condition, String name) {
+        mCalendar = Calendar.getInstance();
+        mID = WaterReport.getAndIncrementID();
+        mName = name;
         mWaterType = type;
         mWaterCondition = condition;
-        //TODO: add time
-        mCalendar = Calendar.getInstance();
-        Log.d("report", mCalendar.toString());
-        mName = name;
     }
 
-//    @ Override
-//    public String toString() {
-//        return mName + "\n" + mDescription;
-//    }
-
-
+    // ##########################################################
+    // Methods dealing with getters/setters for WaterSourceReport
+    // ##########################################################
     /**
      * Gets the name of the person who submitted this report.
      * @return the report submitter's name
@@ -87,7 +62,7 @@ public class Report {
      * Gets the water condition of this report.
      * @return the water condition of this report
      */
-    public WaterCondition getWaterCondition() {
+    public WaterSourceCondition getWaterCondition() {
         return mWaterCondition;
     }
 
@@ -99,27 +74,6 @@ public class Report {
         return mWaterCondition.toString();
     }
 
-
-//    public String getDescription() {
-//        return mDescription;
-//    }
-
-    /**
-     * Gets the latitude of this report.
-     * @return the latitude of this report
-     */
-    public double getLatitude() {
-        return mLocation.getLatitude();
-    }
-
-    /**
-     * Gets the longitude of this report.
-     * @return the longitude of this report.
-     */
-    public double getLongitude() {
-        return mLocation.getLongitude();
-    }
-
     /**
      * Gets the string representation of the date of this report.
      * @return the string representation of the date of this report.
@@ -128,5 +82,4 @@ public class Report {
         return "" + mCalendar.get(Calendar.MONTH) + "/" + mCalendar.get(Calendar.DAY_OF_MONTH)
                 + "/" + mCalendar.get(Calendar.YEAR);
     }
-
 }
