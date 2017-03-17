@@ -48,7 +48,7 @@ public class ReportManager {
     public ReportManager() {
         mReportsMap = new HashMap<>();
         mRequestQueue = Volley.newRequestQueue(App.getContext());
-        makeDummyReports();
+//        makeDummyReports();
     }
 
     public static ReportManager getInstance() {
@@ -77,6 +77,7 @@ public class ReportManager {
     }
 
     private void setOldSourceReport(Location location, SourceReport sourceReport) {
+//        Log.d(TAG, "DOING NOTHING");
         Report report = getReport(location);
         report.setSourceReport(sourceReport);
     }
@@ -216,7 +217,7 @@ public class ReportManager {
             Location location = new Location(lat, lon);
             String name = reportJson.getString(USER);
             int id = reportJson.getInt(SOURCE_ID);
-            LocalDateTime dateTime = LocalDateTime.parse(reportJson.getString(DATE));
+            LocalDateTime dateTime = LocalDateTime.parse(reportJson.getString(DATE).substring(0, 23));
             setOldSourceReport(location, new SourceReport(sourceType, condition, name, id, dateTime));
             Log.d(TAG, "Adding source report from DB");
         }

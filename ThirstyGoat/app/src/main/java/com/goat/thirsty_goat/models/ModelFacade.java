@@ -30,7 +30,7 @@ public class ModelFacade {
      * Creates a facade.
      */
     private ModelFacade() {
-        mReportManager = new ReportManager();
+        mReportManager = ReportManager.getInstance();
         mUserManager = UserManager.getInstance();
         Log.d(TAG, "model facade constructor");
     }

@@ -148,6 +148,7 @@ public class MapsActivity extends FragmentActivity implements
     private void displayMarkers() {
         Log.d(TAG, "displaying markers");
         Map<Location, Report> waterReportsMap = mFacade.getReports();
+        Log.d(TAG, "number of reports:" + Integer.toString(waterReportsMap.size()));
 
         for (Location location : waterReportsMap.keySet()) {
             Report report = waterReportsMap.get(location);
