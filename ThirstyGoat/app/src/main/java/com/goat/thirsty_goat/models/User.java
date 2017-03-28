@@ -98,8 +98,8 @@ public class User {
         mCurrentUser.addWaterSourceReport(type, condition, loc, mUserName);
     }
 
-    public void addWaterPurityReport(WaterPurityCondition condition, double virusPPM, double contaminantPPM) {
-        mCurrentUser.addWaterPurityReport(condition, mUserName, virusPPM, contaminantPPM);
+    public void addWaterPurityReport(WaterPurityCondition condition, double virusPPM, double contaminantPPM, Location loc) {
+        mCurrentUser.addWaterPurityReport(condition, mUserName, virusPPM, contaminantPPM, loc);
     }
 
 

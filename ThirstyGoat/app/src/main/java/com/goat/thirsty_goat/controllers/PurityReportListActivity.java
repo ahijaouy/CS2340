@@ -14,8 +14,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.goat.thirsty_goat.R;
+import com.goat.thirsty_goat.models.Location;
 import com.goat.thirsty_goat.models.ModelFacade;
 import com.goat.thirsty_goat.models.WaterPurityCondition;
+import com.goat.thirsty_goat.models.WaterPurityReport;
 import com.goat.thirsty_goat.models.WaterReport;
 
 import java.util.ArrayList;
@@ -28,17 +30,20 @@ import java.util.List;
  *
  * Created by Walker on 3/6/17.
  */
-public class WaterReportListActivity extends AppCompatActivity  {
+public class PurityReportListActivity extends AppCompatActivity  {
+
+    Intent intent;
+    Bundle extras;
 
     @Override
     protected void onCreate(final Bundle savedInstanceData) {
         super.onCreate(savedInstanceData);
         setContentView(R.layout.activity_water_report_list);
-        setContentView(R.layout.water_report_list);
+        setContentView(R.layout.purity_report_list);
 
         //Step 1.  Setup the recycler view by getting it from our layout in the main window
 //        View recyclerView = findViewById(R.id.water_report_list);
-        final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.water_report_list);
+        final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.purity_report_list);
 
 //        assert recyclerView != null;
         if (recyclerView == null) {
@@ -59,11 +64,22 @@ public class WaterReportListActivity extends AppCompatActivity  {
      * @param recyclerView  the view that needs this adapter
      */
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
+        intent = getIntent();
+        extras = intent.getExtras();
+
         ModelFacade model = ModelFacade.getInstance();
         Log.d("report", "setting up recycler view");
         //Log.d("report", model.getReports().get(0).getName());
 
-        WaterReportViewAdapter mAdapter = new WaterReportViewAdapter(new ArrayList<>(model.getReports().values()));
+        ArrayList<WaterPurityReport> list = new ArrayList<>();
+
+        for (WaterReport report : model.getReports().values()) {
+            if (report.getLocation().equals(new Location((double) extras.get("lat"), (double) extras.get("long")))) {
+                list.add(report.getWaterPurityReport());
+            }
+        }
+
+        PurityReportViewAdapter mAdapter = new PurityReportViewAdapter(list);
         Log.d("report", "adapter: " + mAdapter);
         recyclerView.setAdapter(mAdapter);
     }
@@ -74,22 +90,21 @@ public class WaterReportListActivity extends AppCompatActivity  {
      *
      * In this case, we are just mapping the toString of the Course object to a text field.
      */
-    public class WaterReportViewAdapter
-            extends RecyclerView.Adapter<WaterReportViewAdapter.ViewHolder> {
+    public class PurityReportViewAdapter
+            extends RecyclerView.Adapter<PurityReportViewAdapter.ViewHolder> {
 
 
         /**
          * Collection of the items to be shown in this list.
          */
-        private List<WaterReport> mWaterReports;
+        private List<WaterPurityReport> mPurityReports;
 
         /**
          * set the items to be used by the adapter
          * @param items the list of items to be displayed in the recycler view
          */
-        public WaterReportViewAdapter(List<WaterReport> items) {
-            mWaterReports = items;
-            Log.d("report", "Made it to constructor: " + mWaterReports.get(0).getCurrentWaterSourceReportName());
+        public PurityReportViewAdapter(List<WaterPurityReport> items) {
+            mPurityReports = items;
             if (items == null) {
                 Log.d("report", "called constructor with null items");
             }
@@ -105,7 +120,7 @@ public class WaterReportListActivity extends AppCompatActivity  {
               If you look at the example file, you will see it currently just 2 TextView elements
              */
             View view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.water_report_content, parent, false);
+                    .inflate(R.layout.purity_report_content, parent, false);
             return new ViewHolder(view);
         }
 
@@ -122,56 +137,54 @@ public class WaterReportListActivity extends AppCompatActivity  {
             to an element in the view (which is one of our two TextView widgets
              */
             //start by getting the element at the correct position
-            holder.mWaterReport = mWaterReports.get(position);
+            holder.mWaterReport = mPurityReports.get(position);
             /*
               Now we bind the data to the widgets.  In this case, pretty simple, put the id in one
               textview and the string rep of a course in the other.
              */
-            holder.mNumber.setText("" + mWaterReports.get(position).getCurrentWaterSourceReportNumber());
-            holder.mDateAndTime.setText(mWaterReports.get(position).getCurrentWaterSourceReportDateString());
-            holder.mReporterName.setText(mWaterReports.get(position).getCurrentWaterSourceReportName());
-            holder.mLatitude.setText("" + mWaterReports.get(position).getLatitude());
-            holder.mLongitude.setText("" + mWaterReports.get(position).getLongitude());
-            holder.mWaterType.setText(mWaterReports.get(position).getCurrentWaterSourceReportTypeString());
-            holder.mWaterCondition.setText(mWaterReports.get(position).getCurrentWaterSourceReportConditionString());
+            holder.mNumber.setText("" + mPurityReports.get(position).getReportNumber());
+            holder.mDateAndTime.setText(mPurityReports.get(position).getDateString());
+            holder.mReporterName.setText(mPurityReports.get(position).getName());
+            holder.mLatitude.setText(String.valueOf(extras.get("lat")));
+            holder.mLongitude.setText(String.valueOf(extras.get("long")));
+            holder.mWaterCondition.setText(mPurityReports.get(position).getWaterConditionString());
+            holder.mContaminantPPM.setText(String.valueOf(mPurityReports.get(position).getContaminantPPM()));
+            holder.mVirusPPM.setText(String.valueOf(mPurityReports.get(position).getVirusPPM()));
 
 
-            // listens for click on report list, redirects appropriately
-            holder.mView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //on a phone, we need to change windows to the detail view
-                    Context context = v.getContext();
-                    //create our new intent with the new screen (activity)
-                    if (model.getAccountType().equals("Administrator") ||
-                            model.getAccountType().equals("Manager")) {
-                        Intent intent = new Intent(context, PurityReportListActivity.class);
-                        intent.putExtra("lat", mWaterReports.get(position).getLatitude());
-                        intent.putExtra("long", mWaterReports.get(position).getLongitude());
-                        context.startActivity(intent);
 
-                    } else if (model.getAccountType().equals("Worker")) {
-                        Intent intent = new Intent(context, WaterPurityReportActivity.class);
-                    /*
-                        pass along the id of the course so we can retrieve the correct data in
-                        the next window
-                     */
-                        intent.putExtra("lat", mWaterReports.get(position).getLatitude());
-                        intent.putExtra("long", mWaterReports.get(position).getLongitude());
-
-                        //model.setCurrentCourse(holder.mCourse);
-
-                        //now just display the new window
-                        context.startActivity(intent);
-                    }
-                }
-            });
+            // Can be inplemented to show individual report
+//            holder.mView.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    //on a phone, we need to change windows to the detail view
+//                    Context context = v.getContext();
+//                    //create our new intent with the new screen (activity)
+//                    if (model.getAccountType().equals("Administrator") ||
+//                            model.getAccountType().equals("Manager")) {
+//
+//                    } else if (model.getAccountType().equals("Worker")) {
+//                        Intent intent = new Intent(context, WaterPurityReportActivity.class);
+//                    /*
+//                        pass along the id of the course so we can retrieve the correct data in
+//                        the next window
+//                     */
+//                        intent.putExtra("lat", mWaterReports.get(position).getLatitude());
+//                        intent.putExtra("long", mWaterReports.get(position).getLongitude());
+//
+//                        //model.setCurrentCourse(holder.mCourse);
+//
+//                        //now just display the new window
+//                        context.startActivity(intent);
+//                    }
+//                }
+//            });
         }
 
         @Override
         public int getItemCount() {
             Log.d("report", "is this ever called? 3");
-            return mWaterReports.size();
+            return mPurityReports.size();
         }
 
         /**
@@ -186,9 +199,10 @@ public class WaterReportListActivity extends AppCompatActivity  {
             public final TextView mReporterName;
             public final TextView mLatitude;
             public final TextView mLongitude;
-            public final TextView mWaterType;
             public final TextView mWaterCondition;
-            public WaterReport mWaterReport;
+            public final TextView mVirusPPM;
+            public final TextView mContaminantPPM;
+            public WaterPurityReport mWaterReport;
 
             public ViewHolder(View view) {
                 super(view);
@@ -199,8 +213,10 @@ public class WaterReportListActivity extends AppCompatActivity  {
                 mReporterName = (TextView) view.findViewById(R.id.reportNameData);
                 mLatitude = (TextView) view.findViewById(R.id.reportLatitudeData);
                 mLongitude = (TextView) view.findViewById(R.id.reportLongitudeData);
-                mWaterType = (TextView) view.findViewById(R.id.reportTypeData);
                 mWaterCondition = (TextView) view.findViewById(R.id.reportConditionData);
+                mVirusPPM = (TextView) view.findViewById(R.id.reportVirusPPMData);
+                mContaminantPPM = (TextView) view.findViewById(R.id.reportContaminantPPMData);
+
             }
 
             @Override

@@ -63,4 +63,20 @@ public class WaterPurityReport {
         return "" + mCalendar.get(Calendar.MONTH) + "/" + mCalendar.get(Calendar.DAY_OF_MONTH)
                 + "/" + mCalendar.get(Calendar.YEAR);
     }
+
+    /**
+     * Gets the concentration of virus in PPM
+     * @return virus concentration (PPM)
+     */
+    public double getVirusPPM() {
+        return mVirusPPM;
+    }
+
+    /**
+     * Gets the concentration of contaminants in PPM
+     * @return contaminant concentration (PPM)
+     */
+    public double getContaminantPPM() {
+        return mContaminantPPM;
+    }
 }

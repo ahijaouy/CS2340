@@ -1,7 +1,9 @@
 package com.goat.thirsty_goat.controllers;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -10,6 +12,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.goat.thirsty_goat.R;
+import com.goat.thirsty_goat.models.Location;
 import com.goat.thirsty_goat.models.ModelFacade;
 import com.goat.thirsty_goat.models.WaterPurityCondition;
 
@@ -29,6 +32,9 @@ public class WaterPurityReportActivity extends AppCompatActivity implements Adap
     private double mVirusPPM;
     private double mContaminantPPM;
 
+    private Location loc;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +50,11 @@ public class WaterPurityReportActivity extends AppCompatActivity implements Adap
                 new ArrayAdapter(this, android.R.layout.simple_spinner_item, WaterPurityCondition.values());
         waterOverallConditionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mOverallConditionSpinner.setAdapter(waterOverallConditionAdapter);
+
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
+        loc = new Location((double) extras.get("lat"), (double) extras.get("long"));
+
     }
 
     @Override
@@ -56,18 +67,18 @@ public class WaterPurityReportActivity extends AppCompatActivity implements Adap
         mWaterOverallCondition = WaterPurityCondition.UNSAFE;
     }
 
-    protected void onSubmitPressed() {
+    protected void onSubmitPressed(View view) {
         mVirusPPM = Double.parseDouble(mVirusPPMEditText.getText().toString());
         mContaminantPPM = Double.parseDouble(mContaminantPPMEditText.getText().toString());
         mWaterOverallCondition = (WaterPurityCondition) mOverallConditionSpinner.getSelectedItem();
 
         ModelFacade mFacade = ModelFacade.getInstance();
-        mFacade.addWaterPurityReport(mWaterOverallCondition, mVirusPPM, mContaminantPPM);
+        mFacade.addWaterPurityReport(mWaterOverallCondition, mVirusPPM, mContaminantPPM, loc);
 
         finish();
     }
 
-    protected void onCancelPressed() {
+    protected void onCancelPressed(View view) {
         finish();
     }
 }

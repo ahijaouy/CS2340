@@ -23,7 +23,7 @@ public class Admin extends UserRole {
     }
 
     @Override
-    public void addWaterPurityReport(WaterPurityCondition condition, String name, double virusPPM, double contaminantPPM) {
+    public void addWaterPurityReport(WaterPurityCondition condition, String name, double virusPPM, double contaminantPPM, Location loc) {
 
     }
 }

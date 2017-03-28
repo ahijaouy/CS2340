@@ -15,9 +15,8 @@ public class Worker extends UserRole {
     }
 
     @Override
-    public void addWaterPurityReport(WaterPurityCondition condition, String name, double virusPPM, double contaminantPPM) {
-
-    }
-
-
+    public void addWaterPurityReport(WaterPurityCondition condition, String name, double virusPPM, double contaminantPPM, Location loc) {
+        mReportManager.getReports().get(loc).addWaterPurityReport(condition, virusPPM, contaminantPPM, name);
+        Log.d(TAG, "Worker addPurityReport");
+}
 }

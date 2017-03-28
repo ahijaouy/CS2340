@@ -14,33 +14,33 @@
         android:id="@+id/overall_purity_condition"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
+        android:layout_marginTop="31dp"
+        android:text="Overall Condition"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="29dp"
-        android:text="Overall Condition" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:id="@+id/virus_PPM"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="59dp"
-        android:text="Virus in PPM"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
         android:layout_below="@+id/overall_purity_condition"
-        android:layout_toLeftOf="@+id/condition_spinner"
-        android:layout_toStartOf="@+id/condition_spinner" />
+        android:layout_marginTop="60dp"
+        android:text="Virus (PPM)" />
 
     <TextView
         android:id="@+id/contaminant_PPM"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="46dp"
-        android:text="Contaminant in PPM"
-        android:layout_below="@+id/virus_PPM"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/virus_PPM"
+        android:layout_marginTop="46dp"
+        android:text="Contaminant (PPM)"
+        android:layout_toStartOf="@+id/contaminant_text"
+        android:layout_toLeftOf="@+id/contaminant_text" />
 
     <EditText
         android:id="@+id/virus_text"
@@ -48,21 +48,23 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="numberDecimal"
-        android:layout_alignTop="@+id/virus_PPM"
-        android:layout_toRightOf="@+id/virus_PPM"
-        android:layout_toEndOf="@+id/virus_PPM"
-        android:layout_above="@+id/contaminant_PPM" />
+        android:layout_alignBaseline="@+id/virus_PPM"
+        android:layout_alignBottom="@+id/virus_PPM"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <EditText
         android:id="@+id/contaminant_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/contaminant_PPM"
-        android:layout_alignTop="@+id/contaminant_PPM"
-        android:layout_toEndOf="@+id/contaminant_PPM"
-        android:layout_toRightOf="@+id/contaminant_PPM"
         android:ems="10"
-        android:inputType="numberDecimal" />
+        android:inputType="numberDecimal"
+        android:layout_alignBaseline="@+id/contaminant_PPM"
+        android:layout_alignBottom="@+id/contaminant_PPM"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignLeft="@+id/virus_text"
+        android:layout_alignStart="@+id/virus_text" />
 
     <Spinner
         android:id="@+id/condition_spinner"
