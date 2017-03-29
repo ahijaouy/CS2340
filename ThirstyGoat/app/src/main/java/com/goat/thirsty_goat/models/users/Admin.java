@@ -1,6 +1,7 @@
 package com.goat.thirsty_goat.models.users;
 
 import com.goat.thirsty_goat.models.Location;
+import com.goat.thirsty_goat.models.PurityCondition;
 import com.goat.thirsty_goat.models.SourceCondition;
 import com.goat.thirsty_goat.models.SourceType;
 
@@ -11,6 +12,7 @@ import com.goat.thirsty_goat.models.SourceType;
 public class Admin extends UserRole {
     private static final String TAG = Admin.class.getSimpleName();
 
+    @Override
     public void addWaterSourceReport(SourceType type, SourceCondition condition, Location loc, String name) {
         /*
           NOTE: an admin shouldn't be able to add a water source report.
@@ -22,5 +24,10 @@ public class Admin extends UserRole {
           A better approach would be to modify the UI so that they can never see or interact with anything
           that would allow this method to be reached.
         */
+    }
+
+    @Override
+    public void addWaterPurityReport(PurityCondition condition, String name, double virusPPM, double contaminantPPM, Location loc) {
+
     }
 }

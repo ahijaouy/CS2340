@@ -47,6 +47,17 @@ public class ModelFacade {
     }
 
     /**
+     * Tells the User class to add a water purity report with the given parameters.
+     * @param condition condition of the water
+     * @param virusPPM virus concentration
+     * @param contaminantPPM contaminant concentration
+     * @param loc location of the water
+     */
+    public void addWaterPurityReport(PurityCondition condition, double virusPPM, double contaminantPPM, Location loc) {
+        mUserManager.addWaterPurityReport(condition, virusPPM, contaminantPPM, loc);
+    }
+
+    /**
      * Gets the map of reports from the ReportManager class.
      * @return list of stored reports
      */
@@ -59,6 +70,8 @@ public class ModelFacade {
     public String getUserName() {
         return mUserManager.getUserName();
     }
+
+    public String getAccountType() {return mUserManager.getAccountType().toString();}
 
     /**
      * Gets the current user's email.

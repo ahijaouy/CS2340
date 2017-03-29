@@ -84,4 +84,20 @@ public class PurityReport {
         }
         return json;
     }
+
+    /**
+     * Gets the concentration of virus in PPM
+     * @return virus concentration (PPM)
+     */
+    public double getVirusPPM() {
+        return mVirusPPM;
+    }
+
+    /**
+     * Gets the concentration of contaminants in PPM
+     * @return contaminant concentration (PPM)
+     */
+    public double getContaminantPPM() {
+        return mContaminantPPM;
+    }
 }
