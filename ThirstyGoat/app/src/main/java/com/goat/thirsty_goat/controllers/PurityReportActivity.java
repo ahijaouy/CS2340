@@ -27,17 +27,16 @@ public class PurityReportActivity extends AppCompatActivity implements AdapterVi
     private Spinner mOverallConditionSpinner;
     private Button mCancelButton, mSubmitButton;
 
-    private PurityCondition mWaterOverallCondition;
-    private double mVirusPPM;
-    private double mContaminantPPM;
-
-    private Location loc;
-
+    private Location mLocation;
+//    PurityCondition mWaterOverallCondition;
+    ModelFacade mFacade = ModelFacade.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_water_purity_report);
+
+        mFacade = ModelFacade.getInstance();
 
         mSubmitButton = (Button) findViewById(R.id.submit_purity_report);
         mCancelButton = (Button) findViewById(R.id.cancel_purity_report);
@@ -52,27 +51,25 @@ public class PurityReportActivity extends AppCompatActivity implements AdapterVi
 
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
-        loc = new Location((double) extras.get("lat"), (double) extras.get("long"));
-
+        mLocation = new Location((double) extras.get("lat"), (double) extras.get("long"));
     }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        mWaterOverallCondition = (PurityCondition) parent.getItemAtPosition(position);
+//        mWaterOverallCondition = (PurityCondition) parent.getItemAtPosition(position);
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
-        mWaterOverallCondition = PurityCondition.UNSAFE;
+//        mWaterOverallCondition = PurityCondition.UNSAFE;
     }
 
     protected void onSubmitPressed(View view) {
-        mVirusPPM = Double.parseDouble(mVirusPPMEditText.getText().toString());
-        mContaminantPPM = Double.parseDouble(mContaminantPPMEditText.getText().toString());
-        mWaterOverallCondition = (PurityCondition) mOverallConditionSpinner.getSelectedItem();
+        double virusPPM = Double.parseDouble(mVirusPPMEditText.getText().toString());
+        double contaminantPPM = Double.parseDouble(mContaminantPPMEditText.getText().toString());
+        PurityCondition purityCondition = (PurityCondition) mOverallConditionSpinner.getSelectedItem();
 
-        ModelFacade mFacade = ModelFacade.getInstance();
-        mFacade.addPurityReport(mWaterOverallCondition, mVirusPPM, mContaminantPPM, loc);
+        mFacade.addPurityReport(purityCondition, virusPPM, contaminantPPM, mLocation);
 
         finish();
     }

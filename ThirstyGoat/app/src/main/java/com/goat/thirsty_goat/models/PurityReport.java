@@ -10,7 +10,7 @@ import org.json.JSONObject;
  * Created by Walker on 3/11/17.
  */
 
-public class PurityReport {
+public class PurityReport implements Reportable {
 
     private static final String TAG = PurityReport.class.getSimpleName();
 
@@ -22,7 +22,7 @@ public class PurityReport {
     private double mContaminantPPM;
 
     public PurityReport(PurityCondition condition, double virusPPM, double contaminantPPM, String name) {
-        mID = Report.getAndIncrementID();
+//        mID = Report.getAndIncrementID();
         mName = name;
         mCondition = condition;
         mDateTime = LocalDateTime.now();
@@ -70,21 +70,6 @@ public class PurityReport {
         return mDateTime.toString();
     }
 
-    public JSONObject toJson() {
-        JSONObject json = null;
-        try {
-            json = new JSONObject()
-                    .put("overall_condition", mCondition.name())
-                    .put("virus_ppm", mVirusPPM)
-                    .put("contaminant_ppm", mContaminantPPM)
-                    .put("date_modified", mDateTime.toString())
-                    .put("user_modified", mName);
-        } catch (JSONException e) {
-            Log.e(TAG, e.getMessage(), e);
-        }
-        return json;
-    }
-
     /**
      * Gets the concentration of virus in PPM
      * @return virus concentration (PPM)
@@ -99,5 +84,29 @@ public class PurityReport {
      */
     public double getContaminantPPM() {
         return mContaminantPPM;
+    }
+
+    /**
+     * Converts the Report instance to a JSON object.
+     * @return JSON object
+     */
+    public JSONObject toJson() {
+        JSONObject json = null;
+        try {
+            json = new JSONObject()
+                    .put("source_id", mID) //TODO: check with Andre
+                    .put("overall_condition", mCondition.name())
+                    .put("virus_ppm", mVirusPPM)
+                    .put("contaminant_ppm", mContaminantPPM)
+                    .put("date_modified", mDateTime.toString())
+                    .put("user_modified", mName);
+        } catch (JSONException e) {
+            Log.e(TAG, e.getMessage(), e);
+        }
+        return json;
+    }
+
+    public void setID(int id) {
+        mID = id;
     }
 }

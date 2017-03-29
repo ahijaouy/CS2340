@@ -82,6 +82,10 @@ public class Report {
         ((LinkedList<PurityReport>) mPurityReport).addFirst(new PurityReport(condition, virusPPM, contaminantPPM, name));
     }
 
+    public void addPurityReport(PurityReport report) {
+        ((LinkedList<PurityReport>) mPurityReport).addFirst(report);
+    }
+
     /**
      * Gets the purity report associated with this water source report.
      * @return the purity report associated with this source report, or null if none exists

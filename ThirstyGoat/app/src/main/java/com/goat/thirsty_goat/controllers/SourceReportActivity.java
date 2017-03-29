@@ -81,11 +81,8 @@ public class SourceReportActivity extends AppCompatActivity implements AdapterVi
 
 
     // keeps up with instance data to create the report
-    private SourceType mSourceType;
-    private SourceCondition mWaterCondition;
-    private double mLongitude;
-    private double mLatitude;
-    private LatLng mLatLng;
+    private Location mLocation;
+//    private LatLng mLatLng;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,8 +114,9 @@ public class SourceReportActivity extends AppCompatActivity implements AdapterVi
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
         if (extras != null) {
-            mLongitude = extras.getDouble(MapsActivity.LONGITUDE_MESSAGE);
-            mLatitude = extras.getDouble(MapsActivity.LATITUDE_MESSAGE);
+            double lat = extras.getDouble(MapsActivity.LATITUDE_MESSAGE);
+            double lng = extras.getDouble(MapsActivity.LONGITUDE_MESSAGE);
+            mLocation = new Location(lat, lng);
 
 //            mLatitudeEditText.setText(String.valueOf(mLatitude), TextView.BufferType.EDITABLE);
 //            mLongitudeEditText.setText(String.valueOf(mLongitude), TextView.BufferType.EDITABLE);
@@ -135,28 +133,28 @@ public class SourceReportActivity extends AppCompatActivity implements AdapterVi
     @ Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         Log.d(TAG, "something selected");
-        switch (parent.getId()){
-            case R.id.water_type_spinner:
-                mSourceType = (SourceType) parent.getItemAtPosition(position);
-                break;
-            case R.id.water_condition_spinner:
-                mWaterCondition = (SourceCondition) parent.getItemAtPosition(position);
-                break;
-        }
+//        switch (parent.getId()){
+//            case R.id.water_type_spinner:
+//                mSourceType = (SourceType) parent.getItemAtPosition(position);
+//                break;
+//            case R.id.water_condition_spinner:
+//                mWaterCondition = (SourceCondition) parent.getItemAtPosition(position);
+//                break;
+//        }
     }
 
     // for some reason, this isn't doing anything
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
         Log.d(TAG, "nothing selected");
-        switch (parent.getId()){
-            case R.id.water_type_spinner:
-                mSourceType = SourceType.BOTTLED;
-                break;
-            case R.id.water_condition_spinner:
-                mWaterCondition = SourceCondition.POTABLE;
-                break;
-        }
+//        switch (parent.getId()){
+//            case R.id.water_type_spinner:
+//                mSourceType = SourceType.BOTTLED;
+//                break;
+//            case R.id.water_condition_spinner:
+//                mWaterCondition = SourceCondition.POTABLE;
+//                break;
+//        }
     }
 
     protected void onSubmitPressed(View view) {
@@ -165,21 +163,19 @@ public class SourceReportActivity extends AppCompatActivity implements AdapterVi
 //        mLongitude = Double.parseDouble(mLongitudeEditText.getText().toString());
 
         // Maps things
-        LatLng mLatLng = mMap.getCameraPosition().target;
-        mLatitude = mLatLng.latitude;
-        mLongitude = mLatLng.longitude;
-        Log.d(TAG, "Latitude to add:" + Double.toString(mLatitude));
+        LatLng latLng = mMap.getCameraPosition().target;
+        mLocation = new Location(latLng);
 
-        mSourceType = (SourceType) mWaterTypeSpinner.getSelectedItem();
-        mWaterCondition = (SourceCondition) mWaterConditionSpinner.getSelectedItem();
+        SourceType sourceType = (SourceType) mWaterTypeSpinner.getSelectedItem();
+        SourceCondition sourceCondition = (SourceCondition) mWaterConditionSpinner.getSelectedItem();
 
-        Log.d(TAG, "long = " + mLongitude);
-        Log.d(TAG, "lat = " + mLatitude);
-        Log.d(TAG, "type = " + mSourceType.toString());
-        Log.d(TAG, "condition = " + mWaterCondition.toString());
+        Log.d(TAG, "long = " + mLocation.getLongitude());
+        Log.d(TAG, "lat = " + mLocation.getLatitude());
+        Log.d(TAG, "type = " + sourceType.toString());
+        Log.d(TAG, "condition = " + sourceCondition.toString());
 
         ModelFacade mFacade = ModelFacade.getInstance();
-        mFacade.addSourceReport(mSourceType, mWaterCondition, new Location(mLatitude, mLongitude));
+        mFacade.addSourceReport(sourceType, sourceCondition, mLocation);
 
         finish();
     }
@@ -192,6 +188,6 @@ public class SourceReportActivity extends AppCompatActivity implements AdapterVi
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(mLatitude, mLongitude)));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(mLocation.getLatitude(), mLocation.getLongitude())));
     }
 }

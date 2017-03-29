@@ -13,7 +13,7 @@ import org.json.JSONObject;
  * Created by Walker on 2/26/17.
  */
 
-public class SourceReport {
+public class SourceReport implements Reportable {
 
     private static final String TAG = SourceReport.class.getSimpleName();
 
@@ -132,7 +132,8 @@ public class SourceReport {
         }
         return json;
     }
-    public void setID(int ID) {
-        mID = ID;
+
+    public void setID(int id) {
+        mID = id;
     }
 }

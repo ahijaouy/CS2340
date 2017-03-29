@@ -63,17 +63,26 @@ public class ReportManager {
         setSourceReport(SourceType.LAKE, SourceCondition.WASTE, new Location(50.8, -70.5), "Sally");
     }
 
-    public void setSourceReport(SourceType type, SourceCondition cond, Location location, String name) {
+    public void setSourceReport(SourceType type, SourceCondition cond, Location loc, String name) {
         Log.d(TAG, "Setting new Report");
-        Report report = getReport(location);
+        Report report = getReport(loc);
         if (report.hasSourceReport()) {
             // TODO: delete old sourceReport in DB
         }
         SourceReport sourceReport = new SourceReport(type, cond, name);
         report.setSourceReport(sourceReport);
         Log.d(TAG, "Sending report");
-        sendSourceReport(sourceReport, location);
+        sendReport(sourceReport, loc);
         Log.d(TAG, "Added new report");
+    }
+
+    public void addPurityReport(PurityCondition cond, double virus, double contaminant, Location loc, String name) {
+        Report report = getReport(loc);
+        PurityReport purityReport = new PurityReport(cond, virus, contaminant, name);
+        report.addPurityReport(purityReport);
+        sendReport(purityReport, loc);
+
+        Log.d(TAG, "Adding purity report");
     }
 
     private void setOldSourceReport(Location location, SourceReport sourceReport) {
@@ -151,24 +160,31 @@ public class ReportManager {
 
     /**
      * Send report to Database through a http POST request.
-     * @param sourceReport Report instance to be sent
+     * @param report Report instance to be sent
      */
-    public void sendSourceReport(final SourceReport sourceReport, Location location) {
-        final JSONObject reportJson = sourceReport.toJson();
+    public void sendReport(final Reportable report, Location location) {
+        final JSONObject reportJson = report.toJson();
+        String url;
+        if (report instanceof SourceReport) {
+            url = SOURCE_REPORTS_URL;
+        } else {
+            url = PURITY_REPORTS_URL;
+        }
+
         try {
            reportJson.put("location", location);
         } catch (JSONException e) {
             Log.d(TAG, e.getMessage(), e);
         }
 
-        JsonObjectRequest jsonRequest = new JsonObjectRequest(SOURCE_REPORTS_URL, reportJson,
+        JsonObjectRequest jsonRequest = new JsonObjectRequest(url, reportJson,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.d(TAG, "Sent: " + reportJson.toString());
                         Log.d(TAG, "Posted: " + response.toString());
                         try {
-                            sourceReport.setID(response.getInt("insertId"));
+                            report.setID(response.getInt("insertId"));
                         } catch (JSONException e) {
                             Log.e(TAG, e.getMessage(), e);
                         }
