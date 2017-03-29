@@ -18,11 +18,11 @@ public abstract class UserRole {
       Then, you'll have to implement that method in every child class of this (ie BasicUser, Worker,
        Manager, and Admin). Even if one of them can't do that method, implement it in a way that makes
        sense, and then eventually we'll edit the UI so that they can never even reach that method to
-       begin with. See what I did with the addWaterSourceReport method in all the classes (ie how I
+       begin with. See what I did with the addSourceReport method in all the classes (ie how I
        left a blank/wasted implementation in Admin).
     */
 
-    public abstract void addWaterSourceReport(SourceType type, SourceCondition condition, Location loc, String name);
+    public abstract void addSourceReport(SourceType type, SourceCondition condition, Location loc, String name);
 
-    public abstract void addWaterPurityReport(PurityCondition condition, String name, double virusPPM, double contaminantPPM, Location loc);
+    public abstract void addPurityReport(PurityCondition condition, String name, double virusPPM, double contaminantPPM, Location loc);
 }

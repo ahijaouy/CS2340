@@ -89,7 +89,7 @@ public class SourceReportListActivity extends AppCompatActivity {
          */
         public WaterReportViewAdapter(List<Report> items) {
             mReports = items;
-            Log.d(TAG, "Made it to constructor: " + mReports.get(0).getCurrentWaterSourceReportName());
+            Log.d(TAG, "Made it to constructor: " + mReports.get(0).getCurrentSourceReportName());
             if (items == null) {
                 Log.d(TAG, "called constructor with null items");
             }
@@ -127,13 +127,13 @@ public class SourceReportListActivity extends AppCompatActivity {
               Now we bind the data to the widgets.  In this case, pretty simple, put the id in one
               textview and the string rep of a course in the other.
              */
-            holder.mNumber.setText("" + mReports.get(position).getCurrentWaterSourceReportNumber());
-            holder.mDateAndTime.setText(mReports.get(position).getCurrentWaterSourceReportDateString());
-            holder.mReporterName.setText(mReports.get(position).getCurrentWaterSourceReportName());
+            holder.mNumber.setText("" + mReports.get(position).getCurrentSourceReportNumber());
+            holder.mDateAndTime.setText(mReports.get(position).getCurrentSourceReportDateString());
+            holder.mReporterName.setText(mReports.get(position).getCurrentSourceReportName());
             holder.mLatitude.setText("" + mReports.get(position).getLatitude());
             holder.mLongitude.setText("" + mReports.get(position).getLongitude());
-            holder.mWaterType.setText(mReports.get(position).getCurrentWaterSourceReportTypeString());
-            holder.mWaterCondition.setText(mReports.get(position).getCurrentWaterSourceReportConditionString());
+            holder.mWaterType.setText(mReports.get(position).getCurrentSourceReportTypeString());
+            holder.mWaterCondition.setText(mReports.get(position).getCurrentSourceReportConditionString());
 
 
             // listens for click on report list, redirects appropriately

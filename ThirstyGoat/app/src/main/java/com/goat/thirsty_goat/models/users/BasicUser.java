@@ -15,12 +15,12 @@ public class BasicUser extends UserRole {
     private static final String TAG = BasicUser.class.getSimpleName();
 
     @Override
-    public void addWaterSourceReport(SourceType type, SourceCondition condition, Location loc, String name) {
+    public void addSourceReport(SourceType type, SourceCondition condition, Location loc, String name) {
         mReportManager.setSourceReport(type, condition, loc, name);
         Log.d(TAG, "BasicUser addReport");
     }
 
     @Override
-    public void addWaterPurityReport(PurityCondition condition, String name, double virusPPM, double contaminantPPM, Location loc) {
+    public void addPurityReport(PurityCondition condition, String name, double virusPPM, double contaminantPPM, Location loc) {
     }
 }

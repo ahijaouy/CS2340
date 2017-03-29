@@ -73,7 +73,7 @@ public class PurityReportListActivity extends AppCompatActivity  {
 
         for (Report report : model.getReports().values()) {
             if (report.getLocation().equals(new Location((double) extras.get("lat"), (double) extras.get("long")))) {
-                list.add(report.getWaterPurityReport());
+                list.add(report.getPurityReport());
             }
         }
 
@@ -135,7 +135,7 @@ public class PurityReportListActivity extends AppCompatActivity  {
             to an element in the view (which is one of our two TextView widgets
              */
             //start by getting the element at the correct position
-            holder.mWaterReport = mPurityReports.get(position);
+            holder.mPurityReport = mPurityReports.get(position);
             /*
               Now we bind the data to the widgets.  In this case, pretty simple, put the id in one
               textview and the string rep of a course in the other.
@@ -145,7 +145,7 @@ public class PurityReportListActivity extends AppCompatActivity  {
             holder.mReporterName.setText(mPurityReports.get(position).getName());
             holder.mLatitude.setText(String.valueOf(extras.get("lat")));
             holder.mLongitude.setText(String.valueOf(extras.get("long")));
-            holder.mWaterCondition.setText(mPurityReports.get(position).getWaterConditionString());
+            holder.mCondition.setText(mPurityReports.get(position).getConditionString());
             holder.mContaminantPPM.setText(String.valueOf(mPurityReports.get(position).getContaminantPPM()));
             holder.mVirusPPM.setText(String.valueOf(mPurityReports.get(position).getVirusPPM()));
 
@@ -197,10 +197,10 @@ public class PurityReportListActivity extends AppCompatActivity  {
             public final TextView mReporterName;
             public final TextView mLatitude;
             public final TextView mLongitude;
-            public final TextView mWaterCondition;
+            public final TextView mCondition;
             public final TextView mVirusPPM;
             public final TextView mContaminantPPM;
-            public PurityReport mWaterReport;
+            public PurityReport mPurityReport;
 
             public ViewHolder(View view) {
                 super(view);
@@ -211,7 +211,7 @@ public class PurityReportListActivity extends AppCompatActivity  {
                 mReporterName = (TextView) view.findViewById(R.id.reportNameData);
                 mLatitude = (TextView) view.findViewById(R.id.reportLatitudeData);
                 mLongitude = (TextView) view.findViewById(R.id.reportLongitudeData);
-                mWaterCondition = (TextView) view.findViewById(R.id.reportConditionData);
+                mCondition = (TextView) view.findViewById(R.id.reportConditionData);
                 mVirusPPM = (TextView) view.findViewById(R.id.reportVirusPPMData);
                 mContaminantPPM = (TextView) view.findViewById(R.id.reportContaminantPPMData);
 

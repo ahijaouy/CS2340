@@ -179,7 +179,7 @@ public class SourceReportActivity extends AppCompatActivity implements AdapterVi
         Log.d(TAG, "condition = " + mWaterCondition.toString());
 
         ModelFacade mFacade = ModelFacade.getInstance();
-        mFacade.addWaterSourceReport(mSourceType, mWaterCondition, new Location(mLatitude, mLongitude));
+        mFacade.addSourceReport(mSourceType, mWaterCondition, new Location(mLatitude, mLongitude));
 
         finish();
     }

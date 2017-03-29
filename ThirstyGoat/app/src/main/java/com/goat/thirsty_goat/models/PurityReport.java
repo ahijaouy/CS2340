@@ -50,7 +50,7 @@ public class PurityReport {
      * Gets the water condition of this report.
      * @return the water condition of this report
      */
-    public PurityCondition getWaterCondition() {
+    public PurityCondition getCondition() {
         return mCondition;
     }
 
@@ -58,7 +58,7 @@ public class PurityReport {
      * Gets the string representation of the water condition of this report.
      * @return the string representation of the warer condition of this report.
      */
-    public String getWaterConditionString() {
+    public String getConditionString() {
         return mCondition.toString();
     }
 

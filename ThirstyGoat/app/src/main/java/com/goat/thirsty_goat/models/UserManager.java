@@ -103,13 +103,13 @@ public class UserManager {
     }
 
 
-    public void addWaterSourceReport(SourceType type, SourceCondition condition, Location loc) {
+    public void addSourceReport(SourceType type, SourceCondition condition, Location loc) {
         Log.d(TAG, mAccountType.toString());
-        mCurrentUser.addWaterSourceReport(type, condition, loc, mUserName);
+        mCurrentUser.addSourceReport(type, condition, loc, mUserName);
     }
 
-    public void addWaterPurityReport(PurityCondition condition, double virusPPM, double contaminantPPM, Location loc) {
-        mCurrentUser.addWaterPurityReport(condition, mUserName, virusPPM, contaminantPPM, loc);
+    public void addPurityReport(PurityCondition condition, double virusPPM, double contaminantPPM, Location loc) {
+        mCurrentUser.addPurityReport(condition, mUserName, virusPPM, contaminantPPM, loc);
     }
 
 

@@ -72,7 +72,7 @@ public class PurityReportActivity extends AppCompatActivity implements AdapterVi
         mWaterOverallCondition = (PurityCondition) mOverallConditionSpinner.getSelectedItem();
 
         ModelFacade mFacade = ModelFacade.getInstance();
-        mFacade.addWaterPurityReport(mWaterOverallCondition, mVirusPPM, mContaminantPPM, loc);
+        mFacade.addPurityReport(mWaterOverallCondition, mVirusPPM, mContaminantPPM, loc);
 
         finish();
     }

@@ -77,7 +77,7 @@ public class SourceReport {
      * Gets the water type of this report.
      * @return the water type of this report
      */
-    public SourceType getWaterType() {
+    public SourceType getSourceType() {
         return mType;
     }
 
@@ -85,7 +85,7 @@ public class SourceReport {
      * Gets the string representation of the water type of this report.
      * @return the string representation of the water type of this report.
      */
-    public String getWaterTypeString() {
+    public String getSourceTypeString() {
         return mType.toString();
     }
 
@@ -93,7 +93,7 @@ public class SourceReport {
      * Gets the water condition of this report.
      * @return the water condition of this report
      */
-    public SourceCondition getWaterCondition() {
+    public SourceCondition getCondition() {
         return mCondition;
     }
 
@@ -102,7 +102,7 @@ public class SourceReport {
      *
      * @return the string representation of the water condition of this report.
      */
-    public String getWaterConditionString() {
+    public String getConditionString() {
         return mCondition.toString();
     }
 

@@ -19,9 +19,9 @@ public enum SourceCondition {
         this.value = value;
     }
 
-    public static SourceCondition stringOf(String waterConditionString) {
+    public static SourceCondition stringOf(String conditionString) {
         try {
-            return valueOf(waterConditionString);
+            return valueOf(conditionString);
         } catch (IllegalArgumentException e) {
             return SourceCondition.values()[0];
         }

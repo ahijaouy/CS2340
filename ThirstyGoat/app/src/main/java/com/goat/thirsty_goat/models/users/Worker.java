@@ -11,14 +11,14 @@ import com.goat.thirsty_goat.models.*;
 public class Worker extends UserRole {
     private static final String TAG = Worker.class.getSimpleName();
 
-    public void addWaterSourceReport(SourceType type, SourceCondition condition, Location loc, String name) {
+    public void addSourceReport(SourceType type, SourceCondition condition, Location loc, String name) {
         mReportManager.setSourceReport(type, condition, loc, name);
         Log.d(TAG, "Worker addReport");
     }
 
     @Override
-    public void addWaterPurityReport(PurityCondition condition, String name, double virusPPM, double contaminantPPM, Location loc) {
-        mReportManager.getReports().get(loc).addWaterPurityReport(condition, virusPPM, contaminantPPM, name);
+    public void addPurityReport(PurityCondition condition, String name, double virusPPM, double contaminantPPM, Location loc) {
+        mReportManager.getReports().get(loc).addPurityReport(condition, virusPPM, contaminantPPM, name);
         Log.d(TAG, "Worker addPurityReport");
     }
 }

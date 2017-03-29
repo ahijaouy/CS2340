@@ -13,7 +13,7 @@ public class Admin extends UserRole {
     private static final String TAG = Admin.class.getSimpleName();
 
     @Override
-    public void addWaterSourceReport(SourceType type, SourceCondition condition, Location loc, String name) {
+    public void addSourceReport(SourceType type, SourceCondition condition, Location loc, String name) {
         /*
           NOTE: an admin shouldn't be able to add a water source report.
           Even though they can't add them, they still need this method for the polymorphic aspect to work.
@@ -27,7 +27,7 @@ public class Admin extends UserRole {
     }
 
     @Override
-    public void addWaterPurityReport(PurityCondition condition, String name, double virusPPM, double contaminantPPM, Location loc) {
+    public void addPurityReport(PurityCondition condition, String name, double virusPPM, double contaminantPPM, Location loc) {
 
     }
 }

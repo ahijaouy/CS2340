@@ -40,29 +40,29 @@ public class Report {
         mSourceReport = report;
     }
 
-    public SourceReport getCurrentWaterSourceReport() {
+    public SourceReport getSourceReport() {
 //        return ((LinkedList<SourceReport>) mWaterSourceReports).getFirst();
         return mSourceReport;
     }
 
-    public String getCurrentWaterSourceReportDateString() {
-        return getCurrentWaterSourceReport().getDateTimeString();
+    public String getCurrentSourceReportDateString() {
+        return getSourceReport().getDateTimeString();
     }
 
-    public int getCurrentWaterSourceReportNumber() {
-        return getCurrentWaterSourceReport().getReportNumber();
+    public int getCurrentSourceReportNumber() {
+        return getSourceReport().getReportNumber();
     }
 
-    public String getCurrentWaterSourceReportTypeString() {
-        return getCurrentWaterSourceReport().getWaterTypeString();
+    public String getCurrentSourceReportTypeString() {
+        return getSourceReport().getSourceTypeString();
     }
 
-    public String getCurrentWaterSourceReportConditionString() {
-        return getCurrentWaterSourceReport().getWaterConditionString();
+    public String getCurrentSourceReportConditionString() {
+        return getSourceReport().getConditionString();
     }
 
-    public String getCurrentWaterSourceReportName() {
-        return getCurrentWaterSourceReport().getName();
+    public String getCurrentSourceReportName() {
+        return getSourceReport().getName();
     }
 
     // #####################################################
@@ -78,7 +78,7 @@ public class Report {
      * @param contaminantPPM the amount of contaminants in the water in parts per million
      * @param name the name of the person who submitted this purity report
      */
-    public void addWaterPurityReport(PurityCondition condition, double virusPPM, double contaminantPPM, String name) {
+    public void addPurityReport(PurityCondition condition, double virusPPM, double contaminantPPM, String name) {
         ((LinkedList<PurityReport>) mPurityReport).addFirst(new PurityReport(condition, virusPPM, contaminantPPM, name));
     }
 
@@ -86,7 +86,7 @@ public class Report {
      * Gets the purity report associated with this water source report.
      * @return the purity report associated with this source report, or null if none exists
      */
-    public PurityReport getWaterPurityReport() {
+    public PurityReport getPurityReport() {
         return ((LinkedList<PurityReport>) mPurityReport).getFirst();
     }
 
@@ -94,24 +94,24 @@ public class Report {
      * Gets the reporter's name for the purity report associated with this water source report.
      * @return the reporter's name for the purity report associated with this source report, or null if none exists
      */
-    public String getWaterPurityReportName() {
-//        if (getWaterPurityReport() == null) {
+    public String getPurityReportName() {
+//        if (getPurityReport() == null) {
 //            return null;
 //        } else {
-//            return getWaterPurityReport().getName();
+//            return getPurityReport().getName();
 //        }
-        return getWaterPurityReport().getName();
+        return getPurityReport().getName();
     }
 
     /**
      * Gets the report number of the purity report associated with this water source report.
      * @return the report number of the purity report associated with this source report, or -1 if none exists
      */
-    public int getWaterPurityReportNumber() {
-        if (getWaterPurityReport() == null) {
+    public int getPurityReportNumber() {
+        if (getPurityReport() == null) {
             return -1;
         } else {
-            return getWaterPurityReport().getReportNumber();
+            return getPurityReport().getReportNumber();
         }
     }
 
@@ -119,26 +119,26 @@ public class Report {
      * Gets the purity condition from the purity report associated with this water source report.
      * @return the purity condition from the purity report associated with this source report, or null if none exists
      */
-    public String getWaterPurityReportConditionString() {
-//        if (getWaterPurityReport() == null) {
+    public String getPurityReportConditionString() {
+//        if (getPurityReport() == null) {
 //            return null;
 //        } else {
-//            return getWaterPurityReport().getWaterConditionString();
+//            return getPurityReport().getConditionString();
 //        }
-        return getWaterPurityReport().getWaterConditionString();
+        return getPurityReport().getConditionString();
     }
 
     /**
      * Gets the date from the purity report associated with this water source report.
      * @return the date from the purity report associated with this source report, or null if none exists
      */
-    public String getWaterPurityReportDateString() {
-//        if (getWaterPurityReport() == null) {
+    public String getPurityReportDateString() {
+//        if (getPurityReport() == null) {
 //            return null;
 //        } else {
-//            return getWaterPurityReport().getDateString();
+//            return getPurityReport().getDateString();
 //        }
-        return getWaterPurityReport().getDateString();
+        return getPurityReport().getDateString();
     }
 
     /**

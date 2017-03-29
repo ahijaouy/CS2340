@@ -42,8 +42,8 @@ public class ModelFacade {
      * @param condition condition of the water
      * @param loc location of the water
      */
-    public void addWaterSourceReport(SourceType type, SourceCondition condition, Location loc) {
-        mUserManager.addWaterSourceReport(type, condition, loc);
+    public void addSourceReport(SourceType type, SourceCondition condition, Location loc) {
+        mUserManager.addSourceReport(type, condition, loc);
     }
 
     /**
@@ -53,8 +53,8 @@ public class ModelFacade {
      * @param contaminantPPM contaminant concentration
      * @param loc location of the water
      */
-    public void addWaterPurityReport(PurityCondition condition, double virusPPM, double contaminantPPM, Location loc) {
-        mUserManager.addWaterPurityReport(condition, virusPPM, contaminantPPM, loc);
+    public void addPurityReport(PurityCondition condition, double virusPPM, double contaminantPPM, Location loc) {
+        mUserManager.addPurityReport(condition, virusPPM, contaminantPPM, loc);
     }
 
     /**
