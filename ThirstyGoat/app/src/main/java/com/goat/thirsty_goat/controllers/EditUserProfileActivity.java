@@ -3,6 +3,7 @@ package com.goat.thirsty_goat.controllers;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -40,6 +41,7 @@ public class EditUserProfileActivity extends AppCompatActivity {
     private Button mMapButton;
     private Button mReportButton;
     private Button mViewReportListButton;
+    private Button mHistoryButton;
     private Auth0 mAuth0;
     private AuthenticationAPIClient mClient;
     private UserProfile mUserProfile;
@@ -93,7 +95,6 @@ public class EditUserProfileActivity extends AppCompatActivity {
         mMapButton = (Button) findViewById(R.id.map_button);
         mReportButton = (Button) findViewById(R.id.add_report_button);
         mViewReportListButton = (Button) findViewById(R.id.view_reports_button);
-
         /**
          * Set up adapter to select account type
          */
@@ -101,6 +102,15 @@ public class EditUserProfileActivity extends AppCompatActivity {
                 new ArrayAdapter(this, android.R.layout.simple_spinner_item, UserManager.AccountType.values());
         accountTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mAccountTypeSpinner.setAdapter(accountTypeAdapter);
+
+        mHistoryButton = (Button) findViewById(R.id.graph_button); //button id
+        if (mAccountTypeSpinner.getSelectedItem().toString().equals("Manager")) { //mAccountTypeSpinner.getSelectedItem().toString()
+            mHistoryButton.setVisibility(View.VISIBLE);
+        } else {
+            mHistoryButton.setVisibility(View.GONE);
+        }
+        Log.d("report*****",  mAccountTypeSpinner.getSelectedItem().toString());
+
 
         /**
          * Set default field values
@@ -163,6 +173,12 @@ public class EditUserProfileActivity extends AppCompatActivity {
         mUserNameField.setText(mFacade.getUserName());
         mEmailField.setText(mFacade.getUserEmail());
         mAccountTypeSpinner.setSelection(mFacade.getUserAccountTypePosition());
+
+        if (mAccountTypeSpinner.getSelectedItem().toString().equals("Manager")) { //mAccountTypeSpinner.getSelectedItem().toString()
+            mHistoryButton.setVisibility(View.VISIBLE);
+        } else {
+            mHistoryButton.setVisibility(View.GONE);
+        };
     }
     private void saveProfile() {
         UsersAPIClient userClient =
