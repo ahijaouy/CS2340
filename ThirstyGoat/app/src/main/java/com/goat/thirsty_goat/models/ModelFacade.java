@@ -4,7 +4,11 @@ import android.util.Log;
 
 import com.auth0.android.authentication.AuthenticationAPIClient;
 import com.auth0.android.result.Credentials;
+import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.series.DataPoint;
+import com.jjoe64.graphview.series.LineGraphSeries;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -18,6 +22,7 @@ public class ModelFacade {
 
     private static final String TAG = ModelFacade.class.getSimpleName();
     private static ModelFacade INSTANCE = new ModelFacade();
+
     public static ModelFacade getInstance() {
         return INSTANCE;
     }
@@ -25,6 +30,7 @@ public class ModelFacade {
 
     private ReportManager mReportManager;
     private UserManager mUserManager;
+    private HistoricalReportManager mHistoricalReportManager;
 
     /**
      * Creates a facade.
@@ -32,15 +38,17 @@ public class ModelFacade {
     private ModelFacade() {
         mReportManager = ReportManager.getInstance();
         mUserManager = UserManager.getInstance();
+        mHistoricalReportManager = HistoricalReportManager.getInstance();
         Log.d(TAG, "model facade constructor");
     }
 
 
     /**
      * Tells the UserManager class to add a report with the given parameters.
-     * @param type type of water
+     *
+     * @param type      type of water
      * @param condition condition of the water
-     * @param loc location of the water
+     * @param loc       location of the water
      */
     public void addSourceReport(SourceType type, SourceCondition condition, Location loc) {
         mUserManager.addSourceReport(type, condition, loc);
@@ -48,10 +56,11 @@ public class ModelFacade {
 
     /**
      * Tells the User class to add a water purity report with the given parameters.
-     * @param condition condition of the water
-     * @param virusPPM virus concentration
+     *
+     * @param condition      condition of the water
+     * @param virusPPM       virus concentration
      * @param contaminantPPM contaminant concentration
-     * @param loc location of the water
+     * @param loc            location of the water
      */
     public void addPurityReport(PurityCondition condition, double virusPPM, double contaminantPPM, Location loc) {
         mUserManager.addPurityReport(condition, virusPPM, contaminantPPM, loc);
@@ -59,22 +68,29 @@ public class ModelFacade {
 
     /**
      * Gets the map of reports from the ReportManager class.
+     *
      * @return list of stored reports
      */
-    public Map<Location, Report> getReports() { return mReportManager.getReports(); }
+    public Map<Location, Report> getReports() {
+        return mReportManager.getReports();
+    }
 
     /**
      * Gets the current user's name from the UserManager class.
+     *
      * @return current user's name
      */
     public String getUserName() {
         return mUserManager.getUserName();
     }
 
-    public String getAccountType() {return mUserManager.getAccountType().toString();}
+    public String getAccountType() {
+        return mUserManager.getAccountType().toString();
+    }
 
     /**
      * Gets the current user's email.
+     *
      * @return current user's email
      */
     public String getUserEmail() {
@@ -83,6 +99,7 @@ public class ModelFacade {
 
     /**
      * Gets the position in the AccountType enum of the current user's account type.
+     *
      * @return the position in the enum of the current user's account type
      */
     public int getUserAccountTypePosition() {
@@ -91,6 +108,7 @@ public class ModelFacade {
 
     /**
      * Used to update the user profile with new user informatino from Auth0.
+     *
      * @param client the new client information that we want to use to update this user's profile
      */
     public void updateUserProfile(AuthenticationAPIClient client) {
@@ -99,6 +117,7 @@ public class ModelFacade {
 
     /**
      * Gets the ID of the current user.
+     *
      * @return the current user's ID.
      */
     public String getUserID() {
@@ -107,6 +126,7 @@ public class ModelFacade {
 
     /**
      * Sets the current user's credentials.
+     *
      * @param credentials the credentials to give to the current user
      */
     public void setUserCredentials(Credentials credentials) {
@@ -117,5 +137,19 @@ public class ModelFacade {
         mReportManager.fetchSourceReports();
     }
 
+    public List<PurityReport> getPurityReportsForLocation(double latitude, double longitude) {
+        Log.d("graph", "lat: " + latitude + "  lng: " + longitude);
+        return mReportManager.getPurityReportsForLocation(new Location(latitude, longitude));
+    }
 
+    public GraphView createGraph(double latitude, double longitude, int year, boolean isVirus, GraphView graph) {
+        Log.d("graph", String.format("lat: %s   lng: %s   year: %d  isVirus: %b", latitude, longitude, year, isVirus));
+        return mHistoricalReportManager.createGraph(latitude, longitude, year, isVirus, graph);
+    }
+
+
+    //TESTING methods
+    public void makeDummyReports() {
+        mReportManager.makeDummyReports2();
+    }
 }

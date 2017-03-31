@@ -34,6 +34,7 @@
         <activity android:name=".controllers.MainActivity" />
         <activity android:name=".controllers.PurityReportActivity" />
         <activity android:name=".controllers.PurityReportListActivity" />
+        <activity android:name=".controllers.ViewHistoricalReportActivity" />
 
         <!-- Auth0 Lock -->
         <activity

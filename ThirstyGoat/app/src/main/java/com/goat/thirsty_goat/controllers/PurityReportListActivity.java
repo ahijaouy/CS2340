@@ -110,7 +110,7 @@ public class PurityReportListActivity extends AppCompatActivity  {
 
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            Log.d("report", "is this ever called? 1");
+//            Log.d("report", "is this ever called? 1");
             /*
 
               This sets up the view for each individual item in the recycler display
@@ -125,7 +125,7 @@ public class PurityReportListActivity extends AppCompatActivity  {
         @Override
 //        public void onBindViewHolder(final ViewHolder holder, int position) {
         public void onBindViewHolder(ViewHolder holder, final int position) {
-            Log.d("report", "is this ever called? 2");
+//            Log.d("report", "is this ever called? 2");
 
 //            final ModelFacade model = ModelFacade.getInstance();
             final ModelFacade model = ModelFacade.getInstance();
@@ -181,7 +181,7 @@ public class PurityReportListActivity extends AppCompatActivity  {
 
         @Override
         public int getItemCount() {
-            Log.d("report", "is this ever called? 3");
+//            Log.d("report", "is this ever called? 3");
             return mPurityReports.size();
         }
 
@@ -204,7 +204,7 @@ public class PurityReportListActivity extends AppCompatActivity  {
 
             public ViewHolder(View view) {
                 super(view);
-                Log.d("report", "is this ever called? 5");
+//              Log.d("report", "is this ever called? 5");
                 mView = view;
                 mNumber = (TextView) view.findViewById(R.id.reportNumber);
                 mDateAndTime = (TextView) view.findViewById(R.id.reportDateAndTime);
