@@ -13,6 +13,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 /**
  * Created by Walker on 3/29/17.
@@ -31,12 +32,17 @@ public class HistoricalReportManager {
         return INSTANCE;
     }
 
-    public GraphView createGraph(double latitude, double longitude, int year, boolean isVirus, GraphView graph) {
+    public GraphView createGraph(double latitude, double longitude, int year, boolean isVirus, GraphView graph)
+        throws NoSuchElementException {
         //make sure it gets the latest instance
         mFacade = ModelFacade.getInstance();
 
         Log.d("reportmanager", "" + (mFacade == null));
         List<PurityReport> allPurityReports = mFacade.getPurityReportsForLocation(latitude, longitude);
+
+        if (allPurityReports == null) {
+            throw new NoSuchElementException("No reports for that location.");
+        }
 
         Log.d("reportmanager", "# all purity reports = " + allPurityReports.size());
 
@@ -48,6 +54,11 @@ public class HistoricalReportManager {
                 filteredPurityReports.add(report);
             }
         }
+
+        if (filteredPurityReports.size() == 0) {
+            throw new NoSuchElementException("No reports for that year.");
+        }
+
         Collections.sort(filteredPurityReports, new Comparator<PurityReport>() {
             @Override
             public int compare(PurityReport pr1, PurityReport pr2) {

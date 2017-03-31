@@ -108,7 +108,12 @@ public class ReportManager {
     }
 
     public List<PurityReport> getPurityReportsForLocation(Location lcn) {
-        return mReportsMap.get(lcn).getPurityReportsForLocation();
+//        return mReportsMap.get(lcn).getPurityReportsForLocation();
+        if (mReportsMap.get(lcn) == null) {
+            return null;
+        } else {
+            return mReportsMap.get(lcn).getPurityReportsForLocation();
+        }
     }
 
     // Getters and setters
@@ -329,15 +334,15 @@ public class ReportManager {
         Log.d(TAG, "dummy reports 2 started");
 
         Report report = getReport(lcn);
-        report.addSpecificPurityReport(PurityCondition.SAFE, 100, 900, "Dummy Purity", 1, 1, 2015);
-        report.addSpecificPurityReport(PurityCondition.SAFE, 200, 800, "Dummy Purity", 2, 1, 2015);
-        report.addSpecificPurityReport(PurityCondition.SAFE, 200, 800, "Dummy Purity", 2, 15, 2015);
-        report.addSpecificPurityReport(PurityCondition.SAFE, 200, 800, "Dummy Purity", 2, 26, 2015);
-        report.addSpecificPurityReport(PurityCondition.SAFE, 300, 700, "Dummy Purity", 5, 20, 2015);
-        report.addSpecificPurityReport(PurityCondition.SAFE, 400, 600, "Dummy Purity", 7, 1, 2015);
-        report.addSpecificPurityReport(PurityCondition.SAFE, 500, 500, "Dummy Purity", 9, 17, 2015);
-        report.addSpecificPurityReport(PurityCondition.SAFE, 600, 400, "Dummy Purity", 10, 15, 2015);
-        report.addSpecificPurityReport(PurityCondition.SAFE, 700, 300, "Dummy Purity", 12, 30, 2015);
+        report.addSpecificPurityReport(100, 900, 1, 1);
+        report.addSpecificPurityReport(200, 800, 2, 1);
+        report.addSpecificPurityReport(200, 800, 2, 15);
+        report.addSpecificPurityReport(200, 800, 2, 26);
+        report.addSpecificPurityReport(300, 700, 5, 20);
+        report.addSpecificPurityReport(400, 600, 7, 1);
+        report.addSpecificPurityReport(500, 500, 9, 17);
+        report.addSpecificPurityReport(600, 400, 10, 15);
+        report.addSpecificPurityReport(700, 300, 12, 30);
 
         Log.d(TAG, "dummy reports 2 finished");
     }

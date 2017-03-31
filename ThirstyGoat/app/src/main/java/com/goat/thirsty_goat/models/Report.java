@@ -87,8 +87,8 @@ public class Report {
     }
 
     //TODO: remove this
-    public void addSpecificPurityReport(PurityCondition condition, double virusPPM, double contaminantPPM, String name, int month, int day, int year) {
-        ((LinkedList<PurityReport>) mPurityReport).addFirst(new PurityReport(condition, virusPPM, contaminantPPM, name, month, day, year));
+    public void addSpecificPurityReport(double virusPPM, double contaminantPPM, int month, int day) {
+        ((LinkedList<PurityReport>) mPurityReport).addFirst(new PurityReport(PurityCondition.SAFE, virusPPM, contaminantPPM, "Dummy Purity", month, day, 2015));
     }
 
     /**
