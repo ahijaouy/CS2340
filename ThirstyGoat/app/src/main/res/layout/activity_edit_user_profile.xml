@@ -118,4 +118,13 @@
         android:id="@+id/view_reports_button"
         android:onClick="onViewReportListClicked" />
 
+    <Button
+        android:id="@+id/graph_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:onClick="onHistoryGraphButtonClicked"
+        android:text="History Graph" />
+
 </RelativeLayout>

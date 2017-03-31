@@ -19,6 +19,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -49,6 +50,7 @@ public class ReportManager {
         mReportsMap = new HashMap<>();
         mRequestQueue = Volley.newRequestQueue(App.getContext());
 //        makeDummyReports();
+//        makeDummyReports2();
     }
 
     public static ReportManager getInstance() {
@@ -63,6 +65,13 @@ public class ReportManager {
         setSourceReport(SourceType.LAKE, SourceCondition.WASTE, new Location(50.8, -70.5), "Sally");
     }
 
+    /**
+     * Adds a new source report to the map
+     * @param type the type of the water source
+     * @param cond the condition of the water source
+     * @param location the location of the water
+     * @param name the name of the reporter
+     */
     public void setSourceReport(SourceType type, SourceCondition cond, Location location, String name) {
         Log.d(TAG, "Setting new Report");
         Report report = getReport(location);
@@ -89,6 +98,9 @@ public class ReportManager {
         return mReportsMap.get(location);
     }
 
+    public List<PurityReport> getPurityReportsForLocation(Location lcn) {
+        return mReportsMap.get(lcn).getPurityReportsForLocation();
+    }
 
     // Getters and setters
     /**
@@ -292,5 +304,25 @@ public class ReportManager {
         });
 
         mRequestQueue.add(request);
+    }
+
+    public void makeDummyReports2() {
+        Location lcn = new Location(25.0, 25.0);
+        setSourceReport(SourceType.OTHER, SourceCondition.POTABLE, lcn, "Dummy");
+
+        Log.d(TAG, "dummy reports 2 started");
+
+        Report report = getReport(lcn);
+        report.addSpecificPurityReport(PurityCondition.SAFE, 100, 900, "Dummy Purity", 1, 1, 2015);
+        report.addSpecificPurityReport(PurityCondition.SAFE, 200, 800, "Dummy Purity", 2, 1, 2015);
+        report.addSpecificPurityReport(PurityCondition.SAFE, 200, 800, "Dummy Purity", 2, 15, 2015);
+        report.addSpecificPurityReport(PurityCondition.SAFE, 200, 800, "Dummy Purity", 2, 26, 2015);
+        report.addSpecificPurityReport(PurityCondition.SAFE, 300, 700, "Dummy Purity", 5, 20, 2015);
+        report.addSpecificPurityReport(PurityCondition.SAFE, 400, 600, "Dummy Purity", 7, 1, 2015);
+        report.addSpecificPurityReport(PurityCondition.SAFE, 500, 500, "Dummy Purity", 9, 17, 2015);
+        report.addSpecificPurityReport(PurityCondition.SAFE, 600, 400, "Dummy Purity", 10, 15, 2015);
+        report.addSpecificPurityReport(PurityCondition.SAFE, 700, 300, "Dummy Purity", 12, 30, 2015);
+
+        Log.d(TAG, "dummy reports 2 finished");
     }
 }

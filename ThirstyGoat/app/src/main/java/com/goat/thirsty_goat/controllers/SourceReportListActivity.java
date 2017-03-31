@@ -18,6 +18,8 @@ import com.goat.thirsty_goat.models.ModelFacade;
 import com.goat.thirsty_goat.models.Report;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -63,7 +65,16 @@ public class SourceReportListActivity extends AppCompatActivity {
         Log.d("report", "setting up recycler view");
         //Log.d("report", model.getReports().get(0).getName());
 
-        WaterReportViewAdapter mAdapter = new WaterReportViewAdapter(new ArrayList<Report>(model.getReports().values()));
+        ArrayList<Report> reports = new ArrayList<Report>(model.getReports().values());
+        Collections.sort(reports, new Comparator<Report>() {
+            @Override
+            public int compare(Report r1, Report r2) {
+                return r2.getCurrentSourceReportNumber() - r1.getCurrentSourceReportNumber();
+            }
+        });
+        WaterReportViewAdapter mAdapter = new WaterReportViewAdapter(reports);
+
+//        WaterReportViewAdapter mAdapter = new WaterReportViewAdapter(new ArrayList<Report>(model.getReports().values()));
         Log.d("report", "adapter: " + mAdapter);
         recyclerView.setAdapter(mAdapter);
     }
@@ -97,7 +108,7 @@ public class SourceReportListActivity extends AppCompatActivity {
 
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            Log.d(TAG, "is this ever called? 1");
+//            Log.d(TAG, "is this ever called? 1");
             /*
 
               This sets up the view for each individual item in the recycler display
@@ -112,7 +123,7 @@ public class SourceReportListActivity extends AppCompatActivity {
         @Override
 //        public void onBindViewHolder(final ViewHolder holder, int position) {
         public void onBindViewHolder(ViewHolder holder, final int position) { //TODO Final int????
-            Log.d(TAG, "is this ever called? 2");
+//            Log.d(TAG, "is this ever called? 2");
 
 //            final ModelFacade model = ModelFacade.getInstance();
             final ModelFacade model = ModelFacade.getInstance();
@@ -170,7 +181,7 @@ public class SourceReportListActivity extends AppCompatActivity {
 
         @Override
         public int getItemCount() {
-            Log.d(TAG, "is this ever called? 3");
+//            Log.d(TAG, "is this ever called? 3");
             return mReports.size();
         }
 
@@ -192,7 +203,7 @@ public class SourceReportListActivity extends AppCompatActivity {
 
             public ViewHolder(View view) {
                 super(view);
-                Log.d(TAG, "is this ever called? 5");
+//                Log.d(TAG, "is this ever called? 5");
                 mView = view;
                 mNumber = (TextView) view.findViewById(R.id.reportNumber);
                 mDateAndTime = (TextView) view.findViewById(R.id.reportDateAndTime);

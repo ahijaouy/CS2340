@@ -30,6 +30,17 @@ public class PurityReport {
         mContaminantPPM = contaminantPPM;
     }
 
+    //TODO: delete this; only for testing
+    public PurityReport(PurityCondition condition, double virusPPM, double contaminantPPM, String name, int month, int dayOfMonth, int year) {
+        mID = Report.getAndIncrementID();
+        mName = name;
+        mCondition = condition;
+        mDateTime = LocalDateTime.now();
+        mDateTime = mDateTime.withMonthOfYear(month).withDayOfMonth(dayOfMonth).withYear(year);
+        mVirusPPM = virusPPM;
+        mContaminantPPM = contaminantPPM;
+    }
+
     /**
      * Gets the name of the person who submitted this report.
      * @return the report submitter's name
@@ -68,6 +79,18 @@ public class PurityReport {
      */
     public String getDateString() {
         return mDateTime.toString();
+    }
+
+    public int getYear() {
+        return mDateTime.getYear();
+    }
+
+    public int getMonth() {
+        return mDateTime.getMonthOfYear();
+    }
+
+    public int getDay() {
+        return mDateTime.getDayOfMonth();
     }
 
     public JSONObject toJson() {

@@ -115,6 +115,9 @@ public class EditUserProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 saveProfile();
+
+                //TODO: remove this method call; only for testing
+                mFacade.makeDummyReports();
             }
         });
 
@@ -204,6 +207,11 @@ public class EditUserProfileActivity extends AppCompatActivity {
 
     private void switchToReportListView(View v) {
         Intent intent = new Intent(this, SourceReportListActivity.class);
+        startActivity(intent);
+    }
+
+    public void onHistoryGraphButtonClicked(View view) {
+        Intent intent = new Intent(this, ViewHistoricalReportActivity.class);
         startActivity(intent);
     }
 }

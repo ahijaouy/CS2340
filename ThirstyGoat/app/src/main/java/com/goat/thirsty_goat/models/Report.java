@@ -82,12 +82,21 @@ public class Report {
         ((LinkedList<PurityReport>) mPurityReport).addFirst(new PurityReport(condition, virusPPM, contaminantPPM, name));
     }
 
+    //TODO: remove this
+    public void addSpecificPurityReport(PurityCondition condition, double virusPPM, double contaminantPPM, String name, int month, int day, int year) {
+        ((LinkedList<PurityReport>) mPurityReport).addFirst(new PurityReport(condition, virusPPM, contaminantPPM, name, month, day, year));
+    }
+
     /**
      * Gets the purity report associated with this water source report.
      * @return the purity report associated with this source report, or null if none exists
      */
     public PurityReport getPurityReport() {
         return ((LinkedList<PurityReport>) mPurityReport).getFirst();
+    }
+
+    public List<PurityReport> getPurityReportsForLocation() {
+        return mPurityReport;
     }
 
     /**
@@ -160,4 +169,8 @@ public class Report {
     public Location getLocation() {
         return mLocation;
     }
+
+//    public int compareTo(Report r) {
+//        return r.getCurrentSourceReportNumber() - getCurrentSourceReportNumber();
+//    }
 }
