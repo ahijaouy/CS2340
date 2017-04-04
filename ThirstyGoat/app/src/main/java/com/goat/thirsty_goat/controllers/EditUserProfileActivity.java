@@ -20,6 +20,7 @@ import com.auth0.android.management.UsersAPIClient;
 import com.auth0.android.result.UserProfile;
 import com.goat.thirsty_goat.R;
 import com.goat.thirsty_goat.models.ModelFacade;
+import com.goat.thirsty_goat.models.ReportManager;
 import com.goat.thirsty_goat.models.UserManager;
 
 import java.util.HashMap;
@@ -104,7 +105,7 @@ public class EditUserProfileActivity extends AppCompatActivity {
         mAccountTypeSpinner.setAdapter(accountTypeAdapter);
 
         mHistoryButton = (Button) findViewById(R.id.graph_button); //button id
-        if (mAccountTypeSpinner.getSelectedItem().toString().equals("Manager")) { //mAccountTypeSpinner.getSelectedItem().toString()
+        if (mAccountTypeSpinner.getSelectedItem().toString().equals("Manager")) {
             mHistoryButton.setVisibility(View.VISIBLE);
         } else {
             mHistoryButton.setVisibility(View.GONE);
@@ -195,6 +196,13 @@ public class EditUserProfileActivity extends AppCompatActivity {
                             public void run() {
                                 mUserProfile = payload;
                                 mFacade.updateUserProfile(mClient);
+                                if (mAccountTypeSpinner.getSelectedItem().toString().equals("Manager")) { //mAccountTypeSpinner.getSelectedItem().toString()
+                                    mHistoryButton.setVisibility(View.VISIBLE);
+                                } else {
+                                    mHistoryButton.setVisibility(View.GONE);
+                                };
+                                ReportManager rm = ReportManager.getInstance();
+                                rm.makeDummyReports2();
                             }
                         });
                     }
