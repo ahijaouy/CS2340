@@ -41,6 +41,15 @@ public class PurityReport implements Reportable {
         mContaminantPPM = contaminantPPM;
     }
 
+    public PurityReport(PurityCondition cond, double virus, double contaminant, String name, int purityId, LocalDateTime dateTime) {
+        mID = purityId;
+        mName = name;
+        mCondition = cond;
+        mVirusPPM = virus;
+        mContaminantPPM = contaminant;
+        mDateTime = dateTime;
+    }
+
     /**
      * Gets the name of the person who submitted this report.
      * @return the report submitter's name
@@ -117,11 +126,10 @@ public class PurityReport implements Reportable {
         JSONObject json = null;
         try {
             json = new JSONObject()
-                    .put("source_id", mID) //TODO: check with Andre
                     .put("overall_condition", mCondition.name())
                     .put("virus_ppm", mVirusPPM)
                     .put("contaminant_ppm", mContaminantPPM)
-                    .put("date_modified", mDateTime.toString())
+                    .put("date_modified", mDateTime.toString() + "Z") //TODO check if + 'Z' is needed
                     .put("user_modified", mName);
         } catch (JSONException e) {
             Log.e(TAG, e.getMessage(), e);

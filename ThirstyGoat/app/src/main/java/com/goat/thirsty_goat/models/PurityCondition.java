@@ -18,6 +18,14 @@ public enum PurityCondition {
         this.purityCondition = purityCondition;
     }
 
+    public static PurityCondition stringOf(String conditionString) {
+        try {
+            return valueOf(conditionString);
+        } catch (IllegalArgumentException e) {
+            return PurityCondition.values()[0];
+        }
+    }
+
     @Override
     public String toString() {
         return purityCondition;

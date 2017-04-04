@@ -21,7 +21,6 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 /**
  * A class that manages all reports and functionality by keeping a list of all reports
@@ -69,7 +68,7 @@ public class ReportManager {
      * Adds a new source report to the map
      * @param type the type of the water source
      * @param cond the condition of the water source
-     * @param location the location of the water
+     * @param loc the location of the water
      * @param name the name of the reporter
      */
     public void setSourceReport(SourceType type, SourceCondition cond, Location loc, String name) {
@@ -81,7 +80,12 @@ public class ReportManager {
         SourceReport sourceReport = new SourceReport(type, cond, name);
         report.setSourceReport(sourceReport);
         Log.d(TAG, "Sending report");
-        sendReport(sourceReport, loc);
+
+        try {
+            sendReport(sourceReport, loc);
+        } catch (JSONException e) {
+            Log.d(TAG, e.getMessage(), e);
+        }
         Log.d(TAG, "Added new report");
     }
 
@@ -89,8 +93,11 @@ public class ReportManager {
         Report report = getReport(loc);
         PurityReport purityReport = new PurityReport(cond, virus, contaminant, name);
         report.addPurityReport(purityReport);
-        sendReport(purityReport, loc);
-
+        try {
+            sendReport(purityReport, loc);
+        } catch (JSONException e) {
+            Log.d(TAG, e.getMessage(), e);
+        }
         Log.d(TAG, "Adding purity report");
     }
 
@@ -105,6 +112,16 @@ public class ReportManager {
             mReportsMap.put(location, new Report(location));
         }
         return mReportsMap.get(location);
+    }
+
+    private Report getReport(int sourceId) {
+        for (Location location : mReportsMap.keySet()) {
+            int id = mReportsMap.get(location).getCurrentSourceReportNumber();
+            if (id == sourceId) {
+                return mReportsMap.get(location);
+            }
+        }
+        return null;
     }
 
     public List<PurityReport> getPurityReportsForLocation(Location lcn) {
@@ -179,21 +196,18 @@ public class ReportManager {
      * Send report to Database through a http POST request.
      * @param report Report instance to be sent
      */
-    public void sendReport(final Reportable report, Location location) {
+    public void sendReport(final Reportable report, Location location) throws JSONException {
         final JSONObject reportJson = report.toJson();
         String url;
         if (report instanceof SourceReport) {
             url = SOURCE_REPORTS_URL;
+            reportJson.put("latitude", location.getLatitude());
+            reportJson.put("longitude", location.getLongitude());
         } else {
             url = PURITY_REPORTS_URL;
+            int sourceId = mReportsMap.get(location).getCurrentSourceReportNumber();
+            reportJson.put("source_id", sourceId);
         }
-
-        try {
-           reportJson.put("location", location);
-        } catch (JSONException e) {
-            Log.d(TAG, e.getMessage(), e);
-        }
-
         JsonObjectRequest jsonRequest = new JsonObjectRequest(url, reportJson,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -231,8 +245,6 @@ public class ReportManager {
         final String DATE = "date_modified";
         final String USER = "user_modified";
 
-        Random rand = new Random();
-
         JSONObject reportJson = null;
         for (int i = 0; i < jsonArray.length(); i++) {
             try {
@@ -243,10 +255,8 @@ public class ReportManager {
 
             SourceType sourceType = SourceType.stringOf(reportJson.getString(WATER_TYPE));
             SourceCondition condition = SourceCondition.stringOf(reportJson.getString(WATER_COND));
-//            double lat = reportJson.getDouble(LAT);
-//            double lon = reportJson.getDouble(LNG);
-            double lat = (rand.nextDouble() - 0.5) * 30 + 33;
-            double lon = (rand.nextDouble() - 0.5) * 30 - 85;
+            double lat = reportJson.getDouble(LAT);
+            double lon = reportJson.getDouble(LNG);
             Location location = new Location(lat, lon);
             String name = reportJson.getString(USER);
             int id = reportJson.getInt(SOURCE_ID);
@@ -259,7 +269,8 @@ public class ReportManager {
     private void addOldPurityReports(JSONArray jsonArray) throws JSONException {
 
         // JSON object names
-        final String PURITY_ID = "source_id";
+        final String PURITY_ID = "purity_report_id";
+        final String SOURCE_ID = "source_id";
         final String CONDITION = "overall_condition";
         final String VIRUS = "virus_ppm";
         final String CONTAMINANT = "contaminant_ppm";
@@ -273,8 +284,21 @@ public class ReportManager {
             } catch (JSONException e) {
                 Log.e(TAG, e.getMessage(), e);
             }
+            int purityId = reportJson.getInt(PURITY_ID);
+            int sourceId = reportJson.getInt(SOURCE_ID);
+            PurityCondition condition = PurityCondition.stringOf(CONDITION);
+            double virus = reportJson.getDouble(VIRUS);
+            double contaminant = reportJson.getDouble(CONTAMINANT);
+            LocalDateTime dateTime = LocalDateTime.parse(reportJson.getString(DATE).substring(0, 23));
+            String name = reportJson.getString(USER);
+            addOldPurityReports(sourceId, new PurityReport(condition, virus, contaminant, name, purityId, dateTime));
+        }
+    }
 
-            // TODO Implement json parsing adding purity report to report map
+    private void addOldPurityReports(int sourceId, PurityReport purityReport) {
+        Report report = getReport(sourceId);
+        if (report != null) {
+            report.addPurityReport(purityReport);
         }
     }
 

@@ -125,7 +125,7 @@ public class SourceReport implements Reportable {
             json = new JSONObject()
                     .put("water_type", mType.name())
                     .put("water_condition", mCondition.name())
-                    .put("date_modified", mDateTime.toString())
+                    .put("date_modified", mDateTime.toString()) //TODO check if + 'Z' is needed
                     .put("user_modified", mName);
         } catch (JSONException e) {
             Log.e(TAG, e.getMessage(), e);
