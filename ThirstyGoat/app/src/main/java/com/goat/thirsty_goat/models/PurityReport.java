@@ -129,7 +129,7 @@ public class PurityReport implements Reportable {
                     .put("overall_condition", mCondition.name())
                     .put("virus_ppm", mVirusPPM)
                     .put("contaminant_ppm", mContaminantPPM)
-                    .put("date_modified", mDateTime.toString() + "Z") //TODO check if + 'Z' is needed
+                    .put("date_modified", mDateTime.toString()) //TODO check if + 'Z' is needed
                     .put("user_modified", mName);
         } catch (JSONException e) {
             Log.e(TAG, e.getMessage(), e);

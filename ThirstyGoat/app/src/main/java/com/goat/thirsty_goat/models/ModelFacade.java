@@ -5,8 +5,6 @@ import android.util.Log;
 import com.auth0.android.authentication.AuthenticationAPIClient;
 import com.auth0.android.result.Credentials;
 import com.jjoe64.graphview.GraphView;
-import com.jjoe64.graphview.series.DataPoint;
-import com.jjoe64.graphview.series.LineGraphSeries;
 
 import java.util.List;
 import java.util.Map;
@@ -135,6 +133,12 @@ public class ModelFacade {
 
     public void fetchReports() {
         mReportManager.fetchSourceReports();
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        mReportManager.fetchPurityReports();
     }
 
     public List<PurityReport> getPurityReportsForLocation(double latitude, double longitude) {

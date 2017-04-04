@@ -116,8 +116,8 @@ public class EditUserProfileActivity extends AppCompatActivity {
             public void onClick(View v) {
                 saveProfile();
 
-                //TODO: remove this method call; only for testing
-                mFacade.makeDummyReports();
+                // TODO: remove this method call; only for testing
+//                mFacade.makeDummyReports();
             }
         });
 

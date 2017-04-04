@@ -173,11 +173,13 @@ public class ReportManager {
     }
 
     public void fetchPurityReports() {
+        Log.d(TAG, "Fetching purity reports");
         JsonArrayRequest jsonArrayRequest =
                 new JsonArrayRequest(PURITY_REPORTS_URL, new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
                         try {
+                            Log.d(TAG, "adding purity reports from response");
                             addOldPurityReports(response);
                         } catch (JSONException e) {
                             Log.e(TAG, e.getMessage(), e);
@@ -213,7 +215,8 @@ public class ReportManager {
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.d(TAG, "Sent: " + reportJson.toString());
-                        Log.d(TAG, "Posted: " + response.toString());
+                        Log.d(TAG, "Poste" +
+                                "// TODO make delete requestd: " + response.toString());
                         try {
                             report.setID(response.getInt("insertId"));
                         } catch (JSONException e) {
@@ -291,11 +294,12 @@ public class ReportManager {
             double contaminant = reportJson.getDouble(CONTAMINANT);
             LocalDateTime dateTime = LocalDateTime.parse(reportJson.getString(DATE).substring(0, 23));
             String name = reportJson.getString(USER);
-            addOldPurityReports(sourceId, new PurityReport(condition, virus, contaminant, name, purityId, dateTime));
+            addOldPurityReport(sourceId, new PurityReport(condition, virus, contaminant, name, purityId, dateTime));
+            Log.d(TAG, "Adding purity report at source " + Integer.toString(sourceId));
         }
     }
 
-    private void addOldPurityReports(int sourceId, PurityReport purityReport) {
+    private void addOldPurityReport(int sourceId, PurityReport purityReport) {
         Report report = getReport(sourceId);
         if (report != null) {
             report.addPurityReport(purityReport);
@@ -304,6 +308,7 @@ public class ReportManager {
 
     private void deleteSourceReport(int id) {
         String url = PURITY_REPORTS_URL + "/" + id;
+        // TODO make delete request
     }
 
     private void deleteReport(Object o) {
