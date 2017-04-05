@@ -6,7 +6,7 @@ import com.goat.thirsty_goat.models.SourceCondition;
 import com.goat.thirsty_goat.models.SourceType;
 
 /**
- * Created by Walker on 3/11/17.
+ * Created by the Walker on 3/11/17.
  */
 
 public class Admin extends UserRole {
