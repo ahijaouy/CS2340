@@ -105,7 +105,7 @@ public class ModelFacade {
     }
 
     /**
-     * Used to update the user profile with new user informatino from Auth0.
+     * Used to update the user profile with new user information from Auth0.
      *
      * @param client the new client information that we want to use to update this user's profile
      */

@@ -53,7 +53,7 @@ public class MapsActivity extends FragmentActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Retrieve camera position from saved isntance state
+        // Retrieve camera position from saved instance state
         if (savedInstanceState != null) {
             mCameraPosition = savedInstanceState.getParcelable(KEY_CAMERA_POSITION);
         }

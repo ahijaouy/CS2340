@@ -37,14 +37,14 @@ public class HistoricalReportManager {
         //make sure it gets the latest instance
         mFacade = ModelFacade.getInstance();
 
-        Log.d("reportmanager", "" + (mFacade == null));
+        Log.d("report_manager", "" + (mFacade == null));
         List<PurityReport> allPurityReports = mFacade.getPurityReportsForLocation(latitude, longitude);
 
         if (allPurityReports == null) {
             throw new NoSuchElementException("No reports for that location.");
         }
 
-        Log.d("reportmanager", "# all purity reports = " + allPurityReports.size());
+        Log.d("report_manager", "# all purity reports = " + allPurityReports.size());
 
         graph.removeAllSeries();
 
@@ -73,22 +73,22 @@ public class HistoricalReportManager {
             }
         });
 
-        Log.d("reportmanager", "# purity reports in given year = " + filteredPurityReports.size());
+        Log.d("report_manager", "# purity reports in given year = " + filteredPurityReports.size());
 
         DataPoint[] dataPoints = new DataPoint[filteredPurityReports.size()];
         int i = 0;
         for (PurityReport report : filteredPurityReports) {
             if (isVirus) {
                 // the addition of month and day/31.0 is to spread out the days in each month semi-evenly
-                Log.d("reportmanager", String.format("day: %d   day/31: %f   month: %d", report.getDay(), report.getDay()/31.0, report.getMonth()));
+                Log.d("report_manager", String.format("day: %d   day/31: %f   month: %d", report.getDay(), report.getDay()/31.0, report.getMonth()));
                 dataPoints[i++] = new DataPoint(report.getMonth() + (report.getDay() / 31.0), report.getVirusPPM());
             } else {
                 dataPoints[i++] = new DataPoint(report.getMonth() + (report.getDay() / 31.0), report.getContaminantPPM());
             }
-//            Log.d("reportmanager", "datapoint added = " + dataPoints[i-1]);
+//            Log.d("report_manager", "data_point added = " + dataPoints[i-1]);
         }
 
-        Log.d("reportmanager", "number of datapoints = " + dataPoints.length);
+        Log.d("report_manager", "number of data_points = " + dataPoints.length);
 
         LineGraphSeries<DataPoint> series = new LineGraphSeries<>(dataPoints);
         series.setDrawDataPoints(true);

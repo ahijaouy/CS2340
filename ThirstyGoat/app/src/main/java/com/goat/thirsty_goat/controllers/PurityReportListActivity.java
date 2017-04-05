@@ -151,7 +151,7 @@ public class PurityReportListActivity extends AppCompatActivity  {
 
 
 
-            // Can be inplemented to show individual report
+            // Can be implemented to show individual report
 //            holder.mView.setOnClickListener(new View.OnClickListener() {
 //                @Override
 //                public void onClick(View v) {

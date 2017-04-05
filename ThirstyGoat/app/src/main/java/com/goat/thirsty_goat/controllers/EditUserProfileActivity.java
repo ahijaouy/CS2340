@@ -120,7 +120,7 @@ public class EditUserProfileActivity extends AppCompatActivity {
         updateFields();
 
         /**
-         * Save and cancel button functionalities
+         * Save and cancel button functionality
          */
         mSaveButton.setOnClickListener(new View.OnClickListener() {
             @Override

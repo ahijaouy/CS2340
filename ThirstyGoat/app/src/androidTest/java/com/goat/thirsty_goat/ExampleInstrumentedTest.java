@@ -1,4 +1,3 @@
-//package com.example.walker.graphtest;
 package com.goat.thirsty_goat;
 
 import android.content.Context;

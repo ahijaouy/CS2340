@@ -76,7 +76,7 @@ public class PurityReport implements Reportable {
 
     /**
      * Gets the string representation of the water condition of this report.
-     * @return the string representation of the warer condition of this report.
+     * @return the string representation of the water condition of this report.
      */
     public String getConditionString() {
         return mCondition.toString();

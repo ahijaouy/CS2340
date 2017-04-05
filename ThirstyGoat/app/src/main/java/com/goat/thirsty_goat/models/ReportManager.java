@@ -215,8 +215,8 @@ public class ReportManager {
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.d(TAG, "Sent: " + reportJson.toString());
-                        Log.d(TAG, "Poste" +
-                                "// TODO make delete requestd: " + response.toString());
+                        Log.d(TAG, "Posted" +
+                                "// TODO make delete requested: " + response.toString());
                         try {
                             report.setID(response.getInt("insertId"));
                         } catch (JSONException e) {
