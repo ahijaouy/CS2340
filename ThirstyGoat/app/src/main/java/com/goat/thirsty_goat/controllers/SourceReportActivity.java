@@ -28,6 +28,8 @@ package com.goat.thirsty_goat.controllers;
 
 /**
  * Created by Walker on 2/27/17.
+ *
+ * This activity is in charge of creating a new source report to the user
  */
 
 import android.content.Intent;
@@ -37,7 +39,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
@@ -74,8 +75,6 @@ public class SourceReportActivity extends AppCompatActivity implements AdapterVi
     private EditText mLongitudeEditText;
     private Spinner mWaterConditionSpinner;
     private Spinner mWaterTypeSpinner;
-    private Button mSubmitButton;
-    private Button mCancelButton;
 
     private GoogleMap mMap;
 
@@ -93,20 +92,18 @@ public class SourceReportActivity extends AppCompatActivity implements AdapterVi
 //        mCancelEditButton = (Button) findViewById(R.id.cancel_edit_button);
 //        mMapButton = (Button) findViewById(R.id.map_button);
 
-        mSubmitButton = (Button) findViewById(R.id.submit_report_button);
-        mCancelButton = (Button) findViewById(R.id.cancel_report_button);
 //        mLatitudeEditText = (EditText) findViewById(R.id.latitude_edit_text);
 //        mLongitudeEditText = (EditText) findViewById(R.id.longitude_edit_text);
         mWaterConditionSpinner = (Spinner) findViewById(R.id.water_condition_spinner);
         mWaterTypeSpinner = (Spinner) findViewById(R.id.water_type_spinner);
 
         ArrayAdapter<SourceCondition> waterConditionAdapter =
-                new ArrayAdapter(this, android.R.layout.simple_spinner_item, SourceCondition.values());
+                new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, SourceCondition.values());
         waterConditionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mWaterConditionSpinner.setAdapter(waterConditionAdapter);
 
         ArrayAdapter<SourceType> waterTypeAdapter =
-                new ArrayAdapter(this, android.R.layout.simple_spinner_item, SourceType.values());
+                new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, SourceType.values());
         waterTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mWaterTypeSpinner.setAdapter(waterTypeAdapter);
 
@@ -157,7 +154,7 @@ public class SourceReportActivity extends AppCompatActivity implements AdapterVi
 //        }
     }
 
-    protected void onSubmitPressed(View view) {
+    public void onSubmitPressed(View view) {
         Log.d(TAG, "pressed submit in water report");
 //        mLatitude = Double.parseDouble(mLatitudeEditText.getText().toString());
 //        mLongitude = Double.parseDouble(mLongitudeEditText.getText().toString());
@@ -180,7 +177,7 @@ public class SourceReportActivity extends AppCompatActivity implements AdapterVi
         finish();
     }
 
-    protected void onCancelPressed(View view) {
+    public void onCancelPressed(View view) {
         Log.d(TAG, "pressed cancel in water report");
         finish();
     }

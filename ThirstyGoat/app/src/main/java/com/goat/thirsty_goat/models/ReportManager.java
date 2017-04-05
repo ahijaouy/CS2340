@@ -45,7 +45,7 @@ public class ReportManager {
     /**
      * Creates a ReportManager instance.
      */
-    public ReportManager() {
+    private ReportManager() {
         mReportsMap = new HashMap<>();
         mRequestQueue = Volley.newRequestQueue(App.getContext());
 //        makeDummyReports();
@@ -198,7 +198,7 @@ public class ReportManager {
      * Send report to Database through a http POST request.
      * @param report Report instance to be sent
      */
-    public void sendReport(final Reportable report, Location location) throws JSONException {
+    private void sendReport(final Reportable report, Location location) throws JSONException {
         final JSONObject reportJson = report.toJson();
         String url;
         if (report instanceof SourceReport) {
@@ -235,7 +235,7 @@ public class ReportManager {
     /**
      * Add all source reports given by JSON array param.
      * @param jsonArray JSON array to be parsed and added
-     * @throws JSONException
+     * @throws JSONException json exception
      */
     private void addOldSourceReports(JSONArray jsonArray) throws JSONException {
 
@@ -307,7 +307,7 @@ public class ReportManager {
     }
 
     private void deleteSourceReport(int id) {
-        String url = PURITY_REPORTS_URL + "/" + id;
+//        String url = PURITY_REPORTS_URL + "/" + id;
         // TODO make delete request
     }
 
@@ -354,25 +354,5 @@ public class ReportManager {
         });
 
         mRequestQueue.add(request);
-    }
-
-    public void makeDummyReports2() {
-        Location lcn = new Location(25.0, 25.0);
-        setSourceReport(SourceType.OTHER, SourceCondition.POTABLE, lcn, "Dummy");
-
-        Log.d(TAG, "dummy reports 2 started");
-
-        Report report = getReport(lcn);
-        report.addSpecificPurityReport(100, 900, 1, 1);
-        report.addSpecificPurityReport(200, 800, 2, 1);
-        report.addSpecificPurityReport(200, 800, 2, 15);
-        report.addSpecificPurityReport(200, 800, 2, 26);
-        report.addSpecificPurityReport(300, 700, 5, 20);
-        report.addSpecificPurityReport(400, 600, 7, 1);
-        report.addSpecificPurityReport(500, 500, 9, 17);
-        report.addSpecificPurityReport(600, 400, 10, 15);
-        report.addSpecificPurityReport(700, 300, 12, 30);
-
-        Log.d(TAG, "dummy reports 2 finished");
     }
 }

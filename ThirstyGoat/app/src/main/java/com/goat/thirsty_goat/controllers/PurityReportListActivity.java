@@ -30,8 +30,7 @@ import java.util.List;
  */
 public class PurityReportListActivity extends AppCompatActivity  {
 
-    Intent intent;
-    Bundle extras;
+    private Bundle extras;
 
     @Override
     protected void onCreate(final Bundle savedInstanceData) {
@@ -62,7 +61,7 @@ public class PurityReportListActivity extends AppCompatActivity  {
      * @param recyclerView  the view that needs this adapter
      */
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
-        intent = getIntent();
+        Intent intent = getIntent();
         extras = intent.getExtras();
 
         ModelFacade model = ModelFacade.getInstance();
@@ -128,7 +127,6 @@ public class PurityReportListActivity extends AppCompatActivity  {
 //            Log.d("report", "is this ever called? 2");
 
 //            final ModelFacade model = ModelFacade.getInstance();
-            final ModelFacade model = ModelFacade.getInstance();
 
             /*
             This is where we have to bind each data element in the list (given by position parameter)
@@ -140,7 +138,7 @@ public class PurityReportListActivity extends AppCompatActivity  {
               Now we bind the data to the widgets.  In this case, pretty simple, put the id in one
               textview and the string rep of a course in the other.
              */
-            holder.mNumber.setText("" + mPurityReports.get(position).getReportNumber());
+            holder.mNumber.setText(mPurityReports.get(position).getReportNumber());
             holder.mDateAndTime.setText(mPurityReports.get(position).getDateString());
             holder.mReporterName.setText(mPurityReports.get(position).getName());
             holder.mLatitude.setText(String.valueOf(extras.get("lat")));

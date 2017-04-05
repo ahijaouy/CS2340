@@ -48,8 +48,8 @@ public class Location {
 
         Location location = (Location) o;
 
-        if (Double.compare(location.mLatitude, mLatitude) != 0) return false;
-        return Double.compare(location.mLongitude, mLongitude) == 0;
+        return Double.compare(location.mLatitude, mLatitude) == 0
+                && Double.compare(location.mLongitude, mLongitude) == 0;
     }
 
     @Override

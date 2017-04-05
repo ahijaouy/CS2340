@@ -65,7 +65,7 @@ public class SourceReportListActivity extends AppCompatActivity {
         Log.d("report", "setting up recycler view");
         //Log.d("report", model.getReports().get(0).getName());
 
-        ArrayList<Report> reports = new ArrayList<Report>(model.getReports().values());
+        ArrayList<Report> reports = new ArrayList<>(model.getReports().values());
         Collections.sort(reports, new Comparator<Report>() {
             @Override
             public int compare(Report r1, Report r2) {
@@ -122,7 +122,7 @@ public class SourceReportListActivity extends AppCompatActivity {
 
         @Override
 //        public void onBindViewHolder(final ViewHolder holder, int position) {
-        public void onBindViewHolder(ViewHolder holder, final int position) { //TODO Final int????
+        public void onBindViewHolder(final ViewHolder holder, int position) { //TODO Final int????
 //            Log.d(TAG, "is this ever called? 2");
 
 //            final ModelFacade model = ModelFacade.getInstance();
@@ -138,15 +138,15 @@ public class SourceReportListActivity extends AppCompatActivity {
               Now we bind the data to the widgets.  In this case, pretty simple, put the id in one
               textview and the string rep of a course in the other.
              */
-            holder.mNumber.setText("" + mReports.get(position).getCurrentSourceReportNumber());
+            holder.mNumber.setText(mReports.get(position).getCurrentSourceReportNumber());
             holder.mDateAndTime.setText(mReports.get(position).getCurrentSourceReportDateString());
             holder.mReporterName.setText(mReports.get(position).getCurrentSourceReportName());
-            holder.mLatitude.setText("" + mReports.get(position).getLatitude());
-            holder.mLongitude.setText("" + mReports.get(position).getLongitude());
+            holder.mLatitude.setText((int) mReports.get(position).getLatitude());
+            holder.mLongitude.setText((int) mReports.get(position).getLongitude());
             holder.mWaterType.setText(mReports.get(position).getCurrentSourceReportTypeString());
             holder.mWaterCondition.setText(mReports.get(position).getCurrentSourceReportConditionString());
 
-
+            final int updatedPosition = holder.getAdapterPosition();
             // listens for click on report list, redirects appropriately
             holder.mView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -157,8 +157,8 @@ public class SourceReportListActivity extends AppCompatActivity {
                     if (model.getAccountType().equals("Administrator") ||
                             model.getAccountType().equals("Manager")) {
                         Intent intent = new Intent(context, PurityReportListActivity.class);
-                        intent.putExtra("lat", mReports.get(position).getLatitude());
-                        intent.putExtra("long", mReports.get(position).getLongitude());
+                        intent.putExtra("lat", mReports.get(updatedPosition).getLatitude());
+                        intent.putExtra("long", mReports.get(updatedPosition).getLongitude());
                         context.startActivity(intent);
 
                     } else if (model.getAccountType().equals("Worker")) {
@@ -167,8 +167,8 @@ public class SourceReportListActivity extends AppCompatActivity {
                         pass along the id of the course so we can retrieve the correct data in
                         the next window
                      */
-                        intent.putExtra("lat", mReports.get(position).getLatitude());
-                        intent.putExtra("long", mReports.get(position).getLongitude());
+                        intent.putExtra("lat", mReports.get(updatedPosition).getLatitude());
+                        intent.putExtra("long", mReports.get(updatedPosition).getLongitude());
 
                         //model.setCurrentCourse(holder.mCourse);
 

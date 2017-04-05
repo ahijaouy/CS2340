@@ -9,7 +9,7 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:text="Date: "
+            android:text="@string/date_colon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/textView10"
@@ -22,7 +22,7 @@
             android:layout_weight="1" />
 
         <TextView
-            android:text="            Report #: "
+            android:text="@string/report_num_colon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -47,7 +47,7 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:text="Latitude: "
+            android:text="@string/latitude_colon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/textView12"
@@ -66,7 +66,7 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:text="Longitude: "
+            android:text="@string/longitude_colon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/textView13"
@@ -90,7 +90,7 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:text="Type: "
+            android:text="@string/source_type_colon"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/textView16"
@@ -109,7 +109,7 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:text="Condition: "
+            android:text="@string/source_condition_colon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/textView18"
@@ -128,7 +128,7 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:text="Reporter: "
+            android:text="@string/reporter_colon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/textView20"

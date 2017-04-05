@@ -31,15 +31,15 @@ public class PurityReport implements Reportable {
     }
 
     //TODO: delete this; only for testing
-    public PurityReport(PurityCondition condition, double virusPPM, double contaminantPPM, String name, int month, int dayOfMonth, int year) {
-        mID = Report.getAndIncrementID();
-        mName = name;
-        mCondition = condition;
-        mDateTime = LocalDateTime.now();
-        mDateTime = mDateTime.withMonthOfYear(month).withDayOfMonth(dayOfMonth).withYear(year);
-        mVirusPPM = virusPPM;
-        mContaminantPPM = contaminantPPM;
-    }
+//    public PurityReport(PurityCondition condition, double virusPPM, double contaminantPPM, String name, int month, int dayOfMonth, int year) {
+//        mID = Report.getAndIncrementID();
+//        mName = name;
+//        mCondition = condition;
+//        mDateTime = LocalDateTime.now();
+//        mDateTime = mDateTime.withMonthOfYear(month).withDayOfMonth(dayOfMonth).withYear(year);
+//        mVirusPPM = virusPPM;
+//        mContaminantPPM = contaminantPPM;
+//    }
 
     public PurityReport(PurityCondition cond, double virus, double contaminant, String name, int purityId, LocalDateTime dateTime) {
         mID = purityId;

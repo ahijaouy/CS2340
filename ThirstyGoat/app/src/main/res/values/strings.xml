@@ -9,8 +9,6 @@
     <string name="auth0_client_id">f7D5NWyUEsGDPl9SNAq4RnuHOO2sUQCY</string>
     <string name="auth0_domain">gabrielnan.auth0.com</string>
 
-    <string name="account_type">Account Type</string>
-
     <string name="login_title">Welcome to Thirsty Goat</string>
     <string name="title_activity_maps">Map</string>
     <string name="title_activity_water_report">Water Report</string>
@@ -116,6 +114,40 @@
     <string name="base_url_source_reports">https://thirstygoat.myoberon.com/api/source_reports</string>
     <string name="base_url_purity_reports">https://thirstygoat.myoberon.com/api/purity_reports</string>
 
+    <!--Others-->
+    <string name="condition_colon">Condition: </string>
+    <string name="virus_ppm">Virus PPM</string>
+    <string name="contaminant_ppm">Contaminant PPM</string>
+
+    <string name="water_condition">Water Condition</string>
+    <string name="water_type">Water Type</string>
+
+    <string name="submit">Submit</string>
+    <string name="cancel">Cancel</string>
+
+    <string name="email">Email</string>
+    <string name="name">Name</string>
+    <string name="account_type">Account Type</string>
+    <string name="map">Map</string>
+    <string name="save">Save</string>
+    <string name="add_report">Add Report</string>
+    <string name="view_reports">View Reports</string>
+    <string name="history_graph">History Graph</string>
+
+    <string name="latitude">Latitude</string>
+    <string name="longitude">Longitude</string>
+    <string name="virus">Virus</string>
+    <string name="contaminant">Contaminant</string>
+    <string name="year">Year</string>
+    <string name="graph">Graph!</string>
+
+    <string name="date_colon">Date: </string>
+    <string name="report_num_colon">       Report #: </string>
+    <string name="latitude_colon">Latitude: </string>
+    <string name="longitude_colon">Longitude: </string>
+    <string name="source_type_colon">Source Type: </string>
+    <string name="source_condition_colon">Source Condition: </string>
+    <string name="reporter_colon">Reporter: </string>
 
 
 </resources>

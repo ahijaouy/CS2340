@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
@@ -25,11 +24,10 @@ public class PurityReportActivity extends AppCompatActivity implements AdapterVi
 
     private EditText mVirusPPMEditText, mContaminantPPMEditText;
     private Spinner mOverallConditionSpinner;
-    private Button mCancelButton, mSubmitButton;
 
     private Location mLocation;
 //    PurityCondition mWaterOverallCondition;
-    ModelFacade mFacade = ModelFacade.getInstance();
+    private ModelFacade mFacade = ModelFacade.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,14 +36,12 @@ public class PurityReportActivity extends AppCompatActivity implements AdapterVi
 
         mFacade = ModelFacade.getInstance();
 
-        mSubmitButton = (Button) findViewById(R.id.submit_purity_report);
-        mCancelButton = (Button) findViewById(R.id.cancel_purity_report);
         mVirusPPMEditText = (EditText) findViewById(R.id.virus_text);
         mContaminantPPMEditText = (EditText) findViewById(R.id.contaminant_text);
         mOverallConditionSpinner = (Spinner) findViewById(R.id.condition_spinner);
 
         ArrayAdapter<PurityCondition> waterOverallConditionAdapter =
-                new ArrayAdapter(this, android.R.layout.simple_spinner_item, PurityCondition.values());
+                new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, PurityCondition.values());
         waterOverallConditionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mOverallConditionSpinner.setAdapter(waterOverallConditionAdapter);
 
@@ -64,7 +60,7 @@ public class PurityReportActivity extends AppCompatActivity implements AdapterVi
 //        mWaterOverallCondition = PurityCondition.UNSAFE;
     }
 
-    protected void onSubmitPressed(View view) {
+    public void onSubmitPressed(View view) {
         double virusPPM = Double.parseDouble(mVirusPPMEditText.getText().toString());
         double contaminantPPM = Double.parseDouble(mContaminantPPMEditText.getText().toString());
         PurityCondition purityCondition = (PurityCondition) mOverallConditionSpinner.getSelectedItem();
@@ -74,7 +70,7 @@ public class PurityReportActivity extends AppCompatActivity implements AdapterVi
         finish();
     }
 
-    protected void onCancelPressed(View view) {
+    public void onCancelPressed(View view) {
         finish();
     }
 }

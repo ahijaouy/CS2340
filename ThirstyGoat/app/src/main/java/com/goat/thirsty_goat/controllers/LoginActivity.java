@@ -28,7 +28,6 @@ import java.util.List;
 public class LoginActivity extends Activity {
 
     private Lock mLock;
-    private AuthenticationAPIClient mClient ;
     private Auth0 mAuth0;
     private ModelFacade mFacade;
 
@@ -83,8 +82,8 @@ public class LoginActivity extends Activity {
     };
 
     private void redirectUser() {
-        mClient = new AuthenticationAPIClient(mAuth0);
-        mClient.tokenInfo(mFacade.getUserID())
+        AuthenticationAPIClient client = new AuthenticationAPIClient(mAuth0);
+        client.tokenInfo(mFacade.getUserID())
                 .start(new BaseCallback<UserProfile, AuthenticationException>() {
                     @Override
                     public void onSuccess(UserProfile payload){

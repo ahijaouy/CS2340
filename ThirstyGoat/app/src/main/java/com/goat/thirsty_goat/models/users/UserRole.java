@@ -11,7 +11,7 @@ import com.goat.thirsty_goat.models.SourceType;
  */
 
 public abstract class UserRole {
-    protected static ReportManager mReportManager = ReportManager.getInstance();
+    static ReportManager mReportManager = ReportManager.getInstance();
 
     /*
       NOTE: any method you want a child class to have, add it to this class as an abstract method.

@@ -3,19 +3,15 @@ package com.goat.thirsty_goat.controllers;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
 import com.goat.thirsty_goat.R;
 import com.goat.thirsty_goat.models.ModelFacade;
-import com.jjoe64.graphview.DefaultLabelFormatter;
 import com.jjoe64.graphview.GraphView;
-import com.jjoe64.graphview.helper.StaticLabelsFormatter;
 
 import java.util.NoSuchElementException;
 
@@ -29,8 +25,6 @@ public class ViewHistoricalReportActivity  extends AppCompatActivity {
     private EditText mLongitudeField;
     private EditText mYearField;
     private RadioButton mVirusRadio;
-    private RadioButton mContaminantRadio;
-    private Button mMakeGraphButton;
     private GraphView mGraph;
 
     private ModelFacade mFacade;
@@ -46,8 +40,6 @@ public class ViewHistoricalReportActivity  extends AppCompatActivity {
         mLongitudeField = (EditText) findViewById(R.id.longitude_number);
         mYearField = (EditText) findViewById(R.id.year_number);
         mVirusRadio = (RadioButton) findViewById(R.id.virus_radio_button);
-        mContaminantRadio = (RadioButton) findViewById(R.id.contaminant_radio_button);
-        mMakeGraphButton = (Button) findViewById(R.id.make_graph_button);
         mGraph = (GraphView) findViewById(R.id.graph);
     }
 

@@ -6,7 +6,7 @@ import org.json.JSONObject;
  * Created by GabrielNAN on 3/28/17.
  */
 
-public interface Reportable {
+interface Reportable {
     void setID(int id);
     JSONObject toJson();
 }

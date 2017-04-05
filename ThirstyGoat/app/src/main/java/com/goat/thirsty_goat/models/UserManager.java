@@ -39,22 +39,12 @@ public class UserManager {
     private Credentials mCredentials;
 
     /**
-     * Creates new UserManager
-     * @param accountType type of account for authority purposes
-     * @param userName name of the user
-     * @param email email of the user
-     */
-    public UserManager(AccountType accountType, String userName, String email) {
-        mAccountType = accountType;
-        mUserName = userName;
-        mEmail = email;
-    }
-
-    /**
      * Creates new UserManager with default values.
      */
-    public UserManager() {
-        this(AccountType.BASIC_USER, null, null);
+    private UserManager() {
+        mAccountType = AccountType.BASIC_USER;
+        mUserName = null;
+        mEmail = null;
     }
 
     public enum AccountType {
@@ -130,7 +120,7 @@ public class UserManager {
     /**
      * Allows the account type to be found from a given account type string.
      * @param accountTypeString the string representation of a given account type
-     * @return
+     * @return account type corresponding to string
      */
     private static AccountType getAccountTypeFromString(String accountTypeString) {
         for (AccountType type : AccountType.values()) {
@@ -174,7 +164,7 @@ public class UserManager {
      * Sets the account type for the user.
      * @param accountType the new account type
      */
-    public void setAccountType(AccountType accountType) {
+    private void setAccountType(AccountType accountType) {
         mAccountType = accountType;
     }
 
@@ -190,7 +180,7 @@ public class UserManager {
      * Sets this user's name.
      * @param userName the new name to give the user
      */
-    public void setUserName(String userName) {
+    private void setUserName(String userName) {
         mUserName = userName;
     }
 
@@ -206,7 +196,7 @@ public class UserManager {
      * Sets this user's email.
      * @param email the new email to give the user
      */
-    public void setEmail(String email) {
+    private void setEmail(String email) {
         mEmail = email;
     }
 

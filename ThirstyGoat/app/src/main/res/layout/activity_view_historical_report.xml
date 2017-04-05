@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Latitude: " />
+            android:text="@string/latitude" />
 
         <EditText
             android:id="@+id/latitude_number"
@@ -37,7 +37,7 @@
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Longitude: " />
+            android:text="@string/longitude" />
 
         <EditText
             android:id="@+id/longitude_number"
@@ -60,14 +60,14 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:checked="true"
-            android:text="Virus" />
+            android:text="@string/virus" />
 
         <RadioButton
             android:id="@+id/contaminant_radio_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Contaminant" />
+            android:text="@string/contaminant" />
     </RadioGroup>
 
     <LinearLayout
@@ -79,7 +79,7 @@
             android:id="@+id/textView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Year: " />
+            android:text="@string/year" />
 
         <EditText
             android:id="@+id/year_number"
@@ -96,7 +96,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="onMakeGraphButtonClicked"
-        android:text="Graph!" />
+        android:text="@string/graph" />
 
     <com.jjoe64.graphview.GraphView
         android:id="@+id/graph"

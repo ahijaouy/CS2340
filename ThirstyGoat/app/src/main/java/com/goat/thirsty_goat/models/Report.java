@@ -13,7 +13,7 @@ import java.util.List;
 public class Report {
     private static int Next_ID = 0;
 
-    protected Location mLocation;
+    private Location mLocation;
 //    private List<SourceReport> mWaterSourceReports;
     private SourceReport mSourceReport;
     private List<PurityReport> mPurityReport;
@@ -36,11 +36,11 @@ public class Report {
         mSourceReport = new SourceReport(type, condition, name);
     }
 
-    public void setSourceReport(SourceReport report) {
+    void setSourceReport(SourceReport report) {
         mSourceReport = report;
     }
 
-    public SourceReport getSourceReport() {
+    private SourceReport getSourceReport() {
 //        return ((LinkedList<SourceReport>) mWaterSourceReports).getFirst();
         return mSourceReport;
     }
@@ -84,11 +84,6 @@ public class Report {
 
     public void addPurityReport(PurityReport report) {
         ((LinkedList<PurityReport>) mPurityReport).addFirst(report);
-    }
-
-    //TODO: remove this
-    public void addSpecificPurityReport(double virusPPM, double contaminantPPM, int month, int day) {
-        ((LinkedList<PurityReport>) mPurityReport).addFirst(new PurityReport(PurityCondition.SAFE, virusPPM, contaminantPPM, "Dummy Purity", month, day, 2015));
     }
 
     /**

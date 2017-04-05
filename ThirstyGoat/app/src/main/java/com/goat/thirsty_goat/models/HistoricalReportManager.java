@@ -2,13 +2,11 @@ package com.goat.thirsty_goat.models;
 
 import android.util.Log;
 
-import com.goat.thirsty_goat.models.ModelFacade;
 import com.jjoe64.graphview.DefaultLabelFormatter;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
@@ -24,7 +22,7 @@ public class HistoricalReportManager {
 
     private ModelFacade mFacade;
 
-    public HistoricalReportManager() {
+    private HistoricalReportManager() {
         mFacade = ModelFacade.getInstance();
     }
 
@@ -32,7 +30,7 @@ public class HistoricalReportManager {
         return INSTANCE;
     }
 
-    public GraphView createGraph(double latitude, double longitude, int year, boolean isVirus, GraphView graph)
+    private GraphView createGraph(double latitude, double longitude, int year, boolean isVirus, GraphView graph)
         throws NoSuchElementException {
         //make sure it gets the latest instance
         mFacade = ModelFacade.getInstance();

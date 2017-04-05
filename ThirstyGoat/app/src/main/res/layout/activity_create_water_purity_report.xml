@@ -15,7 +15,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="31dp"
-        android:text="Overall Condition"
+        android:text="@string/condition_colon"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
@@ -28,7 +28,7 @@
         android:layout_alignParentStart="true"
         android:layout_below="@+id/overall_purity_condition"
         android:layout_marginTop="60dp"
-        android:text="Virus (PPM)" />
+        android:text="@string/virus_ppm" />
 
     <TextView
         android:id="@+id/contaminant_PPM"
@@ -38,7 +38,7 @@
         android:layout_alignParentStart="true"
         android:layout_below="@+id/virus_PPM"
         android:layout_marginTop="46dp"
-        android:text="Contaminant (PPM)"
+        android:text="@string/contaminant_ppm"
         android:layout_toStartOf="@+id/contaminant_text"
         android:layout_toLeftOf="@+id/contaminant_text" />
 
@@ -86,7 +86,7 @@
         android:layout_marginEnd="11dp"
         android:layout_marginRight="11dp"
         android:onClick="onSubmitPressed"
-        android:text="Submit Purity Report" />
+        android:text="@string/submit" />
 
     <Button
         android:id="@+id/cancel_purity_report"
@@ -97,5 +97,5 @@
         android:layout_toLeftOf="@+id/virus_text"
         android:layout_toStartOf="@+id/virus_text"
         android:onClick="onCancelPressed"
-        android:text="Cancel" />
+        android:text="@string/cancel" />
 </RelativeLayout>

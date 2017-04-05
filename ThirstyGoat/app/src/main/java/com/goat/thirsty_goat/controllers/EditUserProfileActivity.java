@@ -1,8 +1,8 @@
 package com.goat.thirsty_goat.controllers;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -37,11 +37,6 @@ public class EditUserProfileActivity extends AppCompatActivity {
     private EditText mUserNameField;
     private EditText mEmailField;
     private Spinner mAccountTypeSpinner;
-    private Button mSaveButton;
-    private Button mCancelEditButton;
-    private Button mMapButton;
-    private Button mReportButton;
-    private Button mViewReportListButton;
     private Button mHistoryButton;
     private Auth0 mAuth0;
     private AuthenticationAPIClient mClient;
@@ -54,9 +49,7 @@ public class EditUserProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_user_profile);
         mFacade = ModelFacade.getInstance();
 
-        /**
-         * Set up Auth0 main object and client
-         */
+        // Set up Auth0 main object and client
         mAuth0 = new Auth0(getString(R.string.auth0_client_id), getString(R.string.auth0_domain));
         mClient = new AuthenticationAPIClient(mAuth0);
         mClient.tokenInfo(mFacade.getUserID())
@@ -84,23 +77,14 @@ public class EditUserProfileActivity extends AppCompatActivity {
                 });
 
 
-        /**
-         * Get dialog widgets
-         */
+        // Get dialog widgets
         mUserNameField = (EditText) findViewById(R.id.user_name);
         mEmailField = (EditText) findViewById(R.id.email);
         mAccountTypeSpinner = (Spinner) findViewById(R.id.account_type_spinner);
 
-        mSaveButton = (Button) findViewById(R.id.save_button);
-        mCancelEditButton = (Button) findViewById(R.id.cancel_edit_button);
-        mMapButton = (Button) findViewById(R.id.map_button);
-        mReportButton = (Button) findViewById(R.id.add_report_button);
-        mViewReportListButton = (Button) findViewById(R.id.view_reports_button);
-        /**
-         * Set up adapter to select account type
-         */
+        // Set up adapter to select account type
         ArrayAdapter<UserManager.AccountType> accountTypeAdapter =
-                new ArrayAdapter(this, android.R.layout.simple_spinner_item, UserManager.AccountType.values());
+                new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, UserManager.AccountType.values());
         accountTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mAccountTypeSpinner.setAdapter(accountTypeAdapter);
 
@@ -113,61 +97,40 @@ public class EditUserProfileActivity extends AppCompatActivity {
         Log.d("report*****",  mAccountTypeSpinner.getSelectedItem().toString());
 
 
-        /**
-         * Set default field values
-         */
+        // Set default field values
         mFacade.updateUserProfile(mClient);
         updateFields();
 
-        /**
-         * Save and cancel button functionality
-         */
-        mSaveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                saveProfile();
+    }
+    public void onAddReportClicked(View view) {
+        // this line clears any unsaved changes they may have made from appearing in the text fields
+        updateFields();
 
-                // TODO: remove this method call; only for testing
+        switchToAddReportView();
+    }
+
+    public void onCancelClicked(View view) {
+        updateFields();
+    }
+
+    public void onMapClicked(View view) {
+        // this line clears any unsaved changes they may have made from appearing in the text fields
+        updateFields();
+
+        switchToMapView();
+    }
+
+    public void onSaveClicked(View view) {
+        saveProfile();
+
+        // TODO: remove this method call; only for testing
 //                mFacade.makeDummyReports();
-            }
-        });
+    }
 
-        mCancelEditButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                updateFields();
-            }
-        });
-
-        mMapButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // this line clears any unsaved changes they may have made from appearing in the text fields
-                updateFields();
-
-                switchToMapView();
-            }
-        });
-
-        mReportButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // this line clears any unsaved changes they may have made from appearing in the text fields
-                updateFields();
-
-                switchToAddReportView();
-            }
-        });
-
-        mViewReportListButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // this line clears any unsaved changes they may have made from appearing in the text fields
-                updateFields();
-
-                switchToReportListView(v);
-            }
-        });
+    public void onViewReportListClicked(View view) {
+        // this line clears any unsaved changes they may have made from appearing in the text fields
+        updateFields();
+        switchToReportListView(view);
     }
 
     private void updateFields() {
@@ -179,7 +142,7 @@ public class EditUserProfileActivity extends AppCompatActivity {
             mHistoryButton.setVisibility(View.VISIBLE);
         } else {
             mHistoryButton.setVisibility(View.GONE);
-        };
+        }
     }
     private void saveProfile() {
         UsersAPIClient userClient =
@@ -200,7 +163,7 @@ public class EditUserProfileActivity extends AppCompatActivity {
                                     mHistoryButton.setVisibility(View.VISIBLE);
                                 } else {
                                     mHistoryButton.setVisibility(View.GONE);
-                                };
+                                }
                                 ReportManager rm = ReportManager.getInstance();
                                 rm.makeDummyReports2();
                             }
