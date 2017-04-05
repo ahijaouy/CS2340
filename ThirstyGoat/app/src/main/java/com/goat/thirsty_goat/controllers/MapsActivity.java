@@ -240,6 +240,8 @@ public class MapsActivity extends FragmentActivity implements
 
     @Override
     public void onInfoWindowClick(Marker marker) {
+        marker.hideInfoWindow();
+
 //        Toast.makeText(this, "Click Info Window", Toast.LENGTH_SHORT).show();
     }
 

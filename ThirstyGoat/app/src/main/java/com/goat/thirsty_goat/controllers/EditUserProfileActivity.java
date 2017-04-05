@@ -26,6 +26,9 @@ import com.goat.thirsty_goat.models.UserManager;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.goat.thirsty_goat.controllers.MapsActivity.LATITUDE_MESSAGE;
+import static com.goat.thirsty_goat.controllers.MapsActivity.LONGITUDE_MESSAGE;
+
 
 /**
  * This Activity handles the main edit user profile screen and allows the user to
@@ -189,6 +192,8 @@ public class EditUserProfileActivity extends AppCompatActivity {
 
     private void switchToAddReportView() {
         Intent intent = new Intent(this, SourceReportActivity.class);
+        intent.putExtra(LATITUDE_MESSAGE, 33.75);
+        intent.putExtra(LONGITUDE_MESSAGE, 84.39);
         startActivity(intent);
     }
 
