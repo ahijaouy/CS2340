@@ -20,7 +20,6 @@ import com.auth0.android.management.UsersAPIClient;
 import com.auth0.android.result.UserProfile;
 import com.goat.thirsty_goat.R;
 import com.goat.thirsty_goat.models.ModelFacade;
-import com.goat.thirsty_goat.models.ReportManager;
 import com.goat.thirsty_goat.models.UserManager;
 
 import java.util.HashMap;
@@ -167,8 +166,6 @@ public class EditUserProfileActivity extends AppCompatActivity {
                                 } else {
                                     mHistoryButton.setVisibility(View.GONE);
                                 }
-                                ReportManager rm = ReportManager.getInstance();
-                                rm.makeDummyReports2();
                             }
                         });
                     }
@@ -197,7 +194,7 @@ public class EditUserProfileActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void switchToReportListView(View v) {
+    private void switchToReportListView(View view) {
         Intent intent = new Intent(this, SourceReportListActivity.class);
         startActivity(intent);
     }

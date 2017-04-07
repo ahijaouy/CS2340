@@ -6,8 +6,8 @@ import com.google.android.gms.maps.model.LatLng;
  * This class represents a location and holds a latitude and longitude.
  */
 public class Location {
-    private double mLatitude;
-    private double mLongitude;
+    private final double mLatitude;
+    private final double mLongitude;
 
     public Location(double lat, double lon) {
         mLatitude = lat;
@@ -17,6 +17,7 @@ public class Location {
     public Location(LatLng latLng) {
         this(latLng.latitude, latLng.longitude);
     }
+
 
     /**
      * Gets the latitude of this location.

@@ -42,13 +42,13 @@ public class PurityReportListActivity extends AppCompatActivity  {
 //        View recyclerView = findViewById(R.id.water_report_list);
         final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.purity_report_list);
 
-//        assert recyclerView != null;
         if (recyclerView == null) {
             Log.d("report", "recycler view is null");
         } else {
             Log.d("report", "recycler view is not null");
         }
 
+        assert recyclerView != null;
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         //Step 2.  Hook up the adapter to the view
@@ -94,7 +94,7 @@ public class PurityReportListActivity extends AppCompatActivity  {
         /**
          * Collection of the items to be shown in this list.
          */
-        private List<PurityReport> mPurityReports;
+        private final List<PurityReport> mPurityReports;
 
         /**
          * set the items to be used by the adapter
@@ -189,7 +189,6 @@ public class PurityReportListActivity extends AppCompatActivity  {
          * the list view (in this case all the data to display for a report)
          */
         public class ViewHolder extends RecyclerView.ViewHolder {
-            public final View mView;
             public final TextView mNumber;
             public final TextView mDateAndTime;
             public final TextView mReporterName;
@@ -203,7 +202,6 @@ public class PurityReportListActivity extends AppCompatActivity  {
             public ViewHolder(View view) {
                 super(view);
 //              Log.d("report", "is this ever called? 5");
-                mView = view;
                 mNumber = (TextView) view.findViewById(R.id.reportNumber);
                 mDateAndTime = (TextView) view.findViewById(R.id.reportDateAndTime);
                 mReporterName = (TextView) view.findViewById(R.id.reportNameData);

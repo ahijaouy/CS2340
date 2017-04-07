@@ -21,7 +21,7 @@ import com.goat.thirsty_goat.models.users.Worker;
 public class UserManager {
     private static final String TAG = UserManager.class.getSimpleName();
     // how can we make this not a UserManager at runtime? Want it to be a subclass
-    private static UserManager INSTANCE = new UserManager();
+    private static final UserManager INSTANCE = new UserManager();
 
     private static UserRole mCurrentUser;
 

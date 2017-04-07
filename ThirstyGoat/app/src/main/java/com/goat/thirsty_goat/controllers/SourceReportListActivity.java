@@ -49,6 +49,7 @@ public class SourceReportListActivity extends AppCompatActivity {
             Log.d(TAG, "recycler view is not null");
         }
 
+        assert recyclerView != null;
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         //Step 2.  Hook up the adapter to the view
@@ -92,7 +93,7 @@ public class SourceReportListActivity extends AppCompatActivity {
         /**
          * Collection of the items to be shown in this list.
          */
-        private List<Report> mReports;
+        private final List<Report> mReports;
 
         /**
          * set the items to be used by the adapter
@@ -101,9 +102,6 @@ public class SourceReportListActivity extends AppCompatActivity {
         public WaterReportViewAdapter(List<Report> items) {
             mReports = items;
             Log.d(TAG, "Made it to constructor: " + mReports.get(0).getCurrentSourceReportName());
-            if (items == null) {
-                Log.d(TAG, "called constructor with null items");
-            }
         }
 
         @Override

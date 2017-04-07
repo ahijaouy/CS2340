@@ -8,10 +8,12 @@ import com.goat.thirsty_goat.models.SourceType;
 
 /**
  * Created by Walker on 3/11/17.
+ *
+ * Details the methods used by different user types.
  */
 
 public abstract class UserRole {
-    static ReportManager mReportManager = ReportManager.getInstance();
+    static final ReportManager mReportManager = ReportManager.getInstance();
 
     /*
       NOTE: any method you want a child class to have, add it to this class as an abstract method.

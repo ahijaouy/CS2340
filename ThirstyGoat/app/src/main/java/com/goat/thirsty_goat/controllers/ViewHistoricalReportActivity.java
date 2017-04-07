@@ -17,6 +17,8 @@ import java.util.NoSuchElementException;
 
 /**
  * Created by Walker on 3/29/17.
+ *
+ * Activity to display historical reports.
  */
 
 public class ViewHistoricalReportActivity  extends AppCompatActivity {
@@ -38,7 +40,7 @@ public class ViewHistoricalReportActivity  extends AppCompatActivity {
 
         mLatitudeField = (EditText) findViewById(R.id.latitude_number);
         mLongitudeField = (EditText) findViewById(R.id.longitude_number);
-        mYearField = (EditText) findViewById(R.id.year_number);
+        mYearField = (EditText) findViewById(R.id.year);
         mVirusRadio = (RadioButton) findViewById(R.id.virus_radio_button);
         mGraph = (GraphView) findViewById(R.id.graph);
     }

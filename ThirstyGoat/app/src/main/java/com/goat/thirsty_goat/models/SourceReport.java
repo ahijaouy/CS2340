@@ -65,6 +65,10 @@ public class SourceReport implements Reportable {
         return mName;
     }
 
+    public void setName(String name) {
+        mName = name;
+    }
+
     /**
      * Gets the unique ID number of this report.
      * @return this report's unique ID number
@@ -79,6 +83,10 @@ public class SourceReport implements Reportable {
      */
     public SourceType getSourceType() {
         return mType;
+    }
+
+    public void setSourceType(SourceType type) {
+        mType = type;
     }
 
     /**
@@ -97,6 +105,10 @@ public class SourceReport implements Reportable {
         return mCondition;
     }
 
+    public void setCondition(SourceCondition condition) {
+        mCondition = condition;
+    }
+
     /**
      * Gets the string representation of the water condition of this report.
      *
@@ -113,6 +125,11 @@ public class SourceReport implements Reportable {
      */
     public String getDateTimeString() {
         return mDateTime.toString();
+    }
+
+
+    public void setDateTime(LocalDateTime dateTime) {
+        mDateTime = dateTime;
     }
 
     /**

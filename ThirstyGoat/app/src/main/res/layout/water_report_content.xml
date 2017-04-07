@@ -24,7 +24,6 @@ android:layout_height="wrap_content">
         android:text="@string/reporter_colon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/reportNameText"
         android:layout_weight="0.05" />
 
     <TextView
@@ -44,8 +43,7 @@ android:layout_height="wrap_content">
     <TextView
         android:text="@string/latitude_colon"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/reportLatitudeText" />
+        android:layout_height="wrap_content" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -63,7 +61,6 @@ android:layout_height="wrap_content">
         android:text="@string/longitude_colon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/reportLongitudeText"
         android:layout_weight="0.00" />
 
     <TextView
@@ -82,11 +79,10 @@ android:layout_height="wrap_content">
     <TextView
         android:text="@string/water_type"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/reportTypeText" />
+        android:layout_height="wrap_content" />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:id="@+id/reportTypeData"
         android:layout_weight="1" />
@@ -101,11 +97,10 @@ android:layout_height="wrap_content">
     <TextView
         android:text="@string/condition_colon"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/reportConditionText" />
+        android:layout_height="wrap_content" />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:id="@+id/reportConditionData"
         android:layout_weight="1" />

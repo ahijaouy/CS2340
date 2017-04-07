@@ -5,6 +5,8 @@ import com.goat.thirsty_goat.controllers.App;
 
 /**
  * Created by Walker on 3/11/17.
+ *
+ * Water condition of a purity report.
  */
 
 public enum PurityCondition {

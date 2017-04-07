@@ -32,9 +32,9 @@ public class ReportManager {
 
     private static final String TAG = ReportManager.class.getSimpleName();
 
-    private static ReportManager INSTANCE = new ReportManager();
-    private Map<Location, Report> mReportsMap;
-    private RequestQueue mRequestQueue;
+    private static final ReportManager INSTANCE = new ReportManager();
+    private final Map<Location, Report> mReportsMap;
+    private final RequestQueue mRequestQueue;
 
     // URLs for http requests
     private static final String SOURCE_REPORTS_URL = App.getResString(R.string.base_url_source_reports);
@@ -56,13 +56,6 @@ public class ReportManager {
         return INSTANCE;
     }
 
-    /**
-     * Generates dummy reports for populating the map with preexisting reports.
-     */
-    private void makeDummyReports() {
-        setSourceReport(SourceType.BOTTLED, SourceCondition.POTABLE, new Location(33.749, -84.388), "Bob");
-        setSourceReport(SourceType.LAKE, SourceCondition.WASTE, new Location(50.8, -70.5), "Sally");
-    }
 
     /**
      * Adds a new source report to the map
@@ -76,6 +69,7 @@ public class ReportManager {
         Report report = getReport(loc);
         if (report.hasSourceReport()) {
             // TODO: delete old sourceReport in DB
+            Log.d(TAG, "delete old source report in db");
         }
         SourceReport sourceReport = new SourceReport(type, cond, name);
         report.setSourceReport(sourceReport);
@@ -256,6 +250,7 @@ public class ReportManager {
                 Log.e(TAG, e.getMessage());
             }
 
+            assert reportJson != null;
             SourceType sourceType = SourceType.stringOf(reportJson.getString(WATER_TYPE));
             SourceCondition condition = SourceCondition.stringOf(reportJson.getString(WATER_COND));
             double lat = reportJson.getDouble(LAT);
@@ -287,6 +282,7 @@ public class ReportManager {
             } catch (JSONException e) {
                 Log.e(TAG, e.getMessage(), e);
             }
+            assert reportJson != null;
             int purityId = reportJson.getInt(PURITY_ID);
             int sourceId = reportJson.getInt(SOURCE_ID);
             PurityCondition condition = PurityCondition.stringOf(CONDITION);
@@ -307,7 +303,8 @@ public class ReportManager {
     }
 
     private void deleteSourceReport(int id) {
-//        String url = PURITY_REPORTS_URL + "/" + id;
+        String url = PURITY_REPORTS_URL + "/" + id;
+        Log.d(TAG, "delete source report at " + url);
         // TODO make delete request
     }
 

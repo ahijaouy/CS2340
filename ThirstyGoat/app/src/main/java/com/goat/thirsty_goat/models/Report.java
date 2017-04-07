@@ -13,10 +13,10 @@ import java.util.List;
 public class Report {
     private static int Next_ID = 0;
 
-    private Location mLocation;
+    private final Location mLocation;
 //    private List<SourceReport> mWaterSourceReports;
     private SourceReport mSourceReport;
-    private List<PurityReport> mPurityReport;
+    private final List<PurityReport> mPurityReport;
 
     public Report(Location location) {
 //        mWaterSourceReports = new LinkedList<>();
@@ -24,16 +24,8 @@ public class Report {
         mLocation = location;
     }
 
-    public static int getAndIncrementID() {
-        return Next_ID++;
-    }
-
     public boolean hasSourceReport() {
         return mSourceReport != null;
-    }
-
-    public void setSourceReport(SourceType type, SourceCondition condition, String name) {
-        mSourceReport = new SourceReport(type, condition, name);
     }
 
     void setSourceReport(SourceReport report) {

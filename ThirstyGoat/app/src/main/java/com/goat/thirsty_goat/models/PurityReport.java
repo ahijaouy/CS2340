@@ -8,6 +8,8 @@ import org.json.JSONObject;
 
 /**
  * Created by Walker on 3/11/17.
+ *
+ * Water purity report.
  */
 
 public class PurityReport implements Reportable {
@@ -58,6 +60,10 @@ public class PurityReport implements Reportable {
         return mName;
     }
 
+    public void setName(String name) {
+        mName = name;
+    }
+
     /**
      * Gets the unique ID number of this report.
      * @return this report's unique ID number
@@ -72,6 +78,10 @@ public class PurityReport implements Reportable {
      */
     public PurityCondition getCondition() {
         return mCondition;
+    }
+
+    public void setCondition(PurityCondition condition) {
+        mCondition = condition;
     }
 
     /**
@@ -90,6 +100,10 @@ public class PurityReport implements Reportable {
         return mDateTime.toString();
     }
 
+    public void setDateTime(LocalDateTime dateTime) {
+        mDateTime = dateTime;
+    }
+
     /**
      * Gets the concentration of virus in PPM
      * @return virus concentration (PPM)
@@ -98,12 +112,20 @@ public class PurityReport implements Reportable {
         return mVirusPPM;
     }
 
+    public void setVirusPPM(double virusPPM) {
+        mVirusPPM = virusPPM;
+    }
+
     /**
      * Gets the concentration of contaminants in PPM
      * @return contaminant concentration (PPM)
      */
     public double getContaminantPPM() {
         return mContaminantPPM;
+    }
+
+    public void setContaminantPPM(double contaminantPPM) {
+        mContaminantPPM = contaminantPPM;
     }
 
     /**

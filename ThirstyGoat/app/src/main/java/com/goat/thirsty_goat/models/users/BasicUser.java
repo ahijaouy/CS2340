@@ -9,6 +9,8 @@ import com.goat.thirsty_goat.models.SourceType;
 
 /**
  * Created by Walker on 3/11/17.
+ *
+ * Functionality of a basic user.
  */
 
 public class BasicUser extends UserRole {

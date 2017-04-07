@@ -12,7 +12,6 @@
             android:text="@string/date_colon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/textView10"
             android:layout_weight="1" />
 
         <TextView
@@ -25,8 +24,7 @@
             android:text="@string/report_num_colon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:id="@+id/textView11" />
+            android:layout_weight="1" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -50,7 +48,6 @@
             android:text="@string/latitude_colon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/textView12"
             android:layout_weight="0.04" />
 
         <TextView
@@ -69,7 +66,6 @@
             android:text="@string/longitude_colon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/textView13"
             android:layout_weight="1" />
 
         <TextView
@@ -93,7 +89,6 @@
             android:text="@string/source_type_colon"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/textView16"
             android:layout_weight="1" />
 
         <TextView
@@ -112,7 +107,6 @@
             android:text="@string/source_condition_colon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/textView18"
             android:layout_weight="1" />
 
         <TextView
@@ -131,7 +125,6 @@
             android:text="@string/reporter_colon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/textView20"
             android:layout_weight="1" />
 
         <TextView

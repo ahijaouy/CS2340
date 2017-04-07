@@ -6,6 +6,8 @@ import com.goat.thirsty_goat.models.*;
 
 /**
  * Created by Walker on 3/11/17.
+ *
+ * Functionality of a worker user.
  */
 
 public class Worker extends UserRole {

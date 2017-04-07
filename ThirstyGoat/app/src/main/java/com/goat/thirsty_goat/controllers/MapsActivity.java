@@ -47,8 +47,6 @@ public class MapsActivity extends FragmentActivity implements
     private ModelFacade mFacade;
     private CameraPosition mCameraPosition;
 
-    private LatLng mCurrLatLong;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,8 +83,6 @@ public class MapsActivity extends FragmentActivity implements
 
             @Override
             public void onMapClick(LatLng latLng) {
-
-                mCurrLatLong = latLng;
 
                 Log.d(TAG, "pre handle");
                 // switches to Wa
@@ -143,7 +139,7 @@ public class MapsActivity extends FragmentActivity implements
         }
     }
 
-    private Map<Marker, Report> markerReportMap = new HashMap<>();
+    private final Map<Marker, Report> markerReportMap = new HashMap<>();
 
     private void displayMarkers() {
         Log.d(TAG, "displaying markers");

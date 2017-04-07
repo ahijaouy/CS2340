@@ -7,6 +7,8 @@ import net.danlew.android.joda.JodaTimeAndroid;
 
 /**
  * Created by GabrielNAN on 3/7/17.
+ *
+ * Provide application context.
  */
 
 public class App extends Application {

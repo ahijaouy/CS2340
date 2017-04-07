@@ -1,5 +1,7 @@
 package com.goat.thirsty_goat.models.users;
 
+import android.util.Log;
+
 import com.goat.thirsty_goat.models.Location;
 import com.goat.thirsty_goat.models.PurityCondition;
 import com.goat.thirsty_goat.models.SourceCondition;
@@ -7,6 +9,8 @@ import com.goat.thirsty_goat.models.SourceType;
 
 /**
  * Created by the Walker on 3/11/17.
+ *
+ * Functionality of admin user.
  */
 
 public class Admin extends UserRole {
@@ -24,6 +28,7 @@ public class Admin extends UserRole {
           A better approach would be to modify the UI so that they can never see or interact with anything
           that would allow this method to be reached.
         */
+        Log.d(TAG, "adding source report from Admin");
     }
 
     @Override

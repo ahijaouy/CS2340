@@ -19,16 +19,16 @@ import java.util.Map;
 public class ModelFacade {
 
     private static final String TAG = ModelFacade.class.getSimpleName();
-    private static ModelFacade INSTANCE = new ModelFacade();
+    private static final ModelFacade INSTANCE = new ModelFacade();
 
     public static ModelFacade getInstance() {
         return INSTANCE;
     }
 
 
-    private ReportManager mReportManager;
-    private UserManager mUserManager;
-    private HistoricalReportManager mHistoricalReportManager;
+    private final ReportManager mReportManager;
+    private final UserManager mUserManager;
+    private final HistoricalReportManager mHistoricalReportManager;
 
     /**
      * Creates a facade.
@@ -152,8 +152,4 @@ public class ModelFacade {
     }
 
 
-    //TESTING methods
-    public void makeDummyReports() {
-        mReportManager.makeDummyReports2();
-    }
 }

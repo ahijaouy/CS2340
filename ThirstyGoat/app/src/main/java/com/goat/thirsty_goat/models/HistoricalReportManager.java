@@ -15,10 +15,12 @@ import java.util.NoSuchElementException;
 
 /**
  * Created by Walker on 3/29/17.
+ *
+ * Manager of historical reports.
  */
 
 public class HistoricalReportManager {
-    private static HistoricalReportManager INSTANCE = new HistoricalReportManager();
+    private static final HistoricalReportManager INSTANCE = new HistoricalReportManager();
 
     private ModelFacade mFacade;
 
@@ -30,7 +32,7 @@ public class HistoricalReportManager {
         return INSTANCE;
     }
 
-    private GraphView createGraph(double latitude, double longitude, int year, boolean isVirus, GraphView graph)
+    GraphView createGraph(double latitude, double longitude, int year, boolean isVirus, GraphView graph)
         throws NoSuchElementException {
         //make sure it gets the latest instance
         mFacade = ModelFacade.getInstance();
