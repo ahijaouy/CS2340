@@ -21,7 +21,7 @@ import com.goat.thirsty_goat.models.users.Worker;
 public class UserManager {
     private static final String TAG = UserManager.class.getSimpleName();
     // how can we make this not a UserManager at runtime? Want it to be a subclass
-    private static final UserManager INSTANCE = new UserManager();
+    public static  UserManager INSTANCE = new UserManager();;
 
     private static UserRole mCurrentUser;
 
@@ -41,10 +41,11 @@ public class UserManager {
     /**
      * Creates new UserManager with default values.
      */
-    private UserManager() {
+    public UserManager() {
         mAccountType = AccountType.BASIC_USER;
         mUserName = null;
         mEmail = null;
+        INSTANCE = new UserManager();
     }
 
     public enum AccountType {
@@ -122,17 +123,17 @@ public class UserManager {
      * @param accountTypeString the string representation of a given account type
      * @return account type corresponding to string
      */
-    private static AccountType getAccountTypeFromString(String accountTypeString) {
-        for (AccountType type : AccountType.values()) {
-            if (type.toString().equals(accountTypeString)) {
-                return type;
-            }
-        }
+    public static AccountType getAccountTypeFromString(String accountTypeString) {
+       // for (AccountType type : AccountType.values()) {
+       //     if (type.toString().equals(accountTypeString)) {
+       //         return type;
+       //     }
+       // }
         Log.d(TAG, "getAccountTypeFromString didn't find a match");
         return AccountType.BASIC_USER;
     }
 
-    private void setCurrentUser(AccountType accountType) {
+    public static void setCurrentUser(AccountType accountType) {
         switch(accountType) {
             case BASIC_USER:
                 mCurrentUser = new BasicUser();
@@ -164,7 +165,7 @@ public class UserManager {
      * Sets the account type for the user.
      * @param accountType the new account type
      */
-    private void setAccountType(AccountType accountType) {
+    public void setAccountType(AccountType accountType) {
         mAccountType = accountType;
     }
 
@@ -197,6 +198,7 @@ public class UserManager {
      * @param email the new email to give the user
      */
     private void setEmail(String email) {
+
         mEmail = email;
     }
 
