@@ -18,7 +18,8 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        mContext = this;
+//        mContext = this;
+        App.mContext = getApplicationContext();
         JodaTimeAndroid.init(this);
     }
 
@@ -26,6 +27,7 @@ public class App extends Application {
         return mContext.getString(val);
     }
     public static Context getContext() {
-        return mContext;
+//        return mContext;
+        return App.mContext;
     }
 }

@@ -322,21 +322,6 @@ public class ReportManager {
             url = null;
         }
 
-//        switch (o.getClass().getName()) {
-//            case SourceReport.class.getName():
-//                id = ((SourceReport) o).getReportNumber();
-//                url = SOURCE_REPORTS_URL + "/" + id;
-//                break;
-//            case PurityReport.class:
-//                id = ((PurityReport) o).getReportNumber();
-//                url = PURITY_REPORTS_URL + "/" + id;
-//                break;
-//            default:
-//                Log.d(TAG, "Object passed to deleteReport not a source nor purity Report");
-//                url = null;
-//                break;
-//        }
-
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.DELETE, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
