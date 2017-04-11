@@ -16,7 +16,7 @@ public class BasicUser extends UserRole {
 
     @Override
     public void addSourceReport(SourceType type, SourceCondition condition, Location loc, String name) {
-        mReportManager.setSourceReport(type, condition, loc, name);
+//        mReportManager.setSourceReport(type, condition, loc, name);
         Log.d(TAG, "BasicUser addReport");
     }
 

@@ -48,17 +48,8 @@ public class HistoricalReportManager {
 
         graph.removeAllSeries();
 
-        List<PurityReport> filteredPurityReports = new LinkedList<>();
-        for (PurityReport report : allPurityReports) {
-            if (report.getYear() == year) {
-                filteredPurityReports.add(report);
-            }
-        }
 
-        if (filteredPurityReports.size() == 0) {
-            throw new NoSuchElementException("No reports for that year.");
-        }
-
+        List<PurityReport> filteredPurityReports = filterPurityReports(allPurityReports, year);
         Collections.sort(filteredPurityReports, new Comparator<PurityReport>() {
             @Override
             public int compare(PurityReport pr1, PurityReport pr2) {
@@ -72,6 +63,34 @@ public class HistoricalReportManager {
                 }
             }
         });
+
+//        List<PurityReport> filteredPurityReports = new LinkedList<>();
+//        for (PurityReport report : allPurityReports) {
+//            if (report.getYear() == year) {
+//                filteredPurityReports.add(report);
+//            }
+//        }
+//
+//        if (filteredPurityReports.size() == 0) {
+//            throw new NoSuchElementException("No reports for that year.");
+//        }
+//
+//        Collections.sort(filteredPurityReports, new Comparator<PurityReport>() {
+//            @Override
+//            public int compare(PurityReport pr1, PurityReport pr2) {
+////                return pr1.getMonth() - pr2.getMonth();
+//                if (pr1.getMonth() < pr2.getMonth()) {
+//                    return -1;
+//                } else if (pr1.getMonth() > pr2.getMonth()) {
+//                    return 1;
+//                } else {
+//                    return pr1.getDay() - pr2.getDay();
+//                }
+//            }
+//        });
+
+
+
 
         Log.d("reportmanager", "# purity reports in given year = " + filteredPurityReports.size());
 
@@ -176,5 +195,21 @@ public class HistoricalReportManager {
         graph.getViewport().setScalableY(true);
 
         return graph;
+    }
+
+    public List<PurityReport> filterPurityReports(List<PurityReport> purityReports, int year) {
+        List<PurityReport> filteredPurityReports = new LinkedList<>();
+
+        for (PurityReport report : purityReports) {
+            if (report.getYear() == year) {
+                filteredPurityReports.add(report);
+            }
+        }
+
+        if (filteredPurityReports.size() == 0) {
+            throw new NoSuchElementException("No reports for that year.");
+        }
+
+        return filteredPurityReports;
     }
 }

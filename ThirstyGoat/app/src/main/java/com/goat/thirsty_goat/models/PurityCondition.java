@@ -8,9 +8,12 @@ import com.goat.thirsty_goat.controllers.App;
  */
 
 public enum PurityCondition {
-    SAFE(App.getResString(R.string.purity_condition_safe)),
-    TREATABLE(App.getResString(R.string.purity_condition_treatable)),
-    UNSAFE(App.getResString(R.string.purity_condition_unsafe));
+//    SAFE(App.getResString(R.string.purity_condition_safe)),
+//    TREATABLE(App.getResString(R.string.purity_condition_treatable)),
+//    UNSAFE(App.getResString(R.string.purity_condition_unsafe));
+    SAFE("Safe"),
+    TREATABLE("Treatable"),
+    UNSAFE("Unsafe");
 
     private final String purityCondition;
 

@@ -20,6 +20,7 @@ public class PurityReport implements Reportable {
     private LocalDateTime mDateTime;
     private double mVirusPPM;
     private double mContaminantPPM;
+    int year;
 
     public PurityReport(PurityCondition condition, double virusPPM, double contaminantPPM, String name) {
 //        mID = Report.getAndIncrementID();
@@ -35,8 +36,9 @@ public class PurityReport implements Reportable {
         mID = Report.getAndIncrementID();
         mName = name;
         mCondition = condition;
-        mDateTime = LocalDateTime.now();
-        mDateTime = mDateTime.withMonthOfYear(month).withDayOfMonth(dayOfMonth).withYear(year);
+//        mDateTime = LocalDateTime.now();
+//        mDateTime = mDateTime.withMonthOfYear(month).withDayOfMonth(dayOfMonth).withYear(year);
+        this.year = year;
         mVirusPPM = virusPPM;
         mContaminantPPM = contaminantPPM;
     }
@@ -111,7 +113,7 @@ public class PurityReport implements Reportable {
      * @return JSON object
      */
     public int getYear() {
-        return mDateTime.getYear();
+        return this.year;
     }
 
     public int getMonth() {

@@ -58,10 +58,14 @@ public class UserManager {
     }
 
     public enum AccountType {
-        BASIC_USER(App.getResString(R.string.account_type_basic_user)),
-        MANAGER(App.getResString(R.string.account_type_manager)),
-        WORKER(App.getResString(R.string.account_type_worker)),
-        ADMIN(App.getResString(R.string.account_type_admin));
+//        BASIC_USER(App.getResString(R.string.account_type_basic_user)),
+//        MANAGER(App.getResString(R.string.account_type_manager)),
+//        WORKER(App.getResString(R.string.account_type_worker)),
+//        ADMIN(App.getResString(R.string.account_type_admin));
+        BASIC_USER("Basic user"),
+        MANAGER("Manager"),
+        WORKER("Worker"),
+        ADMIN("Admin");
 
         private final String accountType;
         AccountType(String accountType) {

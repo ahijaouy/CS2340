@@ -53,7 +53,7 @@ public class MapsActivity extends FragmentActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Retrieve camera position from saved isntance state
+        // Retrieve camera position from saved instance state
         if (savedInstanceState != null) {
             mCameraPosition = savedInstanceState.getParcelable(KEY_CAMERA_POSITION);
         }
@@ -109,13 +109,6 @@ public class MapsActivity extends FragmentActivity implements
         mMap.setOnMarkerDragListener(this);
         mMap.setOnInfoWindowCloseListener(this);
         mMap.setOnInfoWindowLongClickListener(this);
-//        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-//                == PackageManager.PERMISSION_GRANTED) {
-//            mMap.setMyLocationEnabled(true);
-//        } else {
-//            // Show rationale and request permission.
-//            Log.d(TAG, "my location not working");
-//        }
 
         // Moving camera position back
         if (mCameraPosition != null) {

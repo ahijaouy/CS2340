@@ -1,4 +1,4 @@
-package com.example.walker.graphtest;
+package com.goat.thirsty_goat;
 
 import org.junit.Test;
 

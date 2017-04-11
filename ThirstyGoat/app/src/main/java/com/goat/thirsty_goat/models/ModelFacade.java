@@ -37,7 +37,7 @@ public class ModelFacade {
         mReportManager = ReportManager.getInstance();
         mUserManager = UserManager.getInstance();
         mHistoricalReportManager = HistoricalReportManager.getInstance();
-        Log.d(TAG, "model facade constructor");
+//        Log.d(TAG, "model facade constructor");
     }
 
 
@@ -131,15 +131,15 @@ public class ModelFacade {
         mUserManager.setCredentials(credentials);
     }
 
-    public void fetchReports() {
-        mReportManager.fetchSourceReports();
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        mReportManager.fetchPurityReports();
-    }
+//    public void fetchReports() {
+//        mReportManager.fetchSourceReports();
+//        try {
+//            Thread.sleep(500);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//        mReportManager.fetchPurityReports();
+//    }
 
     public List<PurityReport> getPurityReportsForLocation(double latitude, double longitude) {
         Log.d("graph", "lat: " + latitude + "  lng: " + longitude);
@@ -153,7 +153,7 @@ public class ModelFacade {
 
 
     //TESTING methods
-    public void makeDummyReports() {
-        mReportManager.makeDummyReports2();
-    }
+//    public void makeDummyReports() {
+//        mReportManager.makeDummyReports2();
+//    }
 }

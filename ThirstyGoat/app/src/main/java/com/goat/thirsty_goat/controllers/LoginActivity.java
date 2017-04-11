@@ -66,7 +66,7 @@ public class LoginActivity extends Activity {
             Toast.makeText(getApplicationContext(), "Log In - Success", Toast.LENGTH_SHORT).show();
             mFacade.setUserCredentials(credentials);
             redirectUser();
-            mFacade.fetchReports();
+//            mFacade.fetchReports();
             startActivity(new Intent(getApplicationContext(), EditUserProfileActivity.class));
             finish();
         }
