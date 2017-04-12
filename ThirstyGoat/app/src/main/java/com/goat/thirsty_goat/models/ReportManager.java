@@ -1,22 +1,7 @@
 package com.goat.thirsty_goat.models;
 
 
-import android.util.Log;
-
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
-import com.goat.thirsty_goat.R;
-import com.goat.thirsty_goat.controllers.App;
-
-import org.joda.time.LocalDateTime;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.List;
@@ -63,7 +48,7 @@ public class ReportManager {
 //        setSourceReport(SourceType.LAKE, SourceCondition.WASTE, new Location(50.8, -70.5), "Sally");
 //    }
 
-    private void setOldSourceReport(Location location, SourceReport sourceReport) {
+    public void setOldSourceReport(Location location, SourceReport sourceReport) {
 //        Log.d(TAG, "DOING NOTHING");
         Report report = getReport(location);
         report.setSourceReport(sourceReport);
@@ -76,7 +61,7 @@ public class ReportManager {
         return mReportsMap.get(location);
     }
 
-    private Report getReport(int sourceId) {
+    public Report getReport(int sourceId) {
         for (Location location : mReportsMap.keySet()) {
             int id = mReportsMap.get(location).getCurrentSourceReportNumber();
             if (id == sourceId) {
@@ -105,7 +90,7 @@ public class ReportManager {
     }
 
 
-    private void clearReports() {
+    public void clearReports() {
         mReportsMap.clear();
     }
 
