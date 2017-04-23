@@ -165,7 +165,7 @@ public class EditUserProfileActivity extends AppCompatActivity {
                                     mHistoryButton.setVisibility(View.GONE);
                                 }
                                 ReportManager rm = ReportManager.getInstance();
-                                rm.makeDummyReports2();
+//                                rm.makeDummyReports2();
                             }
                         });
                     }

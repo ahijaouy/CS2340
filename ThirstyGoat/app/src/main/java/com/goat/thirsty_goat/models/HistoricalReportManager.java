@@ -30,7 +30,7 @@ public class HistoricalReportManager {
         return INSTANCE;
     }
 
-    private GraphView createGraph(double latitude, double longitude, int year, boolean isVirus, GraphView graph)
+    public GraphView createGraph(double latitude, double longitude, int year, boolean isVirus, GraphView graph)
         throws NoSuchElementException {
         //make sure it gets the latest instance
         mFacade = ModelFacade.getInstance();

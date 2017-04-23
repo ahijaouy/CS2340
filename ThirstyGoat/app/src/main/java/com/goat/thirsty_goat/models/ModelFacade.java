@@ -153,7 +153,7 @@ public class ModelFacade {
 
 
     //TESTING methods
-    public void makeDummyReports() {
-        mReportManager.makeDummyReports2();
-    }
+//    public void makeDummyReports() {
+//        mReportManager.makeDummyReports2();
+//    }
 }
