@@ -92,6 +92,18 @@ public class UserManager {
                 });
     }
 
+    public void updateUserProfile(UserProfile profile) {
+        String accountType = profile.getUserMetadata().get("account_type").toString();
+        setCurrentUser(getAccountTypeFromString(accountType));
+        setAccountType(getAccountTypeFromString(accountType));
+        if (profile.getUserMetadata().get("name") != null) {
+            setUserName(profile.getUserMetadata().get("name").toString());
+        }
+        if (profile.getUserMetadata().get("email") != null) {
+            setEmail(profile.getUserMetadata().get("email").toString());
+        }
+    }
+
 
     public void addSourceReport(SourceType type, SourceCondition condition, Location loc) {
         Log.d(TAG, mAccountType.toString());

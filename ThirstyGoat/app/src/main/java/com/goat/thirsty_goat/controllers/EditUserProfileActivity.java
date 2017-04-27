@@ -36,6 +36,8 @@ import static com.goat.thirsty_goat.controllers.MapsActivity.LONGITUDE_MESSAGE;
 //TODO: make this not our main screen
 public class EditUserProfileActivity extends AppCompatActivity {
 
+    private static final String TAG = EditUserProfileActivity.class.getSimpleName();
+
     private EditText mUserNameField;
     private EditText mEmailField;
     private Spinner mAccountTypeSpinner;
@@ -61,7 +63,7 @@ public class EditUserProfileActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             public void run() {
                                 mUserProfile = payload;
-                                mFacade.updateUserProfile(mClient);
+                                mFacade.updateUserProfile(payload);
                                 updateFields();
                             }
                         });
@@ -96,11 +98,11 @@ public class EditUserProfileActivity extends AppCompatActivity {
         } else {
             mHistoryButton.setVisibility(View.GONE);
         }
-        Log.d("report*****",  mAccountTypeSpinner.getSelectedItem().toString());
+        Log.d(TAG,  mAccountTypeSpinner.getSelectedItem().toString());
 
 
         // Set default field values
-        mFacade.updateUserProfile(mClient);
+//        mFacade.updateUserProfile(mClient);
         updateFields();
 
     }
@@ -160,7 +162,7 @@ public class EditUserProfileActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             public void run() {
                                 mUserProfile = payload;
-                                mFacade.updateUserProfile(mClient);
+                                mFacade.updateUserProfile(payload);
                                 if (mAccountTypeSpinner.getSelectedItem().toString().equals("Manager")) { //mAccountTypeSpinner.getSelectedItem().toString()
                                     mHistoryButton.setVisibility(View.VISIBLE);
                                 } else {

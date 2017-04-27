@@ -2,8 +2,8 @@ package com.goat.thirsty_goat.models;
 
 import android.util.Log;
 
-import com.auth0.android.authentication.AuthenticationAPIClient;
 import com.auth0.android.result.Credentials;
+import com.auth0.android.result.UserProfile;
 import com.jjoe64.graphview.GraphView;
 
 import java.util.List;
@@ -107,10 +107,10 @@ public class ModelFacade {
     /**
      * Used to update the user profile with new user information from Auth0.
      *
-     * @param client the new client information that we want to use to update this user's profile
+     * @param profile the new client information that we want to use to update this user's profile
      */
-    public void updateUserProfile(AuthenticationAPIClient client) {
-        mUserManager.updateUserProfile(client);
+    public void updateUserProfile(UserProfile profile) {
+        mUserManager.updateUserProfile(profile);
     }
 
     /**
