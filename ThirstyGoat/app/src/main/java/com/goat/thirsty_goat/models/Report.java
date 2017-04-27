@@ -27,6 +27,9 @@ public class Report {
     public boolean hasSourceReport() {
         return mSourceReport != null;
     }
+    public boolean hasPurityReport() {
+        return !mPurityReport.isEmpty();
+    }
 
     void setSourceReport(SourceReport report) {
         mSourceReport = report;
@@ -38,7 +41,7 @@ public class Report {
     }
 
     public String getSourceReportDateString() {
-        return mSourceReport.getDateTimeString();
+        return mSourceReport.getReadableDateTimeString();
     }
 
     public int getSourceReportNumber() {
@@ -86,7 +89,7 @@ public class Report {
         return ((LinkedList<PurityReport>) mPurityReport).getFirst();
     }
 
-    public List<PurityReport> getPurityReportsForLocation() {
+    public List<PurityReport> getPurityReportList() {
         return mPurityReport;
     }
 
@@ -136,9 +139,9 @@ public class Report {
 //        if (getPurityReport() == null) {
 //            return null;
 //        } else {
-//            return getPurityReport().getDateString();
+//            return getPurityReport().getDateTimeString();
 //        }
-        return getPurityReport().getDateString();
+        return getPurityReport().getDateTimeString();
     }
 
     /**
@@ -147,6 +150,14 @@ public class Report {
      */
     public double getLatitude() {
         return mLocation.getLatitude();
+    }
+
+    public String getLatitudeString() {
+        return mLocation.getLatitudeString();
+    }
+
+    public String getLongitudeString() {
+        return mLocation.getLongitudeString();
     }
 
     /**

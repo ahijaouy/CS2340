@@ -64,6 +64,7 @@ public class LoginActivity extends Activity {
         public void onAuthentication(Credentials credentials) {
             Toast.makeText(getApplicationContext(), "Log In - Success", Toast.LENGTH_SHORT).show();
             mFacade.setUserCredentials(credentials);
+            Log.d(TAG, "Set user credentials");
             redirectUser();
             mFacade.fetchReports();
             startActivity(new Intent(getApplicationContext(), EditUserProfileActivity.class));

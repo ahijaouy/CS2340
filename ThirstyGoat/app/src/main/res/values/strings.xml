@@ -52,11 +52,11 @@
 
     <!--Others-->
     <string name="condition_colon">Condition: </string>
-    <string name="virus_ppm">Virus PPM</string>
-    <string name="contaminant_ppm">Contaminant PPM</string>
+    <string name="virus_ppm_colon">Virus PPM: </string>
+    <string name="contaminant_ppm_colon">Contaminant PPM: </string>
 
     <string name="water_condition">Water Condition</string>
-    <string name="water_type">Water Type</string>
+    <string name="water_type_colon">Water Type: </string>
 
     <string name="submit">Submit</string>
     <string name="cancel">Cancel</string>

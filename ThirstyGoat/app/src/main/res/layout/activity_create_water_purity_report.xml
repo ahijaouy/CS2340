@@ -27,7 +27,7 @@
         android:layout_alignParentStart="true"
         android:layout_below="@+id/overall_purity_condition"
         android:layout_marginTop="60dp"
-        android:text="@string/virus_ppm" />
+        android:text="@string/virus_ppm_colon" />
 
     <TextView
         android:id="@+id/contaminant_PPM"
@@ -37,7 +37,7 @@
         android:layout_alignParentStart="true"
         android:layout_below="@+id/virus_PPM"
         android:layout_marginTop="46dp"
-        android:text="@string/contaminant_ppm"
+        android:text="@string/contaminant_ppm_colon"
         android:layout_toStartOf="@+id/contaminant_text"
         android:layout_toLeftOf="@+id/contaminant_text" />
 

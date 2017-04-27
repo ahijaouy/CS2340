@@ -96,8 +96,16 @@ public class PurityReport implements Reportable {
      * Gets the string representation of the date of this report.
      * @return the string representation of the date of this report.
      */
-    public String getDateString() {
+    public String getDateTimeString() {
         return mDateTime.toString();
+    }
+
+
+    public String getReadableDateTimeString() {
+        String month = mDateTime.toString("MMM");
+        String day = Integer.toString(mDateTime.getDayOfMonth());
+        String year = Integer.toString(mDateTime.getYear());
+        return month + " " + day + ", " + year;
     }
 
     public void setDateTime(LocalDateTime dateTime) {

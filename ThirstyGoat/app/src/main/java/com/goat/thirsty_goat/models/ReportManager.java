@@ -119,11 +119,11 @@ public class ReportManager {
     }
 
     public List<PurityReport> getPurityReportsForLocation(Location lcn) {
-//        return mReportsMap.get(lcn).getPurityReportsForLocation();
+//        return mReportsMap.get(lcn).getPurityReportList();
         if (mReportsMap.get(lcn) == null) {
             return null;
         } else {
-            return mReportsMap.get(lcn).getPurityReportsForLocation();
+            return mReportsMap.get(lcn).getPurityReportList();
         }
     }
 

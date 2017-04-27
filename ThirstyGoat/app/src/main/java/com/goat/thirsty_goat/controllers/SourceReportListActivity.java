@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.goat.thirsty_goat.R;
 import com.goat.thirsty_goat.models.ModelFacade;
@@ -131,18 +132,18 @@ public class SourceReportListActivity extends AppCompatActivity {
             to an element in the view (which is one of our two TextView widgets
              */
             //start by getting the element at the correct position
-            holder.mReport = mReportList.get(position);
+            Report report = mReportList.get(position);
             /*
               Now we bind the data to the widgets.  In this case, pretty simple, put the id in one
               textview and the string rep of a course in the other.
              */
-            holder.mNumber.setText(Integer.toString(mReportList.get(position).getSourceReportNumber()));
-            holder.mDateAndTime.setText(mReportList.get(position).getSourceReportDateString());
-            holder.mReporterName.setText(mReportList.get(position).getSourceReportName());
-            holder.mLatitude.setText(Integer.toString((int) mReportList.get(position).getLatitude()));
-            holder.mLongitude.setText(Integer.toString((int) mReportList.get(position).getLongitude()));
-            holder.mWaterType.setText(mReportList.get(position).getSourceReportTypeString());
-            holder.mWaterCondition.setText(mReportList.get(position).getSourceReportConditionString());
+            holder.mNumber.setText(String.valueOf(report.getSourceReportNumber()));
+            holder.mDateAndTime.setText(report.getSourceReportDateString());
+            holder.mReporterName.setText(report.getSourceReportName());
+            holder.mLatitude.setText(report.getLatitudeString());
+            holder.mLongitude.setText(report.getLongitudeString());
+            holder.mWaterType.setText(report.getSourceReportTypeString());
+            holder.mWaterCondition.setText(report.getSourceReportConditionString());
 
             final int updatedPosition = holder.getAdapterPosition();
             // listens for click on report list, redirects appropriately
@@ -154,10 +155,15 @@ public class SourceReportListActivity extends AppCompatActivity {
                     //create our new intent with the new screen (activity)
                     if (model.getAccountType().equals("Administrator") ||
                             model.getAccountType().equals("Manager")) {
-                        Intent intent = new Intent(context, PurityReportListActivity.class);
-                        intent.putExtra("lat", mReportList.get(updatedPosition).getLatitude());
-                        intent.putExtra("long", mReportList.get(updatedPosition).getLongitude());
-                        context.startActivity(intent);
+                        Report clickedReport = mReportList.get(updatedPosition);
+                        if (clickedReport.hasPurityReport()) {
+                            Intent intent = new Intent(context, PurityReportListActivity.class);
+                            intent.putExtra("lat", mReportList.get(updatedPosition).getLatitude());
+                            intent.putExtra("long", mReportList.get(updatedPosition).getLongitude());
+                            context.startActivity(intent);
+                        } else {
+                            Toast.makeText(getApplicationContext(), "This Source Report contains no Purity Reports", Toast.LENGTH_SHORT).show();
+                        }
 
                     } else if (model.getAccountType().equals("Worker")) {
                         Intent intent = new Intent(context, PurityReportActivity.class);
@@ -197,7 +203,6 @@ public class SourceReportListActivity extends AppCompatActivity {
             public final TextView mLongitude;
             public final TextView mWaterType;
             public final TextView mWaterCondition;
-            public Report mReport;
 
             public ViewHolder(View view) {
                 super(view);

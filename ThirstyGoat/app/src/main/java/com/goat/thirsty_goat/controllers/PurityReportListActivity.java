@@ -31,10 +31,15 @@ import java.util.List;
 public class PurityReportListActivity extends AppCompatActivity  {
 
     private Bundle extras;
+    private static String TAG = PurityReportListActivity.class.getSimpleName();
+    private ModelFacade mFacade;
+    private Location mSourceLocation;
 
     @Override
     protected void onCreate(final Bundle savedInstanceData) {
         super.onCreate(savedInstanceData);
+        mFacade = ModelFacade.getInstance();
+
         setContentView(R.layout.activity_water_report_list);
         setContentView(R.layout.purity_report_list);
 
@@ -43,9 +48,9 @@ public class PurityReportListActivity extends AppCompatActivity  {
         final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.purity_report_list);
 
         if (recyclerView == null) {
-            Log.d("report", "recycler view is null");
+            Log.d(TAG, "recycler view is null");
         } else {
-            Log.d("report", "recycler view is not null");
+            Log.d(TAG, "recycler view is not null");
         }
 
         assert recyclerView != null;
@@ -64,20 +69,16 @@ public class PurityReportListActivity extends AppCompatActivity  {
         Intent intent = getIntent();
         extras = intent.getExtras();
 
-        ModelFacade model = ModelFacade.getInstance();
-        Log.d("report", "setting up recycler view");
-        //Log.d("report", model.getReports().get(0).getName());
+        Log.d(TAG, "setting up recycler view");
+        //Log.d(TAG, model.getReports().get(0).getName());
 
         ArrayList<PurityReport> list = new ArrayList<>();
-
-        for (Report report : model.getReports().values()) {
-            if (report.getLocation().equals(new Location((double) extras.get("lat"), (double) extras.get("long")))) {
-                list.add(report.getPurityReport());
-            }
-        }
+        mSourceLocation = new Location((double) extras.get("lat"), (double) extras.get("long"));
+        Report report = mFacade.getReports().get(mSourceLocation);
+        list.addAll(report.getPurityReportList());
 
         PurityReportViewAdapter mAdapter = new PurityReportViewAdapter(list);
-        Log.d("report", "adapter: " + mAdapter);
+        Log.d(TAG, "adapter: " + mAdapter);
         recyclerView.setAdapter(mAdapter);
     }
 
@@ -103,13 +104,13 @@ public class PurityReportListActivity extends AppCompatActivity  {
         public PurityReportViewAdapter(List<PurityReport> items) {
             mPurityReports = items;
             if (items == null) {
-                Log.d("report", "called constructor with null items");
+                Log.d(TAG, "called constructor with null items");
             }
         }
 
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-//            Log.d("report", "is this ever called? 1");
+//            Log.d(TAG, "is this ever called? 1");
             /*
 
               This sets up the view for each individual item in the recycler display
@@ -124,7 +125,7 @@ public class PurityReportListActivity extends AppCompatActivity  {
         @Override
 //        public void onBindViewHolder(final ViewHolder holder, int position) {
         public void onBindViewHolder(ViewHolder holder, final int position) {
-//            Log.d("report", "is this ever called? 2");
+//            Log.d(TAG, "is this ever called? 2");
 
 //            final ModelFacade model = ModelFacade.getInstance();
 
@@ -133,19 +134,19 @@ public class PurityReportListActivity extends AppCompatActivity  {
             to an element in the view (which is one of our two TextView widgets
              */
             //start by getting the element at the correct position
-            holder.mPurityReport = mPurityReports.get(position);
+            PurityReport purityReport = mPurityReports.get(position);
             /*
               Now we bind the data to the widgets.  In this case, pretty simple, put the id in one
               textview and the string rep of a course in the other.
              */
-            holder.mNumber.setText(mPurityReports.get(position).getReportNumber());
-            holder.mDateAndTime.setText(mPurityReports.get(position).getDateString());
-            holder.mReporterName.setText(mPurityReports.get(position).getName());
-            holder.mLatitude.setText(String.valueOf(extras.get("lat")));
-            holder.mLongitude.setText(String.valueOf(extras.get("long")));
-            holder.mCondition.setText(mPurityReports.get(position).getConditionString());
-            holder.mContaminantPPM.setText(String.valueOf(mPurityReports.get(position).getContaminantPPM()));
-            holder.mVirusPPM.setText(String.valueOf(mPurityReports.get(position).getVirusPPM()));
+            holder.mNumber.setText(String.valueOf(purityReport.getReportNumber()));
+            holder.mDateAndTime.setText(purityReport.getReadableDateTimeString());
+            holder.mReporterName.setText(purityReport.getName());
+            holder.mLatitude.setText(mSourceLocation.getLatitudeString());
+            holder.mLongitude.setText(mSourceLocation.getLongitudeString());
+            holder.mCondition.setText(purityReport.getConditionString());
+            holder.mContaminantPPM.setText(String.valueOf(purityReport.getContaminantPPM()));
+            holder.mVirusPPM.setText(String.valueOf(purityReport.getVirusPPM()));
 
 
 
@@ -179,7 +180,7 @@ public class PurityReportListActivity extends AppCompatActivity  {
 
         @Override
         public int getItemCount() {
-//            Log.d("report", "is this ever called? 3");
+//            Log.d(TAG, "is this ever called? 3");
             return mPurityReports.size();
         }
 
@@ -197,11 +198,10 @@ public class PurityReportListActivity extends AppCompatActivity  {
             public final TextView mCondition;
             public final TextView mVirusPPM;
             public final TextView mContaminantPPM;
-            public PurityReport mPurityReport;
 
             public ViewHolder(View view) {
                 super(view);
-//              Log.d("report", "is this ever called? 5");
+//              Log.d(TAG, "is this ever called? 5");
                 mNumber = (TextView) view.findViewById(R.id.reportNumber);
                 mDateAndTime = (TextView) view.findViewById(R.id.reportDateAndTime);
                 mReporterName = (TextView) view.findViewById(R.id.reportNameData);

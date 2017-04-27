@@ -127,6 +127,13 @@ public class SourceReport implements Reportable {
         return mDateTime.toString();
     }
 
+    public String getReadableDateTimeString() {
+        String month = mDateTime.toString("MMM");
+        String day = Integer.toString(mDateTime.getDayOfMonth());
+        String year = Integer.toString(mDateTime.getYear());
+        return month + " " + day + ", " + year;
+    }
+
 
     public void setDateTime(LocalDateTime dateTime) {
         mDateTime = dateTime;

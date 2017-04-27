@@ -35,6 +35,14 @@ public class Location {
         return mLongitude;
     }
 
+    public String getLatitudeString() {
+        return String.format("%.2f", mLatitude);
+    }
+
+    public String getLongitudeString() {
+        return String.format("%.2f", mLongitude);
+    }
+
 
     @Override
     public String toString() {
