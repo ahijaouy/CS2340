@@ -123,11 +123,11 @@ public class UserManager {
      * @return account type corresponding to string
      */
     public static AccountType getAccountTypeFromString(String accountTypeString) {
-       // for (AccountType type : AccountType.values()) {
-       //     if (type.toString().equals(accountTypeString)) {
-       //         return type;
-       //     }
-       // }
+        for (AccountType type : AccountType.values()) {
+            if (type.toString().equals(accountTypeString)) {
+                return type;
+            }
+        }
         Log.d(TAG, "getAccountTypeFromString didn't find a match");
         return AccountType.BASIC_USER;
     }

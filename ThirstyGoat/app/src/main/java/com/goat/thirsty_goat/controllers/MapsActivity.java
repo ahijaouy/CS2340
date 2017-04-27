@@ -149,8 +149,8 @@ public class MapsActivity extends FragmentActivity implements
         for (Location location : waterReportsMap.keySet()) {
             Report report = waterReportsMap.get(location);
             LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-//            String titleString = report.getCurrentSourceReportDateString();
-//            titleString += "   Water Report #: " + report.getCurrentSourceReportNumber();
+//            String titleString = report.getSourceReportDateString();
+//            titleString += "   Water Report #: " + report.getSourceReportNumber();
 //            String snippetString = "Lat: " + latLng.latitude + "  Long: " + latLng.longitude
 //                    + "\nType: " +
 
@@ -217,13 +217,13 @@ public class MapsActivity extends FragmentActivity implements
 
             Log.d(TAG, "render p3");
 
-            markerDate.setText(thisReport.getCurrentSourceReportDateString());
-            markerReportNum.setText(String.valueOf(thisReport.getCurrentSourceReportNumber()));
+            markerDate.setText(thisReport.getSourceReportDateString());
+            markerReportNum.setText(String.valueOf(thisReport.getSourceReportNumber()));
             markerLatitude.setText(String.valueOf(thisReport.getLatitude()));
             markerLongitude.setText(String.valueOf(thisReport.getLongitude()));
-            markerType.setText(thisReport.getCurrentSourceReportTypeString());
-            markerCondition.setText(thisReport.getCurrentSourceReportConditionString());
-            markerReporter.setText(thisReport.getCurrentSourceReportName());
+            markerType.setText(thisReport.getSourceReportTypeString());
+            markerCondition.setText(thisReport.getSourceReportConditionString());
+            markerReporter.setText(thisReport.getSourceReportName());
 
             Log.d(TAG, "render p4");
         }

@@ -110,7 +110,7 @@ public class ReportManager {
 
     private Report getReport(int sourceId) {
         for (Location location : mReportsMap.keySet()) {
-            int id = mReportsMap.get(location).getCurrentSourceReportNumber();
+            int id = mReportsMap.get(location).getSourceReportNumber();
             if (id == sourceId) {
                 return mReportsMap.get(location);
             }
@@ -201,7 +201,7 @@ public class ReportManager {
             reportJson.put("longitude", location.getLongitude());
         } else {
             url = PURITY_REPORTS_URL;
-            int sourceId = mReportsMap.get(location).getCurrentSourceReportNumber();
+            int sourceId = mReportsMap.get(location).getSourceReportNumber();
             reportJson.put("source_id", sourceId);
         }
         JsonObjectRequest jsonRequest = new JsonObjectRequest(url, reportJson,

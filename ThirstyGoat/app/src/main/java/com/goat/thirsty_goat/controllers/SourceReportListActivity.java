@@ -63,20 +63,20 @@ public class SourceReportListActivity extends AppCompatActivity {
      */
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
         ModelFacade model = ModelFacade.getInstance();
-        Log.d("report", "setting up recycler view");
-        //Log.d("report", model.getReports().get(0).getName());
+        Log.d(TAG, "setting up recycler view");
+        //Log.d(TAG, model.getReports().get(0).getName());
 
         ArrayList<Report> reports = new ArrayList<>(model.getReports().values());
         Collections.sort(reports, new Comparator<Report>() {
             @Override
             public int compare(Report r1, Report r2) {
-                return r2.getCurrentSourceReportNumber() - r1.getCurrentSourceReportNumber();
+                return r2.getSourceReportNumber() - r1.getSourceReportNumber();
             }
         });
         WaterReportViewAdapter mAdapter = new WaterReportViewAdapter(reports);
 
 //        WaterReportViewAdapter mAdapter = new WaterReportViewAdapter(new ArrayList<Report>(model.getReports().values()));
-        Log.d("report", "adapter: " + mAdapter);
+//        Log.d(TAG, "adapter: " + mAdapter);
         recyclerView.setAdapter(mAdapter);
     }
 
@@ -93,15 +93,15 @@ public class SourceReportListActivity extends AppCompatActivity {
         /**
          * Collection of the items to be shown in this list.
          */
-        private final List<Report> mReports;
+        private final List<Report> mReportList;
 
         /**
          * set the items to be used by the adapter
          * @param items the list of items to be displayed in the recycler view
          */
         public WaterReportViewAdapter(List<Report> items) {
-            mReports = items;
-            Log.d(TAG, "Made it to constructor: " + mReports.get(0).getCurrentSourceReportName());
+            mReportList = items;
+//            Log.d(TAG, "Made it to constructor: " + mReportList.get(0).getSourceReportName());
         }
 
         @Override
@@ -131,18 +131,18 @@ public class SourceReportListActivity extends AppCompatActivity {
             to an element in the view (which is one of our two TextView widgets
              */
             //start by getting the element at the correct position
-            holder.mReport = mReports.get(position);
+            holder.mReport = mReportList.get(position);
             /*
               Now we bind the data to the widgets.  In this case, pretty simple, put the id in one
               textview and the string rep of a course in the other.
              */
-            holder.mNumber.setText(mReports.get(position).getCurrentSourceReportNumber());
-            holder.mDateAndTime.setText(mReports.get(position).getCurrentSourceReportDateString());
-            holder.mReporterName.setText(mReports.get(position).getCurrentSourceReportName());
-            holder.mLatitude.setText((int) mReports.get(position).getLatitude());
-            holder.mLongitude.setText((int) mReports.get(position).getLongitude());
-            holder.mWaterType.setText(mReports.get(position).getCurrentSourceReportTypeString());
-            holder.mWaterCondition.setText(mReports.get(position).getCurrentSourceReportConditionString());
+            holder.mNumber.setText(Integer.toString(mReportList.get(position).getSourceReportNumber()));
+            holder.mDateAndTime.setText(mReportList.get(position).getSourceReportDateString());
+            holder.mReporterName.setText(mReportList.get(position).getSourceReportName());
+            holder.mLatitude.setText(Integer.toString((int) mReportList.get(position).getLatitude()));
+            holder.mLongitude.setText(Integer.toString((int) mReportList.get(position).getLongitude()));
+            holder.mWaterType.setText(mReportList.get(position).getSourceReportTypeString());
+            holder.mWaterCondition.setText(mReportList.get(position).getSourceReportConditionString());
 
             final int updatedPosition = holder.getAdapterPosition();
             // listens for click on report list, redirects appropriately
@@ -155,8 +155,8 @@ public class SourceReportListActivity extends AppCompatActivity {
                     if (model.getAccountType().equals("Administrator") ||
                             model.getAccountType().equals("Manager")) {
                         Intent intent = new Intent(context, PurityReportListActivity.class);
-                        intent.putExtra("lat", mReports.get(updatedPosition).getLatitude());
-                        intent.putExtra("long", mReports.get(updatedPosition).getLongitude());
+                        intent.putExtra("lat", mReportList.get(updatedPosition).getLatitude());
+                        intent.putExtra("long", mReportList.get(updatedPosition).getLongitude());
                         context.startActivity(intent);
 
                     } else if (model.getAccountType().equals("Worker")) {
@@ -165,8 +165,8 @@ public class SourceReportListActivity extends AppCompatActivity {
                         pass along the id of the course so we can retrieve the correct data in
                         the next window
                      */
-                        intent.putExtra("lat", mReports.get(updatedPosition).getLatitude());
-                        intent.putExtra("long", mReports.get(updatedPosition).getLongitude());
+                        intent.putExtra("lat", mReportList.get(updatedPosition).getLatitude());
+                        intent.putExtra("long", mReportList.get(updatedPosition).getLongitude());
 
                         //model.setCurrentCourse(holder.mCourse);
 
@@ -180,7 +180,7 @@ public class SourceReportListActivity extends AppCompatActivity {
         @Override
         public int getItemCount() {
 //            Log.d(TAG, "is this ever called? 3");
-            return mReports.size();
+            return mReportList.size();
         }
 
         /**

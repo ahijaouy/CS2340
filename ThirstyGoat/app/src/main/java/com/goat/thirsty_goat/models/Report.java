@@ -37,23 +37,23 @@ public class Report {
         return mSourceReport;
     }
 
-    public String getCurrentSourceReportDateString() {
-        return getSourceReport().getDateTimeString();
+    public String getSourceReportDateString() {
+        return mSourceReport.getDateTimeString();
     }
 
-    public int getCurrentSourceReportNumber() {
-        return getSourceReport().getReportNumber();
+    public int getSourceReportNumber() {
+        return mSourceReport.getReportNumber();
     }
 
-    public String getCurrentSourceReportTypeString() {
-        return getSourceReport().getSourceTypeString();
+    public String getSourceReportTypeString() {
+        return mSourceReport.getSourceTypeString();
     }
 
-    public String getCurrentSourceReportConditionString() {
-        return getSourceReport().getConditionString();
+    public String getSourceReportConditionString() {
+        return mSourceReport.getConditionString();
     }
 
-    public String getCurrentSourceReportName() {
+    public String getSourceReportName() {
         return getSourceReport().getName();
     }
 
