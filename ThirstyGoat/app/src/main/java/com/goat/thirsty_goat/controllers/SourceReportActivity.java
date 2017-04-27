@@ -112,6 +112,8 @@ public class SourceReportActivity extends AppCompatActivity implements AdapterVi
 
 //            mLatitudeEditText.setText(String.valueOf(mLatitude), TextView.BufferType.EDITABLE);
 //            mLongitudeEditText.setText(String.valueOf(mLongitude), TextView.BufferType.EDITABLE);
+        } else {
+            mLocation = new Location(33.75, -84.39);
         }
 
         // Maps things
